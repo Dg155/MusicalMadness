@@ -67,16 +67,14 @@ public class GenerateLevel : MonoBehaviour
 
             // Detour Loop
 
-            //CreateRoom
-
-            //Next_Position ← offsetPos(Current_Position, New_Main_Direction)
-            pos nextPos = offsetPos(currentPos, New_Main_Direction);
-            //MainPaths.add(Nex_Position, {Previous})
+            //RoomType ← convertToRoomType(doorOptions)
+            //RoomType Room = convertToRoomType(doorOptions);
+            //MainPaths.add(Current_Postion, RoomType)
             
-            //Previous ← NegateDirection(Previous)
-            previous = flipDirection(previous);
+            //Previous ← NegateDirection(New_Main_Direction)
+            previous = flipDirection(New_Main_Direction);
             //Current_Position ← Next_Position
-            currentPos = nextPos;
+            currentPos = offsetPos(currentPos, New_Main_Direction);
         }
     }
 
@@ -119,4 +117,23 @@ public class GenerateLevel : MonoBehaviour
             return Direction.Up;
         }
     }
+
+    /*
+    private RoomType convertToRoomType(HashSet<Direction> doorOptions)
+    {
+        if (doorOptions.Contains(Direction.Right))
+        {
+            if (doorOptions.Contains(Direction.Up))
+            {
+                if (doorOptions.Contains(Direction.Left))
+                {
+                    if (doorOptions.Contains(Direction.Down))
+                    {
+                        return RoomType.All;
+                    }
+                }
+            }
+        }
+    }
+    */
 }
