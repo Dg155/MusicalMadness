@@ -29,15 +29,13 @@ public class InstantiateLevel : MonoBehaviour
         rooms.Add(RoomType.ULD,ULD);
     }
     void Start(){
-        DungeonInfo temp = this.GetComponent<GenerateLevel>().proceduralGenerationOne(20, 15, new pos(1,3));
-        InstantiateFromDungeonInfo(temp);
     }
     void InstantiateRoom(pos position, RoomType roomType){
         var newRoom = Instantiate (rooms[roomType], new Vector3(position.x * roomSize ,position.y * roomSize, 0) , Quaternion.identity);
         newRoom.transform.parent = grid.transform;
     }
 
-    void InstantiateFromDungeonInfo(DungeonInfo info){
+    public void InstantiateFromDungeonInfo(DungeonInfo info){
         //UNFINISHED
         Dictionary<pos, RoomType> mainPaths = info.mainPaths;
         foreach(var room in mainPaths){
