@@ -14,11 +14,17 @@ struct pos
     }
 }
 
-enum RoomType
-{All,R,U,L,D,LR,LU,LD,RU,RD,UD,RUL,RLD,RUD,ULD}
+enum RoomType {All,R,U,L,D,RL,UL,LD,RU,RD,UD,RUL,RLD,RUD,ULD}
 
-enum Direction
-{Right,Up,Left,Down}
+enum Direction {Right,Up,Left,Down}
+
+struct DungeonInfo
+{
+    public Dictionary<pos, RoomType> mainPaths;
+    public Dictionary<pos, RoomType> detourPaths;
+    public List<pos> orderedMainPath;
+    public List<pos> deadEnds;
+}
 public class GenerateLevel : MonoBehaviour
 {
     
@@ -27,7 +33,14 @@ public class GenerateLevel : MonoBehaviour
     void Start()
     {
         pos P = new pos(0,1);
-        proceduralGenerationOne(1, 1, P);
+        //proceduralGenerationOne(1, 1, P);
+        HashSet<Direction> path_Options = new HashSet<Direction>();
+        path_Options.Add(Direction.Up); 
+        path_Options.Add(Direction.Right); 
+        path_Options.Add(Direction.Down);
+        path_Options.Add(Direction.Left);
+        Debug.Log(convertToRoomType(path_Options));
+        Debug.Log("Hello");
     }
 
     // Update is called once per frame
@@ -36,8 +49,10 @@ public class GenerateLevel : MonoBehaviour
         
     }
 
-    private void proceduralGenerationOne(int mainrooms, int num_detours, pos detourDepth)
+    private DungeonInfo proceduralGenerationOne(int mainrooms, int num_detours, pos detourDepth)
+    //Function creates the structure of the rooms based on specific parameters
     {
+        DungeonInfo info = new DungeonInfo();
         Direction previous = Direction.Left;
         HashSet<Direction> path_Options = new HashSet<Direction>();
         path_Options.Add(Direction.Up); path_Options.Add(Direction.Right); path_Options.Add(Direction.Down);
@@ -50,8 +65,8 @@ public class GenerateLevel : MonoBehaviour
         // Detour points
         for(int i=0; i < mainrooms; ++i)
         {
-            //Filter path_options to not collide with any grids in detours
-
+            //Filter path_options to not collide with any grids in detours UNFINISHED
+            HashSet<Direction> filteredPathOptions = filterPathOptions(currentPos, detours, path_Options);
             //doorOptions ← empty set
             HashSet<Direction> doorOptions = new HashSet<Direction>();
             //doorOptions.add(Previous)
@@ -76,9 +91,11 @@ public class GenerateLevel : MonoBehaviour
             //Current_Position ← Next_Position
             currentPos = offsetPos(currentPos, New_Main_Direction);
         }
+        return info;
     }
 
     private pos offsetPos(pos currentPosition, Direction direction)
+    //Helper Function receives a position, a direction, returning the position in that direction
     {
         switch(direction)
         {
@@ -97,8 +114,17 @@ public class GenerateLevel : MonoBehaviour
         }
         return currentPosition;
     }
-
+    private HashSet<Direction> filterPathOptions(pos currentPos, Dictionary<pos, HashSet<Direction>> offLimits, HashSet<Direction> directions){
+        //Helper function removes directions from a set of directions if there is a collision
+        foreach (Direction d in directions){
+            if (offLimits.ContainsKey(offsetPos(currentPos, d))){
+                directions.Remove(d); //MAKE SURE THAT THIS DOESNT AFFECT THE LOOP WHILE LOOPING THROUGH IT
+            }
+        }
+        return directions;
+    }
     private Direction flipDirection(Direction direction)
+    //Helper Function reverses the direction
     {
         if (direction == Direction.Right)
         {
@@ -118,8 +144,9 @@ public class GenerateLevel : MonoBehaviour
         }
     }
 
-    /*
+    
     private RoomType convertToRoomType(HashSet<Direction> doorOptions)
+    //Helper function returns a Room Type based off of directions in the set
     {
         if (doorOptions.Contains(Direction.Right))
         {
@@ -131,9 +158,50 @@ public class GenerateLevel : MonoBehaviour
                     {
                         return RoomType.All;
                     }
+                    return RoomType.RUL;
                 }
+                if (doorOptions.Contains(Direction.Down)){
+                    return RoomType.RUD;
+                }
+                return RoomType.RU;
             }
+            if (doorOptions.Contains(Direction.Left))
+            {
+                if (doorOptions.Contains(Direction.Down))
+                {
+                    return RoomType.RLD;
+                }
+                return RoomType.RL;
+            }
+            if (doorOptions.Contains(Direction.Down)){
+                return RoomType.RD;
+            }
+            return RoomType.R;
         }
+        if (doorOptions.Contains(Direction.Up))
+        {
+            if (doorOptions.Contains(Direction.Left))
+            {
+                if (doorOptions.Contains(Direction.Down))
+                {
+                    return RoomType.ULD;
+                }
+                return RoomType.UL;
+            }
+            if (doorOptions.Contains(Direction.Down)){
+                return RoomType.UD;
+            }
+            return RoomType.U;
+        }
+        if (doorOptions.Contains(Direction.Left))
+            {
+                if (doorOptions.Contains(Direction.Down))
+                {
+                    return RoomType.LD;
+                }
+                return RoomType.L;
+            }
+        return RoomType.D;
     }
-    */
+    
 }

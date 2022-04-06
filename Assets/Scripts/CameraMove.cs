@@ -44,7 +44,7 @@ public class CameraMove : MonoBehaviour
                 moving = false;
             }
             else{
-                pos.position = Vector3.Lerp(pos.position, newpos, 6F * Time.deltaTime);
+                pos.position = Vector3.Lerp(pos.position, newpos, 4.5F * Time.deltaTime);
             }
         }
     }
