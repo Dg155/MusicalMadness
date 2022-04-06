@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public struct pos
 {
@@ -58,27 +59,12 @@ public class GenerateLevel : MonoBehaviour
         //Add first room At (0,0) one right door
         mainpaths.Add(new pos(0,0), RoomType.R);
 
-
-        //THE BUG: The bug occurs when you create a mainPath room in the spot that covers the opening for where a detour should be
-        //the bug occurs because we select the next direction, then generate the detours(before adding in the next main path)
-        //which causes collision
-        
-        //instead of generating the mainPath and detours simulataneously(as it's done in what you wrote)
-
-        //I was saying we instead generate the entire main path first, marking where the detours begin (which are adjacent to the mainPath),
-        // also checking to make sure the next main path node does not violate a detour beginning(which is what is causing the current bug)
-        //then in a separate loop, we loop through all the detour starts and make detours that do not interfere with the main path
-
-        //With this method, there would also be no nested looping, just two separate loops
-
-
-
-
         // Detour points
         for(int i=0; i < mainrooms; ++i)
         {
             //Filter path_options to not collide with any grids in detours
-            HashSet<Direction> filteredPathOptions = filterPathOptions(currentPos, mainpaths, detours, all_Directions);
+            HashSet<Direction> filteredPathOptions = filterPathOptions(currentPos, mainpaths, detours, path_Options);
+            if (filteredPathOptions.Count == 0) {deadEnds.Add(currentPos); break;}
             //doorOptions ← empty set
             HashSet<Direction> doorOptions = new HashSet<Direction>();
             //doorOptions.add(Previous)
@@ -88,7 +74,7 @@ public class GenerateLevel : MonoBehaviour
             possible_options.Remove(previous);
             Direction[] hashSetArray = new Direction[possible_options.Count];
             possible_options.CopyTo(hashSetArray);
-            Direction New_Main_Direction = hashSetArray[Random.Range(0, hashSetArray.Length)];
+            Direction New_Main_Direction = hashSetArray[UnityEngine.Random.Range(0, hashSetArray.Length)];
             //doorOptions.add(New_Main_Direction)
             doorOptions.Add(New_Main_Direction);
 
@@ -96,15 +82,23 @@ public class GenerateLevel : MonoBehaviour
             if (detourPoints.Contains(i))
             {
                 
-                Debug.Log(i);
+                //Debug.Log(i);
                 //New_Detour_Direction ← random selection from (path_options - doorOptions)
                 HashSet<Direction> possible_detours = new HashSet<Direction>(path_Options);
                 possible_detours.ExceptWith(doorOptions);
                 Direction[] hashSetDetourArray = new Direction[possible_detours.Count];
                 possible_detours.CopyTo(hashSetDetourArray);
-                Direction New_Detour_Direction = hashSetDetourArray[Random.Range(0, hashSetDetourArray.Length)];
+                Direction New_Detour_Direction = hashSetDetourArray[UnityEngine.Random.Range(0, hashSetDetourArray.Length)];
                 //doorOptions.add(New_Direction)
                 doorOptions.Add(New_Detour_Direction);
+                //Detours.add(PosOffset(Current_Position, {New_Detour_Direction}), 
+                HashSet<Direction> detourRoom = new HashSet<Direction>();
+                detourRoom.Add(flipDirection(New_Detour_Direction));
+                Debug.Log("Current Detour Position: (" + offsetPos(currentPos, New_Detour_Direction).x + ", " + offsetPos(currentPos, New_Detour_Direction).y + ")");
+                detours.Add(offsetPos(currentPos, New_Detour_Direction), convertToRoomType(detourRoom));
+
+
+                /*
                 //detourPrevious ← NegateDirection(New_Detour_Direction)
                 Direction detourPrevious = flipDirection(New_Detour_Direction);
                 //detourPos ← offsetPos(currentPos, New_Detour_Direction)
@@ -139,11 +133,13 @@ public class GenerateLevel : MonoBehaviour
                     //detourPos ← offsetPos(detourtPos, New_Detour_Direction)
                     detourPos = offsetPos(detourPos, New_Detour_Direction);
                 }
+                */
             }
 
             //RoomType ← convertToRoomType(doorOptions)
             RoomType Room = convertToRoomType(doorOptions);
             //MainPaths.add(Current_Postion, RoomType)
+            Debug.Log("Current Position: (" + currentPos.x + ", " + currentPos.y + ")");
             mainpaths.Add(currentPos, Room);
             //Previous ← NegateDirection(New_Main_Direction)
             previous = flipDirection(New_Main_Direction);
@@ -151,6 +147,56 @@ public class GenerateLevel : MonoBehaviour
             currentPos = offsetPos(currentPos, New_Main_Direction);
         }
         info.mainPaths = mainpaths;
+
+        /*
+        // Loop to create the detours
+        Dictionary<pos, RoomType> detoursCopy = new Dictionary<pos, RoomType>(detours);
+        foreach(var item in detoursCopy)
+        {
+            Direction detourPrevious;
+            if (item.Value == RoomType.R){detourPrevious = Direction.Right;}
+            else if (item.Value == RoomType.U){detourPrevious = Direction.Up;}
+            else if (item.Value == RoomType.L){detourPrevious = Direction.Left;}
+            else{detourPrevious = Direction.Down;}
+            pos detourPos = item.Key;
+            int detourIter = Random.Range(detourDepth.x, detourDepth.y);
+            for (int j=1; j <= detourIter; ++j)
+            {
+                //Filter out all the taken directions
+                HashSet<Direction> filteredDetourPathOptions = filterPathOptions(detourPos, mainpaths, detours, all_Directions);
+                if (filteredDetourPathOptions.Count == 0) {deadEnds.Add(detourPos); break;}
+                //detourDoorOptions ← empty set
+                HashSet<Direction> detourDoorOptions = new HashSet<Direction>();
+                //detourDoorOptions.add(detourPrevious)
+                detourDoorOptions.Add(detourPrevious);
+                //New_Detour_Direction ← random(filteredpath-detourPrevious)
+                if (j != detourIter)
+                {
+                    HashSet<Direction> possible_detours = new HashSet<Direction>(filteredDetourPathOptions);
+                    possible_detours.Remove(detourPrevious);
+                    Direction[] hashSetDetourArray = new Direction[possible_detours.Count];
+                    possible_detours.CopyTo(hashSetDetourArray);
+                    Direction New_Detour_Direction = hashSetDetourArray[Random.Range(0, hashSetDetourArray.Length)];
+                    //detourDoorOptions.add(New_Detour_Direction)
+                    detourDoorOptions.Add(New_Detour_Direction);
+                    //detourRoom ← convertToRoomType(detourdoorOptions)
+                    RoomType detourRoom = convertToRoomType(detourDoorOptions);
+                    //detours.Add(detourPos, detourRoom)
+                    detours.Add(detourPos, detourRoom);
+                    //detourPrevious ← NegateDirection(New_Detour_Direction)
+                    detourPrevious = flipDirection(New_Detour_Direction);
+                    //detourPos ← offsetPos(detourtPos, New_Detour_Direction)
+                    detourPos = offsetPos(detourPos, New_Detour_Direction);
+                }
+                else
+                {
+                    RoomType detourRoom = convertToRoomType(detourDoorOptions);
+                    //detours.Add(detourPos, detourRoom)
+                    detours.Add(detourPos, detourRoom);
+                }
+            }
+        }
+        */
         info.detourPaths = detours;
         return info;
     }
@@ -269,12 +315,20 @@ public class GenerateLevel : MonoBehaviour
     }
 
     private HashSet<int> createDetourPoints(int num_of_rooms, int size)
+    // Helper function which determines which rooms are going to have detours
     {
-        HashSet<int> detourPoints = new HashSet<int>();
-        while(detourPoints.Count < size)
+        List<int> nums = new List<int>();
+        for(int i = 1; i <= num_of_rooms; ++i)
         {
-            int roomNum = Random.Range(1, num_of_rooms);
-            if (roomNum != num_of_rooms / 2) {detourPoints.Add(roomNum);}
+            nums.Add(i);
+        }
+        HashSet<int> detourPoints = new HashSet<int>();
+        System.Random random = new System.Random();
+        for(int i=0; i < size; ++i)
+        {
+            int roomNum = random.Next(nums.Count);
+            if (nums[roomNum] != num_of_rooms / 2) {detourPoints.Add(nums[roomNum]);}
+            nums.RemoveAt(roomNum);
         }
         return detourPoints;
     }

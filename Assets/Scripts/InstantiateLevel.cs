@@ -29,7 +29,7 @@ public class InstantiateLevel : MonoBehaviour
         rooms.Add(RoomType.ULD,ULD);
     }
     void Start(){
-        DungeonInfo temp = this.GetComponent<GenerateLevel>().proceduralGenerationOne(10, 3, new pos(1,3));
+        DungeonInfo temp = this.GetComponent<GenerateLevel>().proceduralGenerationOne(20, 15, new pos(1,3));
         InstantiateFromDungeonInfo(temp);
     }
     void InstantiateRoom(pos position, RoomType roomType){
