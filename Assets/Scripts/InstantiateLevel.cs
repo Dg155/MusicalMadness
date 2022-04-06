@@ -29,26 +29,22 @@ public class InstantiateLevel : MonoBehaviour
         rooms.Add(RoomType.ULD,ULD);
     }
     void Start(){
-        //InstantiateRoom(new pos(0,0), RoomType.All);
-        DungeonInfo temp = new DungeonInfo();
-        temp.mainPaths = new Dictionary<pos, RoomType>();
-        temp.mainPaths.Add(new pos(0,0), RoomType.All);
-        temp.mainPaths.Add(new pos(1,0), RoomType.L);
-        temp.mainPaths.Add(new pos(0,1), RoomType.UD);
-        temp.mainPaths.Add(new pos(1,1), RoomType.All);
-        temp.mainPaths.Add(new pos(-1,0), RoomType.ULD);
+        DungeonInfo temp = this.GetComponent<GenerateLevel>().proceduralGenerationOne(10, 3, new pos(1,3));
         InstantiateFromDungeonInfo(temp);
     }
     void InstantiateRoom(pos position, RoomType roomType){
         var newRoom = Instantiate (rooms[roomType], new Vector3(position.x * roomSize ,position.y * roomSize, 0) , Quaternion.identity);
         newRoom.transform.parent = grid.transform;
-        Debug.Log("Instantiated");
     }
 
     void InstantiateFromDungeonInfo(DungeonInfo info){
         //UNFINISHED
         Dictionary<pos, RoomType> mainPaths = info.mainPaths;
         foreach(var room in mainPaths){
+            InstantiateRoom(room.Key, room.Value);
+        }
+        Dictionary<pos, RoomType> detourPaths = info.detourPaths;
+        foreach(var room in detourPaths){
             InstantiateRoom(room.Key, room.Value);
         }
     }
