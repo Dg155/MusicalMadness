@@ -40,11 +40,11 @@ public class CameraMove : MonoBehaviour
             }
         }
         else{
-            if (Vector3.Distance(pos.position, newpos) < 0.3){
+            if (Vector3.Distance(pos.position, newpos) < 0.1){
                 moving = false;
             }
             else{
-                pos.position = Vector3.Lerp(pos.position, newpos, 1.60F * Time.deltaTime);
+                pos.position = Vector3.Lerp(pos.position, newpos, 6F * Time.deltaTime);
             }
         }
     }
