@@ -22,6 +22,7 @@ public struct Equipts{
 }
 
 
+
 public class PlayerStats : MonoBehaviour
 {
     //PRIVATE THESE LATER
