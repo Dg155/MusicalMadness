@@ -3,37 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum Weapon{
-    piano, drum, guitar
-}
-
-public enum Clothing{
-    ironVest, speedBoots
-}
-
-public struct Equipts{
-    //Keep this struct
-    public Weapon mainHand;
-    public Weapon offHand;
-    public Clothing boots;
-    public Clothing pants;
-    public Clothing shirt;
-    public Clothing accessory;
-}
-
-
-
 public class PlayerStats : MonoBehaviour
 {
     //PRIVATE THESE LATER
     public float currHealth = 100;
     public float maxHealth = 100;
     public float moveSpeed = 4;
-    public Equipts equipment;
+    public GameObject mainHand;
+    public GameObject offHand;
     public int souls; // currency
     void Start()
     {
-        equipment = new Equipts();
     }
 
     void Die(){
@@ -75,8 +55,20 @@ public class PlayerStats : MonoBehaviour
         if (souls < 0){souls = 0;}
     }
 
-    public Equipts getEquipts(){
-        return equipment;
+    public GameObject getMainHand(){
+        return mainHand;
+    }
+
+    public void setMainHand(GameObject instrument){
+        mainHand = instrument;
+    }
+
+    public GameObject getoffHand(){
+        return offHand;
+    }
+
+    public void setOffHand(GameObject instrument){
+        offHand = instrument;
     }
 
 

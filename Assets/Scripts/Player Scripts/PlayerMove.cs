@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    // Start is called before the first frame update
     Rigidbody2D rb;
-    float horizontal, vertical;
 
     PlayerStats playerStats;
     void Start()
@@ -15,12 +13,8 @@ public class PlayerMove : MonoBehaviour
         playerStats = this.GetComponent<PlayerStats>();
     }
 
-    void Update()
+    public void Move(float horizontal, float vertical)
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical"); 
-    }
-    void FixedUpdate(){
-           rb.velocity = new Vector2(horizontal * playerStats.getMoveSpeed(), vertical * playerStats.getMoveSpeed());
+        rb.velocity = new Vector2(horizontal * playerStats.getMoveSpeed(), vertical * playerStats.getMoveSpeed());
     }
 }
