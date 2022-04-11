@@ -31,7 +31,7 @@ public class InputManager : MonoBehaviour
     }
 
     private void UseMainHand() {
-        playerCombat.UseOnHand();
+        playerCombat.UseMainHand();
     }
 
     private void UseOffHand() {
