@@ -6,24 +6,18 @@ public class Trumpet : Weapon
 {
     public GameObject projectile;
     public Transform projectileTransform;
-    public attackInfo attack;
+    
+    private attackInfo attack;
     public int bulletSpeed = 1;
-    private float coolDown = 0.5f;
-    private bool canFire = true;
 
-    override public IEnumerator Use()
-    {
-        if (canFire){
-            canFire = false;
-            spawnProjectile();
-            yield return new WaitForSeconds(coolDown);
-            canFire = true;
-        }
+    private void Start() {
+        base.Start();
+        ranged = true;
     }
 
-    void spawnProjectile(){
+    override public void spawnProjectile(){
         GameObject proj = Instantiate(projectile, projectileTransform.position, Quaternion.identity);
-        proj.GetComponent<QuarterNoteProjectile>().setAttackInfo(attack);//change to bullet script, use inheritance
+        proj.GetComponent<QuarterNoteProjectile>().setAttackInfo(attack); //change to bullet script, use inheritance
         Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = mousePos - proj.transform.position;

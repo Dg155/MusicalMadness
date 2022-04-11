@@ -1,49 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : BaseStats
 {
-    //PRIVATE THESE LATER
-    public float currHealth = 100;
-    public float maxHealth = 100;
-    public float moveSpeed = 4;
-    public GameObject mainHand;
-    public GameObject offHand;
     public int souls; // currency
-    void Start()
+
+    override protected void Die(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    protected override void Render()
     {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if(mousePos.x - this.transform.position.x > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
-
-    void Die(){
-        //do something
-    }
-    public float getHealth(){
-        return currHealth;
-    }
-    public void setHealth(float quantity){
-        currHealth = quantity;
-        if (quantity > maxHealth){maxHealth = quantity;}
-    }
-    public void addHealth(float quantity){
-        //can be positive or negative value
-        currHealth += quantity;
-        if (currHealth > maxHealth){currHealth = maxHealth;}
-        if (currHealth < 0){Die();}
-    }
-
-    public float getMoveSpeed(){
-        return moveSpeed;
-    }
-    public void setMoveSpeed(float quantity){
-        moveSpeed = quantity;
-    }
-    public void addMoveSpeed(float quantity){
-        moveSpeed += quantity;
-        if (moveSpeed < 0){moveSpeed = 0;}
-    }
-
     public int getSouls(){
         return souls;
     }
@@ -54,25 +34,5 @@ public class PlayerStats : MonoBehaviour
         souls += quantity;
         if (souls < 0){souls = 0;}
     }
-
-    public GameObject getMainHand(){
-        return mainHand;
-    }
-
-    public void setMainHand(GameObject instrument){
-        mainHand = instrument;
-    }
-
-    public GameObject getoffHand(){
-        return offHand;
-    }
-
-    public void setOffHand(GameObject instrument){
-        offHand = instrument;
-    }
-
-
-
-
     
 }

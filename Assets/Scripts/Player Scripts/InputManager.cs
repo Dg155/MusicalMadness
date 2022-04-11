@@ -6,11 +6,11 @@ public class InputManager : MonoBehaviour
 {
     float horizontal, vertical;
     PlayerMove playerMove;
-    PlayerCombat playerCombat;
+    Combat playerCombat;
     void Start()
     {
         playerMove = this.GetComponent<PlayerMove>();
-        playerCombat = this.GetComponent<PlayerCombat>();
+        playerCombat = this.GetComponent<Combat>();
     }
 
     void Update()

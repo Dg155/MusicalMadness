@@ -3,23 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public struct attackInfo{ //stores all info of the weapon when it collides an enemy:
-//the damage, the length of stun, the length of blinding, the poison damage, the knockback
-    public float damage;
-    public float stunDuration;
-    public float blindDuration;
-    public float poisonDuration;
-    public float poisonDamage;
-
-
-}
-
-
 
 public class Weapon : MonoBehaviour
 {
     Rigidbody2D rb;
-    void Start()
+    protected bool ranged;
+    private float coolDown = 0.5f;
+    private bool canFire = true;
+    protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         this.transform.parent = GameObject.FindGameObjectWithTag("Player").transform;
@@ -30,9 +21,27 @@ public class Weapon : MonoBehaviour
         Render();
     }
 
-    public virtual IEnumerator Use()
+    virtual public IEnumerator Use()
     {
-        yield return new WaitForSeconds(1f);
+        if (canFire){
+            canFire = false;
+            if (ranged){
+                spawnProjectile();
+            }
+            else{
+                meleeAttack();
+            }
+            yield return new WaitForSeconds(coolDown);
+            canFire = true;
+        }
+    }
+
+    public virtual void spawnProjectile(){
+
+    }
+
+    public virtual void meleeAttack(){
+
     }
 
     protected virtual void Render()
