@@ -2,6 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public struct attackInfo{ //stores all info of the weapon when it collides an enemy:
+//the damage, the length of stun, the length of blinding, the poison damage, the knockback
+    public float damage;
+    public float stunDuration;
+    public float blindDuration;
+    public float poisonDuration;
+    public float poisonDamage;
+
+
+}
+
+
+
 public class Weapon : MonoBehaviour
 {
     Rigidbody2D rb;
