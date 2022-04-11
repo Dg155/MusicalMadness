@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour
         Render();
     }
 
-    protected virtual IEnumerator Use()
+    public virtual IEnumerator Use()
     {
         yield return new WaitForSeconds(1f);
     }

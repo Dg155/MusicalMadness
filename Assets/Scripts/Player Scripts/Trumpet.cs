@@ -7,23 +7,17 @@ public class Trumpet : Weapon
     public GameObject projectile;
     public Transform projectileTransform;
     private int damage = 25;
-    private int attackSpeed = 1;
+    private int bulletSpeed = 1;
     private float coolDown = 0.5f;
     private bool canFire = true;
 
-    private void Update() {
-        if (canFire && Input.GetMouseButton(0))
-        {
-            StartCoroutine("Use");
-        }
-        Render();
-    }
-
-    override protected IEnumerator Use()
+    override public IEnumerator Use()
     {
-        canFire = false;
-        Instantiate(projectile, projectileTransform.position, Quaternion.identity);
-        yield return new WaitForSeconds(coolDown);
-        canFire = true;
+        if (canFire){
+            canFire = false;
+            Instantiate(projectile, projectileTransform.position, Quaternion.identity);
+            yield return new WaitForSeconds(coolDown);
+            canFire = true;
+        }
     }
 }

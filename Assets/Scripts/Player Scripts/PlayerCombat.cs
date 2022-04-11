@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
 
-    //Dictionary with weapons as the keys and shootmethods as the values
     PlayerStats playerStats;
     void Start()
     {
@@ -19,16 +18,13 @@ public class PlayerCombat : MonoBehaviour
     void Heal(float quantity){
         playerStats.addHealth(quantity);
     }
-    void UseOnHand(){
-        //Check if left mouse button is clicked, get mainHand weapon, index into dictionary and call the value
-        // the value will be the specific shoot method, which will spawn projectiles 
-        //Weapon onHandWeapon = playerStats.getEquipts().mainHand;
-        //do something witht he mainHand type
+    public void UseOnHand(){
+        Weapon mainHand = playerStats.getMainHand().GetComponent<Weapon>();
+        mainHand.StartCoroutine("Use");
     }
 
-    void UseOffHand(){
-        //Weapon offHandWeapon = playerStats.getEquipts().offHand;
-        //do something witht he offHand type
+    public void UseOffHand(){
+        playerStats.getoffHand().GetComponent<Weapon>().Use();
     } 
 
 }
