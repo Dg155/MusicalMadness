@@ -6,22 +6,33 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStats : BaseStats
 {
-    public int souls; // currency
+    public int souls; 
 
+    bool facingRight;
     override protected void Die(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     protected override void Render()
     {
+        //This entire render stuff should be moved to a separate script later
+        
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if(mousePos.x - this.transform.position.x > 0)
+        if(mousePos.x - this.transform.position.x > 0 && !facingRight || mousePos.x - this.transform.position.x < 0 && facingRight)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            flip();
         }
-        else
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
+    }
+
+    private void flip(){
+        //This entire render stuff should be moved to a separate script later
+        if (facingRight){
+            this.transform.localScale = new Vector3(-1,1,1);
+            facingRight = false;
+        }
+        else{
+            this.transform.localScale = new Vector3(1,1,1);
+            facingRight = true;
         }
     }
     public int getSouls(){

@@ -8,8 +8,11 @@ public class Weapon : MonoBehaviour
 {
     Rigidbody2D rb;
     protected bool ranged;
-    private float coolDown = 0.5f;
+    public float coolDown = 0.5f;
     private bool canFire = true;
+    protected attackInfo attack;
+
+    private bool facingRight;
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -50,5 +53,22 @@ public class Weapon : MonoBehaviour
         Vector3 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        if(mousePosition.x - this.transform.position.x > 0 && !facingRight || mousePosition.x - this.transform.position.x < 0 && facingRight)
+        {
+            flip();
+        }
+    }
+
+    private void flip(){
+        //This entire render stuff should be moved to a separate script later
+        if (facingRight){
+            this.transform.localScale = new Vector3(-1,-1,1);
+            facingRight = false;
+        }
+        else{
+            this.transform.localScale = new Vector3(1,1,1);
+            facingRight = true;
+        }
     }
 }
