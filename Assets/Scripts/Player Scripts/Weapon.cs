@@ -7,6 +7,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     Rigidbody2D rb;
+    Animator animator;
     protected bool ranged;
     public float coolDown = 0.5f;
     private bool canFire = true;
@@ -16,6 +17,7 @@ public class Weapon : MonoBehaviour
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         this.transform.parent = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -29,17 +31,19 @@ public class Weapon : MonoBehaviour
         if (canFire){
             canFire = false;
             if (ranged){
-                spawnProjectile();
+                spawnProjectile(facingRight);
             }
             else{
                 meleeAttack();
             }
+            animator.SetBool("Fire", true);
             yield return new WaitForSeconds(coolDown);
+            animator.SetBool("Fire", false);
             canFire = true;
         }
     }
 
-    public virtual void spawnProjectile(){
+    public virtual void spawnProjectile(bool facingRight){
 
     }
 
@@ -54,7 +58,7 @@ public class Weapon : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        if(mousePosition.x - this.transform.position.x > 0 && !facingRight || mousePosition.x - this.transform.position.x < 0 && facingRight)
+        if(mousePosition.x - this.transform.parent.position.x > 0 && !facingRight || mousePosition.x - this.transform.parent.position.x < 0 && facingRight)
         {
             flip();
         }

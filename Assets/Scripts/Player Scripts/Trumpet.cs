@@ -15,7 +15,7 @@ public class Trumpet : Weapon
         ranged = true;
     }
 
-    override public void spawnProjectile(){
+    override public void spawnProjectile(bool facingRight){
         GameObject proj = Instantiate(projectile, projectileTransform.position, Quaternion.identity);
         proj.GetComponent<QuarterNoteProjectile>().setAttackInfo(attack); //change to bullet script, use inheritance
         Rigidbody2D rb = proj.GetComponent<Rigidbody2D>();
@@ -25,6 +25,7 @@ public class Trumpet : Weapon
 
         rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
         float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        proj.transform.rotation = Quaternion.Euler(0, 0, rot + 180);
+        if (facingRight){proj.transform.rotation = Quaternion.Euler(0, 0, rot + 180);}
+        else{proj.transform.rotation = Quaternion.Euler(0, 0, rot);}
     }
 }
