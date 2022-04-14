@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/*
+Edits: 
+Made 4/14 by Hung Bui 8:42 AM
+    Created new datatype Dir
+    Commented in replacement code
+    Created choose random Dir function
+    Marked data structures/methods to be deleted/changed
+*/
+
+
+
 public struct pos
 {
     public int x;
@@ -15,17 +26,23 @@ public struct pos
     }
 }
 
-public enum RoomType {All,R,U,L,D,RL,UL,LD,RU,RD,UD,RUL,RLD,RUD,ULD}
+public enum RoomType {All,R,U,L,D,RL,UL,LD,RU,RD,UD,RUL,RLD,RUD,ULD}//DELETE ONCE DONE
 
-public enum Direction {Right,Up,Left,Down}
+[Flags] //NEW ROOM DATA STRUCTURE
+public enum Dir{R = 1, U = 2, L = 4, D = 8}
 
-public struct DungeonInfo
+public enum Direction {Right,Up,Left,Down} //DELETE ONCE DONE
+
+public struct DungeonInfo //CHANGE ONCE DONE
 {
+    //public Dictionary<pos, Dir> mainRoom
+    //public Dictionary<pos, Dir> detourRoom
     public Dictionary<pos, RoomType> mainPaths;
     public Dictionary<pos, RoomType> detourPaths;
-    public List<pos> orderedMainPath;
+    public List<pos> orderedMainRoom;
     public List<pos> deadEnds;
 }
+
 public class GenerateLevel : MonoBehaviour
 {
     
@@ -48,13 +65,14 @@ public class GenerateLevel : MonoBehaviour
     }
 
     public DungeonInfo proceduralGenerationOne(int mainrooms, int num_of_detours, pos detourDepth)
+    //CHANGE(currently untouched)
     //Function creates the structure of the rooms based on specific parameters
     {
         //Create the dungeon information
         DungeonInfo info = new DungeonInfo();
         Dictionary<pos, RoomType> mainpaths = new Dictionary<pos, RoomType>();
         Dictionary<pos, RoomType> detours = new Dictionary<pos, RoomType>();
-        List<pos> orderedMainPath = new List<pos>();
+        List<pos> orderedMainRoom = new List<pos>();
         List<pos> deadEnds = new List<pos>();
 
         //Directions for the Main Path (Right, Up, Down), and a set of all directions for detours
@@ -113,8 +131,8 @@ public class GenerateLevel : MonoBehaviour
             RoomType Room = convertToRoomType(doorOptions);
             //MainPaths.add(Current_Postion, RoomType)
             mainpaths.Add(currentPos, Room);
-            //Add coordinates to orderedMainPaths
-            orderedMainPath.Add(currentPos);
+            //Add coordinates to orderedMainRooms
+            orderedMainRoom.Add(currentPos);
             //Previous ← NegateDirection(New_Main_Direction)
             previous = flipDirection(New_Main_Direction);
             //Current_Position ← Next_Position
@@ -181,12 +199,24 @@ public class GenerateLevel : MonoBehaviour
         //Copy info from function into struct
         info.mainPaths = mainpaths;
         info.detourPaths = detours;
-        info.orderedMainPath = orderedMainPath;
+        info.orderedMainRoom = orderedMainRoom;
         info.deadEnds = deadEnds;
         return info;
     }
 
-    private pos offsetPos(pos currentPosition, Direction direction)
+    private Dir chooseRandomDir(Dir direction){
+        //NEW function randomly selects a direction
+        //Optimize later(eliminate the need for creating new List and new Random every time)
+        System.Random rnd = new System.Random(); 
+        List<Dir> possibleDir = new List<Dir>();
+        foreach(Dir d in new List<Dir>{Dir.R, Dir.U, Dir.L, Dir.D}){
+            if ((direction & d) != 0){
+                possibleDir.Add(d);
+            }   
+        }
+        return possibleDir[rnd.Next(possibleDir.Count)];
+    }
+    private pos offsetPos(pos currentPosition, Direction direction)//CHANGE
     //Helper Function receives a position, a direction, returning the position in that direction
     {
         switch(direction)
@@ -207,6 +237,7 @@ public class GenerateLevel : MonoBehaviour
         return currentPosition;
     }
     private HashSet<Direction> filterPathOptions(pos currentPos, Dictionary<pos, RoomType> offMainLimits, Dictionary<pos, RoomType> offDetourLimits, HashSet<Direction> directions)
+    //CHANGE
     //Helper function removes directions from a set of directions if there is a collision
     {
         HashSet<Direction> filteredDirections = new HashSet<Direction>(directions);
@@ -218,7 +249,27 @@ public class GenerateLevel : MonoBehaviour
         }
         return filteredDirections;
     }
-    private Direction flipDirection(Direction direction)
+
+
+    private Dir flipDir(Dir direction) 
+    //NEW (replaces change) (can rename later)
+    //Helper Function reverses the direction
+    {
+        if (direction == Dir.R){
+            return Dir.L;
+        }
+        else if (direction == Dir.U){
+            return Dir.D;
+        }
+        else if (direction == Dir.L){
+            return Dir.R;
+        }
+        else{
+            return Dir.U;
+        }
+
+    }
+    private Direction flipDirection(Direction direction) //CHANGE
     //Helper Function reverses the direction
     {
         if (direction == Direction.Right)
@@ -240,7 +291,7 @@ public class GenerateLevel : MonoBehaviour
     }
 
     
-    private RoomType convertToRoomType(HashSet<Direction> doorOptions)
+    private RoomType convertToRoomType(HashSet<Direction> doorOptions) //DELETE 
     //Helper function returns a Room Type based off of directions in the set
     {
         if (doorOptions.Contains(Direction.Right))
@@ -299,7 +350,7 @@ public class GenerateLevel : MonoBehaviour
         return RoomType.D;
     }
 
-    private HashSet<int> createDetourPoints(int num_of_rooms, int size)
+    private HashSet<int> createDetourPoints(int num_of_rooms, int size) 
     // Helper function which determines which rooms are going to have detours
     {
         List<int> nums = new List<int>();
@@ -308,7 +359,7 @@ public class GenerateLevel : MonoBehaviour
             nums.Add(i);
         }
         HashSet<int> detourPoints = new HashSet<int>();
-        System.Random random = new System.Random();
+        System.Random random = new System.Random(); //remove this once a global random is created
         for(int i=0; i < size; ++i)
         {
             int roomNum = random.Next(nums.Count);
