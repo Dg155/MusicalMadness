@@ -2,23 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-Edits: 
-Made 4/14 by Hung Bui 8:42 AM
-    Commented in replacement code
-*/
+
 public class InstantiateLevel : MonoBehaviour
 {
-    // Start is called before the first frame update
-    Dictionary<RoomType, GameObject> rooms;
-    //Uncomment/Use when ready
-    //Dictionary<Dir, GameObject> rooms;
+    Dictionary<Dir, GameObject> rooms;
     public GameObject grid;
     public int roomSize = 8;
     public GameObject All, R, U, L, D, RU, RL, RD, UL, UD, LD, RUL, ULD, RUD, RLD;
     void Awake(){
-        /*
-        //Uncomment/Use when ready
         rooms = new Dictionary<Dir, GameObject>();
         rooms.Add(Dir.D|Dir.L|Dir.R|Dir.U,All);
         rooms.Add(Dir.R,R);
@@ -35,39 +26,21 @@ public class InstantiateLevel : MonoBehaviour
         rooms.Add(Dir.R|Dir.L|Dir.D,RLD);
         rooms.Add(Dir.R|Dir.U|Dir.D,RUD);
         rooms.Add(Dir.U|Dir.L|Dir.D,ULD);
-        */
-
-        rooms = new Dictionary<RoomType, GameObject>();
-        rooms.Add(RoomType.All,All);
-        rooms.Add(RoomType.R,R);
-        rooms.Add(RoomType.U,U);
-        rooms.Add(RoomType.L,L);
-        rooms.Add(RoomType.D,D);
-        rooms.Add(RoomType.RL,RL);
-        rooms.Add(RoomType.UL,UL);
-        rooms.Add(RoomType.LD, LD);
-        rooms.Add(RoomType.RU,RU);
-        rooms.Add(RoomType.RD,RD);
-        rooms.Add(RoomType.UD,UD);
-        rooms.Add(RoomType.RUL,RUL);
-        rooms.Add(RoomType.RLD,RLD);
-        rooms.Add(RoomType.RUD,RUD);
-        rooms.Add(RoomType.ULD,ULD);
     }
     void Start(){
     }
-    void InstantiateRoom(pos position, RoomType roomType){ //CHANGE
+    void InstantiateRoom(pos position, Dir roomType){
         var newRoom = Instantiate (rooms[roomType], new Vector3(position.x * roomSize ,position.y * roomSize, 0) , Quaternion.identity);
         newRoom.transform.parent = grid.transform;
     }
 
-    public void InstantiateFromDungeonInfo(DungeonInfo info){ //CHANGE
+    public void InstantiateFromDungeonInfo(DungeonInfo info){
         //UNFINISHED
-        Dictionary<pos, RoomType> mainPaths = info.mainPaths;
+        Dictionary<pos, Dir> mainPaths = info.mainPaths;
         foreach(var room in mainPaths){
             InstantiateRoom(room.Key, room.Value);
         }
-        Dictionary<pos, RoomType> detourPaths = info.detourPaths;
+        Dictionary<pos, Dir> detourPaths = info.detourPaths;
         foreach(var room in detourPaths){
             InstantiateRoom(room.Key, room.Value);
         }
