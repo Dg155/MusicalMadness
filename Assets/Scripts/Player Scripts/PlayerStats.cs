@@ -8,7 +8,6 @@ public class PlayerStats : BaseStats
 {
     public int souls; 
 
-    bool facingRight;
     override protected void Die(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -24,17 +23,6 @@ public class PlayerStats : BaseStats
         }
     }
 
-    private void flip(){
-        //This entire render stuff should be moved to a separate script later
-        if (facingRight){
-            this.transform.localScale = new Vector3(-1,1,1);
-            facingRight = false;
-        }
-        else{
-            this.transform.localScale = new Vector3(1,1,1);
-            facingRight = true;
-        }
-    }
     public int getSouls(){
         return souls;
     }

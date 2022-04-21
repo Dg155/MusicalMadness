@@ -9,6 +9,7 @@ public class BaseStats : MonoBehaviour
     [SerializeField] private float moveSpeed = 4;
     [SerializeField] private GameObject mainHand;
     [SerializeField] private GameObject offHand;
+    protected bool facingRight;
     void Start()
     {
     }
@@ -63,5 +64,16 @@ public class BaseStats : MonoBehaviour
         offHand = instrument;
     }
 
+    protected void flip(){
+    //This entire render stuff should be moved to a separate script later
+    if (facingRight){
+        this.transform.localScale = new Vector3(-1,1,1);
+        facingRight = false;
+    }
+    else{
+        this.transform.localScale = new Vector3(1,1,1);
+        facingRight = true;
+    }
+    }
 
 }
