@@ -172,7 +172,7 @@ public class GenerateLevel : MonoBehaviour
         foreach(Dir d in new List<Dir>{Dir.R, Dir.U, Dir.L, Dir.D}){
             if ((direction & d) != 0){
                 possibleDir.Add(d);
-            }   
+            }
         }
         return possibleDir[random.Next(possibleDir.Count)];
     }
