@@ -16,7 +16,7 @@ public class E_ViolinStats : BaseStats
 
     private void Update() {
         Render();
-        StartCoroutine("Move");
+        //StartCoroutine("Move");
     }
 
     private IEnumerator Move()

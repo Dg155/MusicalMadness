@@ -17,7 +17,7 @@ public struct pos
 
 [Flags] //NEW ROOM DATA STRUCTURE
 public enum Dir{R = 1, U = 2, L = 4, D = 8}
-
+public enum Monsters{Violin, Tambourine, Demon}
 
 public struct DungeonInfo
 {
@@ -36,8 +36,17 @@ public class GenerateLevel : MonoBehaviour
     public int maxDetourDepth = 5;
     System.Random random = new System.Random();
 
+    public Dictionary<int, Dictionary<Monsters, int>> dungeonTiers;
+
     void Start()
     {
+        dungeonTiers = new Dictionary<int, Dictionary<Monsters, int>>();
+        dungeonTiers.Add(0, new Dictionary<Monsters, int>());
+        dungeonTiers.Add(1, new Dictionary<Monsters, int>());
+        dungeonTiers.Add(2, new Dictionary<Monsters, int>());
+        dungeonTiers[0].Add(Monsters.Violin, 20);
+        dungeonTiers[1].Add(Monsters.Violin, 30);
+        dungeonTiers[2].Add(Monsters.Violin, 40);
         DungeonInfo temp = proceduralGenerationOne(amountOfRooms, numOfDetours, new pos(minDetourDepth,maxDetourDepth));
         this.GetComponent<InstantiateLevel>().InstantiateFromDungeonInfo(temp);
     }
@@ -51,6 +60,13 @@ public class GenerateLevel : MonoBehaviour
         Dictionary<pos, Dir> detours = new Dictionary<pos, Dir>();
         List<pos> orderedMainRoom = new List<pos>();
         List<pos> deadEnds = new List<pos>();
+
+        //Create datastructures for enemy generation
+        Dictionary<int, List<pos>> roomTiers = new Dictionary<int, List<pos>>();
+        Dictionary<pos, List<Monsters>> monstersPerRoom = new Dictionary<pos, List<Monsters>>();
+        for (int i = 0; i < 3; i++){roomTiers[i] = new List<pos>();}
+        int lastTierOne = mainrooms/3;
+        int lastTierTwo = lastTierOne * 2;
 
         //Directions for the Main Path (Right, Up, Down), and all directions for detours
         Dir path_Options = Dir.R | Dir.U | Dir.D;
@@ -96,13 +112,22 @@ public class GenerateLevel : MonoBehaviour
                     //Mark the beginning of the detour with a room so later main path rooms do not overlap
                     Dir detourRoom = 0;
                     detourRoom |= flipDir(New_Detour_Direction);
-                    detours.Add(offsetPos(currentPos, New_Detour_Direction), detourRoom);
+                    pos detourPos = offsetPos(currentPos, New_Detour_Direction);
+                    detours.Add(detourPos, detourRoom);
+                    //Add coordinates to roomTiers
+                    if (i < lastTierOne) {roomTiers[0].Add(detourPos);}
+                    else if (i < lastTierTwo) {roomTiers[1].Add(detourPos);}
+                    else {roomTiers[2].Add(detourPos);}
                 }
             }
             //Add coordinates and the room to mainpaths dictionary
             mainpaths.Add(currentPos, doorOptions);
             //Add coordinates to orderedMainRooms
             orderedMainRoom.Add(currentPos);
+            //Add coordinates to roomTiers
+            if (i < lastTierOne) {roomTiers[0].Add(currentPos);}
+            else if (i < lastTierTwo) {roomTiers[1].Add(currentPos);}
+            else {roomTiers[2].Add(currentPos);}
             //Update previous to be the opposite of the new direction
             previous = flipDir(New_Main_Direction);
             //Update current position depending on the new direction
@@ -113,9 +138,14 @@ public class GenerateLevel : MonoBehaviour
         Dictionary<pos, Dir> detoursCopy = new Dictionary<pos, Dir>(detours); //Copy so we are not changing data strucutre while iterating over it
         foreach(var item in detoursCopy)
         {
-            //Determine previous direction and coordinates from marked room type
+            //Determine previous direction, coordinates, and roomtier from marked room type
             Dir detourPrevious = item.Value;
             pos detourPos = item.Key;
+            int detourRoomTier = 0;
+            for (int i = 0; i < 3; ++i)
+            {
+                if (roomTiers[i].Contains(detourPos)) {detourRoomTier = i;}
+            }
             //Detour will have a random depth between two boundaries
             int detourIter = UnityEngine.Random.Range(detourDepth.x, detourDepth.y);
             for (int j=1; j <= detourIter; ++j)
@@ -123,7 +153,7 @@ public class GenerateLevel : MonoBehaviour
                 //Filter out all the directions taken up by already determined rooms
                 Dir filteredDetourPathOptions = filterPathOptions(detourPos, mainpaths, detours, all_Directions);
                 //If there are no available directions then detour can't go anywhere and is a dead end
-                if (filteredDetourPathOptions == 0) {deadEnds.Add(detourPos); break;}
+                if (filteredDetourPathOptions == 0) {deadEnds.Add(detourPos); if (!roomTiers[detourRoomTier].Contains(detourPos)) {roomTiers[detourRoomTier].Add(detourPos);} break;}
                 //Create empty binary to store the detour room directions
                 Dir detourDoorOptions = 0;
                 //Add the previous direction to the binary
@@ -139,6 +169,8 @@ public class GenerateLevel : MonoBehaviour
                     //Add/replace the detour room into the dictionary
                     if (detours.ContainsKey(detourPos)) {detours[detourPos] = detourDoorOptions;}
                     else {detours.Add(detourPos, detourDoorOptions);}
+                    //Add detour room into its respective tier
+                    if (!roomTiers[detourRoomTier].Contains(detourPos)) {roomTiers[detourRoomTier].Add(detourPos);}
                     //Update previous to be the opposite of the new direction
                     detourPrevious = flipDir(New_Detour_Direction);
                     //Update current position depending on the new direction
@@ -152,9 +184,13 @@ public class GenerateLevel : MonoBehaviour
                     //Add/replace the detour room into the dictionary
                     if (detours.ContainsKey(detourPos)) {detours[detourPos] = detourDoorOptions;}
                     else {detours.Add(detourPos, detourDoorOptions);}
+                    //Add detour room into its respective tier
+                    if (!roomTiers[detourRoomTier].Contains(detourPos)) {roomTiers[detourRoomTier].Add(detourPos);}
                 }
             }
         }
+
+        monstersPerRoom = assignMonsters();
 
         //Copy info from function into struct
         info.mainPaths = mainpaths;
@@ -247,6 +283,11 @@ public class GenerateLevel : MonoBehaviour
             nums.RemoveAt(roomNum);
         }
         return detourPoints;
+    }
+
+    private Dictionary<pos, List<Monsters>> assignMonsters()
+    {
+        return new Dictionary<pos, List<Monsters>>();
     }
     
 }
