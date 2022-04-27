@@ -25,6 +25,7 @@ public struct DungeonInfo
     public Dictionary<pos, Dir> detourPaths;
     public List<pos> orderedMainRoom;
     public List<pos> deadEnds;
+    public Dictionary<pos, List<Monsters>> monstersPerRoom;
 }
 
 public class GenerateLevel : MonoBehaviour
@@ -36,7 +37,7 @@ public class GenerateLevel : MonoBehaviour
     public int maxDetourDepth = 5;
     System.Random random = new System.Random();
 
-    public Dictionary<int, Dictionary<Monsters, int>> dungeonTiers;
+    [SerializeField] public Dictionary<int, Dictionary<Monsters, int>> dungeonTiers;
 
     void Start()
     {
@@ -45,8 +46,11 @@ public class GenerateLevel : MonoBehaviour
         dungeonTiers.Add(1, new Dictionary<Monsters, int>());
         dungeonTiers.Add(2, new Dictionary<Monsters, int>());
         dungeonTiers[0].Add(Monsters.Violin, 20);
+        dungeonTiers[1].Add(Monsters.Tambourine, 10);
         dungeonTiers[1].Add(Monsters.Violin, 30);
         dungeonTiers[2].Add(Monsters.Violin, 40);
+        dungeonTiers[2].Add(Monsters.Tambourine, 50);
+        dungeonTiers[2].Add(Monsters.Demon, 10);
         DungeonInfo temp = proceduralGenerationOne(amountOfRooms, numOfDetours, new pos(minDetourDepth,maxDetourDepth));
         this.GetComponent<InstantiateLevel>().InstantiateFromDungeonInfo(temp);
     }
@@ -63,7 +67,6 @@ public class GenerateLevel : MonoBehaviour
 
         //Create datastructures for enemy generation
         Dictionary<int, List<pos>> roomTiers = new Dictionary<int, List<pos>>();
-        Dictionary<pos, List<Monsters>> monstersPerRoom = new Dictionary<pos, List<Monsters>>();
         for (int i = 0; i < 3; i++){roomTiers[i] = new List<pos>();}
         int lastTierOne = mainrooms/3;
         int lastTierTwo = lastTierOne * 2;
@@ -190,13 +193,14 @@ public class GenerateLevel : MonoBehaviour
             }
         }
 
-        monstersPerRoom = assignMonsters();
+        Dictionary<pos, List<Monsters>> monstersPerRoom = assignMonsters(roomTiers);
 
         //Copy info from function into struct
         info.mainPaths = mainpaths;
         info.detourPaths = detours;
         info.orderedMainRoom = orderedMainRoom;
         info.deadEnds = deadEnds;
+        info.monstersPerRoom = monstersPerRoom;
         return info;
     }
 
@@ -285,9 +289,23 @@ public class GenerateLevel : MonoBehaviour
         return detourPoints;
     }
 
-    private Dictionary<pos, List<Monsters>> assignMonsters()
+    private Dictionary<pos, List<Monsters>> assignMonsters(Dictionary<int, List<pos>> roomTiers)
     {
-        return new Dictionary<pos, List<Monsters>>();
+        Dictionary<pos, List<Monsters>> monstersPerRoom = new Dictionary<pos, List<Monsters>>();
+        for (int i=0; i<3; ++i)
+        {
+            while (dungeonTiers[i].Count != 0)
+            {
+                List<Monsters> monsterList = new List<Monsters>(dungeonTiers[i].Keys);
+                Monsters monster = monsterList[random.Next(monsterList.Count)];
+                dungeonTiers[i][monster] -= 1;
+                if (dungeonTiers[i][monster] == 0) {dungeonTiers[i].Remove(monster);}
+                pos position = roomTiers[i][random.Next(roomTiers[i].Count)];
+                if (!monstersPerRoom.ContainsKey(position)) {monstersPerRoom.Add(position, new List<Monsters>());}
+                monstersPerRoom[position].Add(monster);
+            }
+        }
+        return monstersPerRoom;
     }
     
 }
