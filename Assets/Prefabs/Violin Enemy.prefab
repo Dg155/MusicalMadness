@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 3590904311455547707}
   - component: {fileID: 3590904311455547700}
   - component: {fileID: 3590904311455547701}
+  - component: {fileID: 8932286120885193983}
   m_Layer: 0
   m_Name: Violin Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,6 +150,20 @@ MonoBehaviour:
   moveSpeed: 0.5
   mainHand: {fileID: 0}
   offHand: {fileID: 0}
-  soulsDropped: 0
+  healthBar: {fileID: 577713689186748102, guid: 05320d0683265b746856a344120fc895, type: 3}
+  offSet: 0.4
+  soulsDropped: 2
   directionChangeMin: 1
   directionChangeMax: 3
+--- !u!114 &8932286120885193983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3590904311455547696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024ead9de304ba94ca13ac45e336301b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -20,22 +20,22 @@ public class Combat : MonoBehaviour
 {
     Weapon mainHand;
     Weapon offHand;
-    PlayerStats playerStats;
+    BaseStats Stats;
 
     entityType type;
     void Start()
     {
-        playerStats = this.GetComponent<PlayerStats>();
+        Stats = this.GetComponent<BaseStats>();
     }
 
-    void ReceiveAttack(attackInfo attack){
+    public void ReceiveAttack(attackInfo attack){
         TakeDamage(attack.damage);
         if (attack.stunDuration > 0){receiveStun(attack.stunDuration);}
         if (attack.blindDuration > 0){receiveBlind(attack.blindDuration);}
         if (attack.poisonDamage > 0){receivePoison(attack.poisonDuration, attack.poisonDamage);}
     }
     void TakeDamage(float quantity){
-        playerStats.addHealth(-quantity);
+        Stats.addHealth(-quantity);
     }
 
     void receiveStun(float sec){
@@ -52,27 +52,33 @@ public class Combat : MonoBehaviour
 
 
     void Heal(float quantity){
-        playerStats.addHealth(quantity);
+        Stats.addHealth(quantity);
     }
-    public void UseMainHand(){
-        if (mainHand is null){
+    public void UseMainHand()
+    {
+        if (mainHand is null)
+        {
             setMainHand(); //move this later to only call when switching/changing weapons
         }
         mainHand.StartCoroutine("Use");
     }
 
-    public void UseOffHand(){
-        if (offHand is null){
+    public void UseOffHand()
+    {
+        if (offHand is null)
+        {
             setOffHand();
         }
         offHand.Use();
     } 
 
-    public void setMainHand(){
-        mainHand = playerStats.getMainHand().GetComponent<Weapon>(); //change later to pass a weapon argument, and call this only when switching weapons
+    public void setMainHand()
+    {
+        mainHand = Stats.getMainHand().GetComponent<Weapon>(); //change later to pass a weapon argument, and call this only when switching weapons
     }
 
-    public void setOffHand(){
-        offHand = playerStats.getoffHand().GetComponent<Weapon>(); //same here
+    public void setOffHand()
+    {
+        offHand = Stats.getoffHand().GetComponent<Weapon>(); //same here
     }
 }
