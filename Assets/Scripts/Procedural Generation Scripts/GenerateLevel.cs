@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[System.Serializable]
 public struct pos
 {
     public int x;
@@ -19,6 +20,7 @@ public struct pos
 public enum Dir{R = 1, U = 2, L = 4, D = 8}
 public enum Monsters{Violin, Tambourine, Demon}
 
+[System.Serializable]
 public struct DungeonInfo
 {
     public Dictionary<pos, Dir> mainPaths;
@@ -39,7 +41,7 @@ public class GenerateLevel : MonoBehaviour
 
     [SerializeField] public Dictionary<int, Dictionary<Monsters, int>> dungeonTiers;
 
-    void Start()
+    void Awake()
     {
         dungeonTiers = new Dictionary<int, Dictionary<Monsters, int>>();
         dungeonTiers.Add(0, new Dictionary<Monsters, int>());
@@ -52,7 +54,7 @@ public class GenerateLevel : MonoBehaviour
         dungeonTiers[2].Add(Monsters.Tambourine, 50);
         dungeonTiers[2].Add(Monsters.Demon, 10);
         DungeonInfo temp = proceduralGenerationOne(amountOfRooms, numOfDetours, new pos(minDetourDepth,maxDetourDepth));
-        this.GetComponent<InstantiateLevel>().InstantiateFromDungeonInfo(temp);
+        this.GetComponent<LevelInfo>().dungeonInfo = temp;
     }
 
     public DungeonInfo proceduralGenerationOne(int mainrooms, int num_of_detours, pos detourDepth)
