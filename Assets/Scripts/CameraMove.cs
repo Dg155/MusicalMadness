@@ -9,6 +9,8 @@ public class CameraMove : MonoBehaviour
     public Transform playerpos; // must be set in scene view
     public bool moving;
     public int roomsize;
+
+    public LevelInfo levelInfo;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,18 +26,22 @@ public class CameraMove : MonoBehaviour
         if (!moving){
             if (playerpos.position.x > pos.position.x + roomsize/2){
                 newpos = newpos + Vector3.right * roomsize;
+                levelInfo.changePos(1, 0);
                 moving = true;
             }
             else if (playerpos.position.x < pos.position.x - roomsize/2){
                 newpos = newpos + Vector3.left * roomsize;
+                levelInfo.changePos(-1, 0);
                 moving = true;
             }
             else if (playerpos.position.y > pos.position.y + roomsize/2){
                 newpos = newpos + Vector3.up * roomsize;
+                levelInfo.changePos(0, 1);
                 moving = true;
             }
             else if (playerpos.position.y < pos.position.y - roomsize/2){
                 newpos = newpos + Vector3.down * roomsize;
+                levelInfo.changePos(0, -1);
                 moving = true;
             }
         }

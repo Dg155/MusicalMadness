@@ -10,7 +10,8 @@ public class E_ViolinStats : BaseStats
     private bool newDirection = true;
     Rigidbody2D rb;
 
-    private void Start() {
+    new private void Start() {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -37,11 +38,13 @@ public class E_ViolinStats : BaseStats
         {
             Debug.Log("Drop a soul");
         }
+        Destroy(gameObject);
     }
 
     protected override void Render()
     {
         //This entire render stuff should be moved to a separate script later
+
         
         Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         if(playerPos.x - this.transform.position.x > 0 && !facingRight || playerPos.x - this.transform.position.x < 0 && facingRight)
@@ -53,5 +56,6 @@ public class E_ViolinStats : BaseStats
     private void OnCollisionEnter2D(Collision2D other) {
         Debug.Log(other);
     }
+    
 }
 
