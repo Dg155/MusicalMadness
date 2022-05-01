@@ -4,7 +4,19 @@ using UnityEngine;
 public class Item: ScriptableObject
 {
     new public string name = "New Item";
-    public string type = "None";
+    public ItemType type = ItemType.Weapon;
     public Sprite icon = null;
     public bool isDefaultItem = false;
+
+    public virtual void Use()
+    {
+        Debug.Log($"Using {name}");
+    }
+}
+
+public enum ItemType
+{
+    Weapon,
+    Soul,
+    Artifact
 }
