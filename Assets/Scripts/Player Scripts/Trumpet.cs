@@ -9,10 +9,10 @@ public class Trumpet : Weapon
     
     public int bulletSpeed;
 
-
     new private void Start() {
         base.Start();
         ranged = true;
+        weaponName = "Trumpet";
     }
 
     override public void spawnProjectile(bool facingRight){

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc363a3ea601c435ea024f39ee433151, type: 3}
   m_Name: Soul1
   m_EditorClassIdentifier: 
-  name: New Item
-  type: None
+  name: Soul1
+  type: 1
   icon: {fileID: 0}
   isDefaultItem: 0

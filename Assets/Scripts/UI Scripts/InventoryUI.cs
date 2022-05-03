@@ -23,12 +23,6 @@ public class InventoryUI : MonoBehaviour
         UITexts = UITextsParent.GetComponentsInChildren<UIText>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void UpdateUI()
     {
         for (int i = 0; i < UITexts.Length; i++)

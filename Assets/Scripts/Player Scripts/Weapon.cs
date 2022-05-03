@@ -13,12 +13,18 @@ public class Weapon : MonoBehaviour
     private bool canFire = true;
     protected attackInfo attack;
 
+    Inventory inventory;
+    protected string weaponName; //allows Inventory to decide whether player can use the weapon
+
     private bool facingRight;
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         this.transform.parent = GameObject.FindGameObjectWithTag("Player").transform;
+
+        inventory = Inventory.instance;
+        inventory.onItemChangedCallback += InventoryToWeaponConversion;
     }
 
     void Update()
@@ -73,6 +79,23 @@ public class Weapon : MonoBehaviour
         else{
             this.transform.localScale = new Vector3(1,1,1);
             facingRight = true;
+        }
+    }
+
+    void InventoryToWeaponConversion()
+    {
+        List<string> itemNames = new List<string>();
+        foreach (Item item in inventory.items)
+        {
+            itemNames.Add(item.name);
+        }
+        if (itemNames.Contains(weaponName))
+        {
+            gameObject.SetActive(true);
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
 }
