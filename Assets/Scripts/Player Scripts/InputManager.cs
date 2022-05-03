@@ -7,8 +7,10 @@ public class InputManager : MonoBehaviour
     float horizontal, vertical;
     PlayerMove playerMove;
     Combat playerCombat;
+    Animator animator;
     void Start()
     {
+        animator = this.GetComponent<Animator>();
         playerMove = this.GetComponent<PlayerMove>();
         playerCombat = this.GetComponent<Combat>();
     }
@@ -17,6 +19,12 @@ public class InputManager : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
+        if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0){
+            animator.SetFloat("Speed", 1);
+        }
+        else{
+            animator.SetFloat("Speed", 0);
+        }
         if (Input.GetMouseButton(0)){
             UseMainHand();
         }
