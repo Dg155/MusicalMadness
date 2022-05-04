@@ -32,17 +32,16 @@ public struct DungeonInfo
 
 public class GenerateLevel : MonoBehaviour
 {
-    
-    public int amountOfRooms = 10;
-    public int numOfDetours = 3;
-    public int minDetourDepth = 3;
-    public int maxDetourDepth = 5;
+    public ScriptableLevelLayout levelLayout;
+    public ScriptableLevelEnemies levelEnemies; //NOT WORKING ATM. 
     System.Random random = new System.Random();
 
-    [SerializeField] public Dictionary<int, Dictionary<Monsters, int>> dungeonTiers;
+    [SerializeField] public Dictionary<int, Dictionary<Monsters, int>> dungeonTiers; 
 
     void Awake()
     {
+        //levelEnemies.Generate();
+        //dungeonTiers = levelEnemies.dungeonTiers;
         dungeonTiers = new Dictionary<int, Dictionary<Monsters, int>>();
         dungeonTiers.Add(0, new Dictionary<Monsters, int>());
         dungeonTiers.Add(1, new Dictionary<Monsters, int>());
@@ -53,7 +52,7 @@ public class GenerateLevel : MonoBehaviour
         dungeonTiers[2].Add(Monsters.Violin, 40);
         dungeonTiers[2].Add(Monsters.Tambourine, 50);
         dungeonTiers[2].Add(Monsters.Demon, 10);
-        DungeonInfo temp = proceduralGenerationOne(amountOfRooms, numOfDetours, new pos(minDetourDepth,maxDetourDepth));
+        DungeonInfo temp = proceduralGenerationOne(levelLayout.amountOfRooms, levelLayout.numOfDetours, new pos(levelLayout.minDetourDepth,levelLayout.maxDetourDepth));
         this.GetComponent<LevelInfo>().dungeonInfo = temp;
     }
 
