@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyAI", menuName = "ScriptableObjects/EnemyAI")]
 public class ScriptableEnemyAI : ScriptableObject
 {
+    //MOVEMENT CURVES
+    [Header("MOVEMENT CURVES(One for now)")]
+    public AnimationCurve animCurve;
     //ROAMING (choosing where to move)
     [Header("ROAMING STATE INFO")]
     public float roamSpeed; //speed during roaming
@@ -13,6 +16,7 @@ public class ScriptableEnemyAI : ScriptableObject
 
     //AGGRESSIVE (choosing where to move)
     [Header("AGGRESSIVE STATE INFO")]
+    public float aggressiveWait; //wait time before moving again
     public float aggressiveSpeed; //speed while aggressive
     public float aggressiveDistanceFromTarget; //used to calculate the preferred distance from target
     public float aggressiveStrafeFactor; //used to calculate the degree of strafing

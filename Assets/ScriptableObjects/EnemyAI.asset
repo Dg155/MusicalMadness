@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EnemyAI
   m_EditorClassIdentifier: 
   roamSpeed: 1
-  aggressiveSpeed: 2
-  aggressiveDistanceFromTarget: 2
-  aggressiveStrafeFactor: 1
+  aggressiveSpeed: 1000
+  aggressiveDistanceFromTarget: 1.25
+  aggressiveStrafeFactor: 0.1
   aimOffsetFactor: 0
   targetTag: Player
-  detectionRadius: 8
+  detectionRadius: 100
   fleeHealthPercent: 0
