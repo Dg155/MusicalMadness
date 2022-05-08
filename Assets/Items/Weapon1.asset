@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon1
   m_EditorClassIdentifier: 
   name: Weapon1
-  type: weapon
-  icon: {fileID: 0}
+  type: 0
+  cost: 0
   isDefaultItem: 0
+  itemObject: {fileID: 8935746270485276401, guid: b1d8b67a8fec34b99ad3308d5652d43c, type: 3}

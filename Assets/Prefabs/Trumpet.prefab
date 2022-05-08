@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 2835349555388964076}
   - component: {fileID: 2835349555388964075}
   - component: {fileID: 2835349555388964074}
+  - component: {fileID: 5636066111209543549}
   m_Layer: 0
   m_Name: Trumpet
   m_TagString: Untagged
@@ -152,3 +153,22 @@ MonoBehaviour:
   projectile: {fileID: 6102382208412875363, guid: d32f0dd933c42934090f3dc48589ba35, type: 3}
   projectileTransform: {fileID: 2835349553931640191}
   bulletSpeed: 10
+--- !u!95 &5636066111209543549
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2835349555388964073}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 16e1fecf11b3d684ba777f91059d6f7b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
