@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Enemy AI written by Hung Bui
 enum AIState {
     Roaming, Aggressive, Retreating, Shooting
 }
 public class EnemyAI : MonoBehaviour
 {
     public ScriptableEnemyAI ai; //AI Object that stores info 
-    EnemyMove Movement; //movement script that moves character
+    EnemyMove MovementScript; //movement script that moves character
 
-    Combat Combat; //combat script that deals with combat
+    Combat CombatScript; //combat script that deals with combat
 
     AIState state; //current state: Roaming, Aggressive, Retreating, Shooting
 
@@ -18,75 +19,118 @@ public class EnemyAI : MonoBehaviour
 
     public Vector2 movePos; //Next Position to move to
 
-    public pos boundedPos; //Coordinates that the enemy is bounded to
 
-    public float timeSinceLastAction;
+    public float timeSinceLastAction; //time since the last action(may separate later)
+
+    private Vector2 roomCenter;
 
     void Start()
     {
-        Movement = this.GetComponent<EnemyMove>();
-        Combat = this.GetComponent<Combat>();
+        MovementScript = this.GetComponent<EnemyMove>();
+        CombatScript = this.GetComponent<Combat>();
         state = AIState.Roaming;
         movePos = this.transform.position;
-        boundedPos = new pos(0,0);
         timeSinceLastAction = 0;
         
     }
     void Update() //temporary, delete later once called in EnemyManager script
     {
-        OnUpdate();
+        OnUpdate(new pos(0,0)); //DELETE LATER(call OnUpdate through the EnemyManager Script!)
     }
-    void OnUpdate()
+    void OnCollisionEnter2D(Collision2D col){ //for now, any collisions will trigger a movement reset
+        movePos = this.transform.position;//movement reset
+    }
+    
+    void OnUpdate(pos roomPos)
     {
+        if (roomCenter == null){
+            roomCenter = new Vector2(roomPos.x * 8, roomPos.y * 8);
+        }
         switch (state){
-
+            
             case AIState.Roaming:
-                //Check if at the new movePos, if so ask ai to calculate a new roaming position
+                //Ask AI to calculate new move position
                 if (Vector2.Distance(movePos, this.transform.position) < 0.01){
-                    movePos = ai.NewRoamPos(this.transform.position, new pos(0,0), 8);
-                    Movement.SetPositions(this.transform.position, movePos);
+                    movePos = ai.NewRoamPos(this.transform.position, roomCenter);
+                    MovementScript.SetPositions(this.transform.position, movePos);
                 }
                 //If not at new movePos, move toward that position
                 else{
-                    Movement.MoveToward(movePos, ai.roamSpeed, ref ai);
+                    MovementScript.MoveToward(movePos, ai.roamingSpeed, ref ai, ai.roamingCurve);
                 }
-                //If player is nearby, set either to Aggressive or Retreating(currently defaults to aggressive)
-                target = ai.GetTarget(this.transform.position);
-                if (target){ //if there is a detectable target, become aggresive
-                    state = AIState.Aggressive;
-                }
+                setState();
                 break;
+
+
             case AIState.Aggressive:
-                //Check if at the new movePos, if so ask ai to calculate 
-                //a new aggresive roaming position based on enemy location
-                //movePos = ai.NewAggressivePos(this.transform.position, target.position);
+                //Ask AI to calculate new move position
                 timeSinceLastAction += Time.deltaTime;
                 if (Vector2.Distance(movePos, this.transform.position) < 0.01){
-                    if (timeSinceLastAction > ai.aggressiveWait){
-                        movePos = ai.NewAggressivePos(this.transform.position, target.position);
-                        Movement.SetPositions(this.transform.position, movePos);
+                    if (timeSinceLastAction > ai.aggressiveDelay){
+                        movePos = ai.NewAggressivePos(this.transform.position, target.position, roomCenter);
+                        MovementScript.SetPositions(this.transform.position, movePos);
                         timeSinceLastAction = 0;
                     }
                 }
                 //if not at new movePos, move toward that position
                 else{
-                    Movement.MoveToward(movePos, ai.aggressiveSpeed, ref ai);
+                    MovementScript.MoveToward(movePos, ai.aggressiveSpeed, ref ai, ai.aggressiveCurve);
                 }
                 //Check if conditions are correct to shoot, if so, calculate an aiming position and shoot
-
-                
-
-                //Check if conditions are correct to return to Roaming
-                target = ai.GetTarget(this.transform.position);
-                if (!target){ //if there is not a detectable target, roam
-                    state = AIState.Roaming;
+                if (ai.isReadyToShoot(this.transform.position, target)){
+                    state = AIState.Shooting;
+                    return;
                 }
+                setState();
                 break;
+
             case AIState.Shooting:
+                //shoot, then return to previous state
+                Debug.Log("PRESSING SHOOT BUTTON");
+                //ADD: once weapon usage is figured out, implement it here. Should pass the ai position into the weapon use
+                state = AIState.Aggressive;//defaulting to aggressive, FOR NOW
                 break;
+
             case AIState.Retreating:
+                timeSinceLastAction += Time.deltaTime;
+                if (Vector2.Distance(movePos, this.transform.position) < 0.5){
+                    if (timeSinceLastAction > ai.retreatDelay){
+                        movePos = ai.NewRetreatPos(this.transform.position, target.position, roomCenter);
+                        MovementScript.SetPositions(this.transform.position, movePos);
+                        timeSinceLastAction = 0;
+                    }
+                }
+                //if not at new movePos, move toward that position
+                else{
+                    MovementScript.MoveToward(movePos, ai.retreatSpeed, ref ai, ai.retreatCurve);
+                }
+                //Check if conditions are correct to shoot, if so, calculate an aiming position and shoot
+                setState(); //normally, will stay retreating unless somehow heals
                 break;
+
         }
         
     }
+
+    void setState(){
+        target = ai.GetTarget(this.transform.position);
+        if (target){ //if there is a detectable target, consider either to aggress or retreat
+            float healthPercent = CombatScript.getStats().getHealth()/CombatScript.getStats().getMaxHealth();
+            Debug.Log("HEALTH PERCENT IS " + healthPercent.ToString());
+            if (ai.shouldFlee(healthPercent)){
+                Debug.Log("SWITCHING TO RETREAT STATE");
+                state = AIState.Retreating;
+            }
+            else{
+                Debug.Log("SWITCHING TO AGGRESSIVE STATE");
+                state = AIState.Aggressive;
+                }
+        }
+        else{
+            Debug.Log("SWITCHING TO ROAMING STATE");
+            state = AIState.Roaming;
+        }
+    }
+
 }
+

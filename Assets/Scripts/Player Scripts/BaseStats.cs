@@ -26,6 +26,10 @@ public class BaseStats : MonoBehaviour
     public float getHealth(){
         return currHealth;
     }
+
+    public float getMaxHealth(){
+        return maxHealth;
+    }
     public void setHealth(float quantity){
         currHealth = quantity;
         if (quantity > maxHealth){maxHealth = quantity;}

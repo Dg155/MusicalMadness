@@ -20,14 +20,17 @@ public class Combat : MonoBehaviour
 {
     Weapon mainHand;
     Weapon offHand;
-    PlayerStats playerStats;
+    BaseStats stats;
 
     entityType type;
     void Start()
     {
-        playerStats = this.GetComponent<PlayerStats>();
+        stats = this.GetComponent<BaseStats>();
     }
-
+    public BaseStats getStats(){
+        if (stats == null){Debug.Log("Player stats is missing!");}
+        return stats;
+    }
     void ReceiveAttack(attackInfo attack){
         TakeDamage(attack.damage);
         if (attack.stunDuration > 0){receiveStun(attack.stunDuration);}
@@ -35,7 +38,7 @@ public class Combat : MonoBehaviour
         if (attack.poisonDamage > 0){receivePoison(attack.poisonDuration, attack.poisonDamage);}
     }
     void TakeDamage(float quantity){
-        playerStats.addHealth(-quantity);
+        stats.addHealth(-quantity);
     }
 
     void receiveStun(float sec){
@@ -52,7 +55,7 @@ public class Combat : MonoBehaviour
 
 
     void Heal(float quantity){
-        playerStats.addHealth(quantity);
+        stats.addHealth(quantity);
     }
     public void UseMainHand(){
         if (mainHand is null){
@@ -69,10 +72,10 @@ public class Combat : MonoBehaviour
     } 
 
     public void setMainHand(){
-        mainHand = playerStats.getMainHand().GetComponent<Weapon>(); //change later to pass a weapon argument, and call this only when switching weapons
+        mainHand = stats.getMainHand().GetComponent<Weapon>(); //change later to pass a weapon argument, and call this only when switching weapons
     }
 
     public void setOffHand(){
-        offHand = playerStats.getoffHand().GetComponent<Weapon>(); //same here
+        offHand = stats.getoffHand().GetComponent<Weapon>(); //same here
     }
 }
