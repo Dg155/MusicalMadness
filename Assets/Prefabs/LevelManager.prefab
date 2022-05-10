@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5393293268420629733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5393293268420629739}
+  - component: {fileID: 5393293268420629732}
+  - component: {fileID: 5393293268420629737}
+  - component: {fileID: 5393293268420629738}
+  - component: {fileID: 5393293268420629736}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5393293268420629739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393293268420629733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.64344996, y: -0.710433, z: 1.0607121}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5393293268420629732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393293268420629733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4158f09fdc927af4fa7f7e6d9d7b5d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currPlayerPos:
+    x: 0
+    y: 0
+  dungeonInfo:
+    orderedMainRoom: []
+    deadEnds: []
+  enemyManagerTEMP: {fileID: 5393293268420629736}
+--- !u!114 &5393293268420629737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393293268420629733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2215f750e584fbbc53b4587014b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfRooms: 10
+  numOfDetours: 3
+  minDetourDepth: 3
+  maxDetourDepth: 5
+--- !u!114 &5393293268420629738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393293268420629733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83128da9865e462428ab3ed8e5c422ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  roomSize: 8
+  All: {fileID: 2831741049878607442, guid: 2a32f65cab38bcb489ade3c545361ede, type: 3}
+  R: {fileID: 6406802629295039107, guid: b0ba916e60b7f0f4bbe7fb94d4769c16, type: 3}
+  U: {fileID: 8788164902214105411, guid: b5f4c4ea86cb1224dbb76b50e42638d7, type: 3}
+  L: {fileID: 5828109573817491248, guid: 316ce5e23abb7f0449cbb29b5a0ed3d3, type: 3}
+  D: {fileID: 2853714428008052151, guid: cc7507e084424df4f8a28e6d06cc269d, type: 3}
+  RU: {fileID: 6719465273181485433, guid: 2b1fa0f85fc26514bbbd71bda00637b5, type: 3}
+  RL: {fileID: 6356093523125252921, guid: ecf5a753d19c344468d81bb5a444fb62, type: 3}
+  RD: {fileID: 202797257075140677, guid: 217a5eb74c10ca54b9a99b468ad88c46, type: 3}
+  UL: {fileID: 7129040086092591334, guid: 6919650c0d74db346a152c6b77a984c9, type: 3}
+  UD: {fileID: 5916413386888246569, guid: 8034ad0229e5e254e95c14b77c73e770, type: 3}
+  LD: {fileID: 3807548968483393536, guid: 68a925c749f34b54d84dd7ae029b8e18, type: 3}
+  RUL: {fileID: 4826178784013643645, guid: cfeae23a5977ea24b9b43397555d37e1, type: 3}
+  ULD: {fileID: 2242293079391290143, guid: c74aaf3d653cc384ea7e6c40929a61cc, type: 3}
+  RUD: {fileID: 561888553386051347, guid: 35bec1c1a0891624395d57dfeea01cf8, type: 3}
+  RLD: {fileID: 4333617130224121713, guid: 48cd65a1637e10d46a662561874d9f16, type: 3}
+--- !u!114 &5393293268420629736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393293268420629733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c797b68cdff984eaa809cca98933f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  violin: {fileID: 3590904311455547696, guid: 88a40fe8a7227c14fae95b754797ec4d, type: 3}
+  tambourine: {fileID: 3590904311455547696, guid: 88a40fe8a7227c14fae95b754797ec4d, type: 3}
+  demon: {fileID: 3590904311455547696, guid: 88a40fe8a7227c14fae95b754797ec4d, type: 3}

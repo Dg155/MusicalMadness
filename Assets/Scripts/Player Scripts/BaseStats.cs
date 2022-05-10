@@ -9,9 +9,15 @@ public class BaseStats : MonoBehaviour
     [SerializeField] private float moveSpeed = 4;
     [SerializeField] private GameObject mainHand;
     [SerializeField] private GameObject offHand;
+    [SerializeField] protected GameObject healthBar;
+    [SerializeField] protected float offSet;
     protected bool facingRight;
-    void Start()
+    private HealthBarScript HB;
+    protected void Start()
     {
+        GameObject health = Instantiate(healthBar, (transform.position -  new Vector3(0,offSet,0)), Quaternion.identity);
+        health.transform.parent = this.transform;
+        HB = GetComponentInChildren<HealthBarScript>();
     }
 
     private void Update() {
@@ -33,12 +39,14 @@ public class BaseStats : MonoBehaviour
     public void setHealth(float quantity){
         currHealth = quantity;
         if (quantity > maxHealth){maxHealth = quantity;}
+        updateHealthBar();
     }
     public void addHealth(float quantity){
         //can be positive or negative value
         currHealth += quantity;
         if (currHealth > maxHealth){currHealth = maxHealth;}
-        if (currHealth < 0){Die();}
+        if (currHealth <= 0){Die();}
+        updateHealthBar();
     }
 
     public float getMoveSpeed(){
@@ -68,16 +76,25 @@ public class BaseStats : MonoBehaviour
         offHand = instrument;
     }
 
-    protected void flip(){
-    //This entire render stuff should be moved to a separate script later
-    if (facingRight){
-        this.transform.localScale = new Vector3(-1,1,1);
-        facingRight = false;
+    protected void flip()
+    {
+        //This entire render stuff should be moved to a separate script later
+        if (facingRight)
+        {
+            this.transform.localScale = new Vector3(-1,1,1);
+            facingRight = false;
+        }
+        else
+        {
+            this.transform.localScale = new Vector3(1,1,1);
+            facingRight = true;
+        }
     }
-    else{
-        this.transform.localScale = new Vector3(1,1,1);
-        facingRight = true;
-    }
+
+    public void updateHealthBar()
+    {
+        float barSize = currHealth / maxHealth;
+        HB.setHealthBar(barSize);
     }
 
 }
