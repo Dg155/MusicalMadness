@@ -11,20 +11,21 @@ public class EnemyManager : MonoBehaviour
 
     HashSet<pos> alreadyInstantiated;
 
-    public Dictionary<pos, List<EnemyAI>> instantiatedMonsters;
+    public Dictionary<pos, List<(EnemyStats, EnemyAI)>> instantiatedMonsters;
     // Start is called before the first frame update
 
     void Update(){
         if (instantiatedMonsters.ContainsKey(levelInfo.currPlayerPos)){
-            foreach (EnemyAI e in instantiatedMonsters[levelInfo.currPlayerPos]){
+            foreach ((EnemyStats, EnemyAI) e in instantiatedMonsters[levelInfo.currPlayerPos]){
+                if (!e.Item2.getAlive()) {instantiatedMonsters[levelInfo.currPlayerPos].Remove(e); e.Item1.destroyEnemy();}
                 Debug.Log(levelInfo.currPlayerPos.x.ToString() + "," + levelInfo.currPlayerPos.y.ToString());
-                e.OnUpdate(levelInfo.currPlayerPos);
+                e.Item2.OnUpdate(levelInfo.currPlayerPos);
             }
         }
     }
     void Start()
     {
-        instantiatedMonsters = new Dictionary<pos, List<EnemyAI>>();
+        instantiatedMonsters = new Dictionary<pos, List<(EnemyStats, EnemyAI)>>();
         alreadyInstantiated = new HashSet<pos>();
         levelInfo = this.GetComponent<LevelInfo>();
         monsters = new Dictionary <Monsters, GameObject>();
@@ -65,7 +66,7 @@ public class EnemyManager : MonoBehaviour
                 
         return adjacentPositions;
     }
-    // Update is called once per frame
+
     void InstantiateEnemiesInRoom(List<Monsters> monsters, pos roomPos){
         foreach(Monsters m in monsters){
             InstantiateEnemyInRoom(m, roomPos);
@@ -78,11 +79,12 @@ public class EnemyManager : MonoBehaviour
         int offsety = UnityEngine.Random.Range(-roomscale, roomscale);
         var enemy = Instantiate(monsters[monster], new Vector3(roomPos.x * roomscale, roomPos.y * roomscale,0), Quaternion.identity);
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>(); //get the enemy's specific AI script
+        EnemyStats enemyStats = enemy.GetComponent<EnemyStats>(); //get the enemy's specific Stats Script
         if (enemyAI != null){
             if (!instantiatedMonsters.ContainsKey(roomPos)){
-                instantiatedMonsters.Add(roomPos, new List<EnemyAI>());
+                instantiatedMonsters.Add(roomPos, new List<(EnemyStats, EnemyAI)>());
             }
-            instantiatedMonsters[roomPos].Add(enemyAI);
+            instantiatedMonsters[roomPos].Add((enemyStats, enemyAI));
         }
     }
 }

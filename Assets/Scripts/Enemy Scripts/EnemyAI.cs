@@ -19,10 +19,11 @@ public class EnemyAI : MonoBehaviour
 
     public Vector2 movePos; //Next Position to move to
 
-
     public float timeSinceLastAction; //time since the last action(may separate later)
 
     private Vector2 roomCenter;
+
+    private bool isAlive = true;
 
     void Start()
     {
@@ -135,6 +136,16 @@ public class EnemyAI : MonoBehaviour
             //Debug.Log("SWITCHING TO ROAMING STATE");
             state = AIState.Roaming;
         }
+    }
+
+    public void setAlive(bool liveStatus)
+    {
+        isAlive = liveStatus;
+    }
+
+    public bool getAlive()
+    {
+        return isAlive;
     }
 
 }
