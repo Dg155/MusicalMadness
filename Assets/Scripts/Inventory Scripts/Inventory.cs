@@ -131,6 +131,22 @@ public class Inventory : MonoBehaviour
         mainHand = newMainHand;
 
         mainHandObject = Instantiate(newMainHand.itemObject);
+        //Set position of instantiated object to the WeaponHold empty gameobject
+        Transform weaponHold = null;
+        foreach(Transform child in this.transform){
+            if (child.name == "WeaponHold"){
+                weaponHold = child;
+                break;
+            }
+        }
+        if (weaponHold == null){
+            Debug.Log("There is no WeaponHold gameobject attached to the player!");
+            return;
+            };
+        
+        mainHandObject.transform.position = weaponHold.position;
+        mainHandObject.transform.parent = weaponHold;
+        
         playerStats.setMainHand(mainHandObject);
 
         if (onItemChangedCallback != null)

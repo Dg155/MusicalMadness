@@ -65,8 +65,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   aggressiveDelay: 0
-  aggressiveSpeed: 3
-  aggressiveDistanceFromTarget: 1.5
+  aggressiveSpeed: 4
+  aggressiveDistanceFromTarget: 2
   aggressiveStrafeFactor: 1
   retreatCurve:
     serializedVersion: 2
@@ -99,4 +99,4 @@ MonoBehaviour:
   retreatStrafeFactor: 2
   aimOffsetFactor: 0
   shootDistanceMin: 0
-  shootDistanceMax: 1
+  shootDistanceMax: 3

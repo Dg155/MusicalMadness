@@ -18,9 +18,6 @@ public class Weapon : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        GameObject player = GameObject.FindGameObjectWithTag("WeaponHold");
-        this.transform.position = player.transform.position;
-        this.transform.parent = player.transform;
     }
 
     void Update()

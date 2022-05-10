@@ -46,3 +46,4 @@ public class InputManager : MonoBehaviour
         playerCombat.UseOffHand(mousePos);
     }
 }
+

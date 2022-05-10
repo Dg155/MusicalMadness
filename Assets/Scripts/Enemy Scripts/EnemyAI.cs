@@ -25,6 +25,8 @@ public class EnemyAI : MonoBehaviour
 
     private bool isAlive = true;
 
+    private bool facingRight = true;
+
     void Start()
     {
         MovementScript = this.GetComponent<EnemyMove>();
@@ -46,11 +48,38 @@ public class EnemyAI : MonoBehaviour
     
     public void OnUpdate(pos roomPos)
     {
+        
+        if (target != null){
+            if (!facingRight && target.transform.position.x - this.transform.position.x > 0){
+                facingRight = true;
+                this.transform.localScale = new Vector2(1, 1);
+            }
+            else if (facingRight && target.transform.position.x - this.transform.position.x < 0)
+            {
+                facingRight = false;
+                this.transform.localScale = new Vector2(-1, 1);
+            }
+        }
+        else if (!facingRight && (movePos.x - this.transform.position.x > 0
+        || (target !=null &&  target.transform.position.x - this.transform.position.x > 0)))
+        {
+            facingRight = true;
+            this.transform.localScale = new Vector2(1, 1);
+        }
+        else if (facingRight && movePos.x - this.transform.position.x < 0
+        || (target !=null &&  target.transform.position.x - this.transform.position.x < 0))
+        {
+            facingRight = false;
+            this.transform.localScale = new Vector2(-1, 1);
+        }
+
+
+
 
         if (roomCenter.x != roomPos.x * 8 || roomCenter.y != roomPos.y * 8){
             roomCenter = new Vector2(roomPos.x * 8, roomPos.y * 8);
         }
-        Debug.Log("ROOM CENTER IS: " + roomCenter.x.ToString() +  "," + roomCenter.y.ToString());
+        //Debug.Log("ROOM CENTER IS: " + roomCenter.x.ToString() +  "," + roomCenter.y.ToString());
      
         switch (state){
             
@@ -92,7 +121,8 @@ public class EnemyAI : MonoBehaviour
 
             case AIState.Shooting:
                 //shoot, then return to previous state
-                //Debug.Log("PRESSING SHOOT BUTTON");
+                Debug.Log("PRESSING SHOOT BUTTON");
+                CombatScript.UseMainHand(ai.Aim(this.transform.position, target.position));
                 //ADD: once weapon usage is figured out, implement it here. Should pass the ai position into the weapon use
                 state = AIState.Aggressive;//defaulting to aggressive, FOR NOW
                 break;

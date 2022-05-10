@@ -18,7 +18,7 @@ public class EnemyManager : MonoBehaviour
         if (instantiatedMonsters.ContainsKey(levelInfo.currPlayerPos)){
             foreach ((EnemyStats, EnemyAI) e in instantiatedMonsters[levelInfo.currPlayerPos]){
                 if (!e.Item2.getAlive()) {instantiatedMonsters[levelInfo.currPlayerPos].Remove(e); e.Item1.destroyEnemy();}
-                Debug.Log(levelInfo.currPlayerPos.x.ToString() + "," + levelInfo.currPlayerPos.y.ToString());
+                //Debug.Log(levelInfo.currPlayerPos.x.ToString() + "," + levelInfo.currPlayerPos.y.ToString());
                 e.Item2.OnUpdate(levelInfo.currPlayerPos);
             }
         }
@@ -38,10 +38,10 @@ public class EnemyManager : MonoBehaviour
     }
 
     public void InstantiateAdjacentEnemies(){
-        Debug.Log("DOING");
+        //Debug.Log("DOING");
         foreach(pos currPos in AdjacentPositions(levelInfo.currPlayerPos)){
-            Debug.Log(currPos.x);
-            Debug.Log(currPos.y);
+            //Debug.Log(currPos.x);
+            //Debug.Log(currPos.y);
             if (
                 !alreadyInstantiated.Contains(currPos)
                 &&
@@ -51,7 +51,7 @@ public class EnemyManager : MonoBehaviour
                 levelInfo.dungeonInfo.monstersPerRoom.ContainsKey(currPos))
 
             {
-                Debug.Log("Success!");
+                //Debug.Log("Success!");
                 InstantiateEnemiesInRoom(levelInfo.dungeonInfo.monstersPerRoom[currPos], currPos);
             }
         }
