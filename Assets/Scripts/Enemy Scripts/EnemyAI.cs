@@ -33,19 +33,24 @@ public class EnemyAI : MonoBehaviour
         timeSinceLastAction = 0;
         
     }
+    /*
     void Update() //temporary, delete later once called in EnemyManager script
     {
         OnUpdate(new pos(0,0)); //DELETE LATER(call OnUpdate through the EnemyManager Script!)
     }
+    */
     void OnCollisionEnter2D(Collision2D col){ //for now, any collisions will trigger a movement reset
         movePos = this.transform.position;//movement reset
     }
     
-    void OnUpdate(pos roomPos)
+    public void OnUpdate(pos roomPos)
     {
-        if (roomCenter == null){
+
+        if (roomCenter.x != roomPos.x * 8 || roomCenter.y != roomPos.y * 8){
             roomCenter = new Vector2(roomPos.x * 8, roomPos.y * 8);
         }
+        Debug.Log("ROOM CENTER IS: " + roomCenter.x.ToString() +  "," + roomCenter.y.ToString());
+     
         switch (state){
             
             case AIState.Roaming:
@@ -86,7 +91,7 @@ public class EnemyAI : MonoBehaviour
 
             case AIState.Shooting:
                 //shoot, then return to previous state
-                Debug.Log("PRESSING SHOOT BUTTON");
+                //Debug.Log("PRESSING SHOOT BUTTON");
                 //ADD: once weapon usage is figured out, implement it here. Should pass the ai position into the weapon use
                 state = AIState.Aggressive;//defaulting to aggressive, FOR NOW
                 break;
@@ -116,18 +121,18 @@ public class EnemyAI : MonoBehaviour
         target = ai.GetTarget(this.transform.position);
         if (target){ //if there is a detectable target, consider either to aggress or retreat
             float healthPercent = CombatScript.getStats().getHealth()/CombatScript.getStats().getMaxHealth();
-            Debug.Log("HEALTH PERCENT IS " + healthPercent.ToString());
+            //Debug.Log("HEALTH PERCENT IS " + healthPercent.ToString());
             if (ai.shouldFlee(healthPercent)){
-                Debug.Log("SWITCHING TO RETREAT STATE");
+                //Debug.Log("SWITCHING TO RETREAT STATE");
                 state = AIState.Retreating;
             }
             else{
-                Debug.Log("SWITCHING TO AGGRESSIVE STATE");
+                //Debug.Log("SWITCHING TO AGGRESSIVE STATE");
                 state = AIState.Aggressive;
                 }
         }
         else{
-            Debug.Log("SWITCHING TO ROAMING STATE");
+            //Debug.Log("SWITCHING TO ROAMING STATE");
             state = AIState.Roaming;
         }
     }

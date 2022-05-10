@@ -10,9 +10,21 @@ public class EnemyManager : MonoBehaviour
     public GameObject violin, tambourine, demon;
 
     HashSet<pos> alreadyInstantiated;
+
+    public Dictionary<pos, List<EnemyAI>> instantiatedMonsters;
     // Start is called before the first frame update
+
+    void Update(){
+        if (instantiatedMonsters.ContainsKey(levelInfo.currPlayerPos)){
+            foreach (EnemyAI e in instantiatedMonsters[levelInfo.currPlayerPos]){
+                Debug.Log(levelInfo.currPlayerPos.x.ToString() + "," + levelInfo.currPlayerPos.y.ToString());
+                e.OnUpdate(levelInfo.currPlayerPos);
+            }
+        }
+    }
     void Start()
     {
+        instantiatedMonsters = new Dictionary<pos, List<EnemyAI>>();
         alreadyInstantiated = new HashSet<pos>();
         levelInfo = this.GetComponent<LevelInfo>();
         monsters = new Dictionary <Monsters, GameObject>();
@@ -64,7 +76,13 @@ public class EnemyManager : MonoBehaviour
         int spawnAreaOffset = roomscale/2;
         int offsetx = UnityEngine.Random.Range(-roomscale, roomscale);
         int offsety = UnityEngine.Random.Range(-roomscale, roomscale);
-        Instantiate(monsters[monster], new Vector3(roomPos.x * roomscale, roomPos.y * roomscale,0), Quaternion.identity);
-
+        var enemy = Instantiate(monsters[monster], new Vector3(roomPos.x * roomscale, roomPos.y * roomscale,0), Quaternion.identity);
+        EnemyAI enemyAI = enemy.GetComponent<EnemyAI>(); //get the enemy's specific AI script
+        if (enemyAI != null){
+            if (!instantiatedMonsters.ContainsKey(roomPos)){
+                instantiatedMonsters.Add(roomPos, new List<EnemyAI>());
+            }
+            instantiatedMonsters[roomPos].Add(enemyAI);
+        }
     }
 }
