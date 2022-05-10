@@ -249,7 +249,7 @@ MonoBehaviour:
   currHealth: 100
   maxHealth: 100
   moveSpeed: 4
-  mainHand: {fileID: 0}
+  mainHand: {fileID: 2835349555388964073, guid: a547bd5714e97a045a032627f40e6cc3, type: 3}
   offHand: {fileID: 0}
   healthBar: {fileID: 577713689186748102, guid: 05320d0683265b746856a344120fc895, type: 3}
   offSet: 0.5

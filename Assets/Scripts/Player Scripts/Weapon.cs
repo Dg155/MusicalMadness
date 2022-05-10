@@ -28,12 +28,12 @@ public class Weapon : MonoBehaviour
         Render();
     }
 
-    virtual public IEnumerator Use()
+    virtual public IEnumerator Use(Vector3 shootPos)
     {
         if (canFire){
             canFire = false;
             if (ranged){
-                spawnProjectile(facingRight);
+                spawnProjectile(facingRight, shootPos);
             }
             else{
                 meleeAttack();
@@ -45,7 +45,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public virtual void spawnProjectile(bool facingRight){
+    public virtual void spawnProjectile(bool facingRight, Vector3 shootPos){
 
     }
 

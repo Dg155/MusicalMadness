@@ -9,7 +9,7 @@ public class ProjectileBase : MonoBehaviour
     private Rigidbody2D rb;
     public attackInfo attack;
 
-    public virtual void setCourseOfFire(int bulletSpeed, bool facingRight)
+    public virtual void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos)
     {
         // Determine velocity and direction of projectile
     }

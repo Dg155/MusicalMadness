@@ -56,22 +56,22 @@ public class Combat : MonoBehaviour
     public void Heal(float quantity){
         stats.addHealth(quantity);
     }
-    public void UseMainHand()
+    public void UseMainHand(Vector3 shootPos)
     {
         if (mainHand is null)
         {
             setMainHand(); //move this later to only call when switching/changing weapons
         }
-        mainHand.StartCoroutine("Use");
+        mainHand.StartCoroutine("Use", shootPos);
     }
 
-    public void UseOffHand()
+    public void UseOffHand(Vector3 shootPos)
     {
         if (offHand is null)
         {
             setOffHand();
         }
-        offHand.Use();
+        offHand.Use(shootPos);
     } 
 
     public void setMainHand(){

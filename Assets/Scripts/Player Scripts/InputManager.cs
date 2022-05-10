@@ -26,10 +26,10 @@ public class InputManager : MonoBehaviour
             animator.SetFloat("Speed", 0);
         }
         if (Input.GetMouseButton(0)){
-            UseMainHand();
+            UseMainHand(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
         if (Input.GetMouseButton(1)){
-            UseOffHand();
+            UseOffHand(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
     }
 
@@ -38,11 +38,11 @@ public class InputManager : MonoBehaviour
         playerMove.Move(horizontal, vertical);
     }
 
-    private void UseMainHand() {
-        playerCombat.UseMainHand();
+    private void UseMainHand(Vector3 mousePos) {
+        playerCombat.UseMainHand(mousePos);
     }
 
-    private void UseOffHand() {
-        playerCombat.UseOffHand();
+    private void UseOffHand(Vector3 mousePos) {
+        playerCombat.UseOffHand(mousePos);
     }
 }

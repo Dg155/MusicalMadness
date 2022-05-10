@@ -19,8 +19,8 @@ public class Trumpet : Weapon
         ranged = true;
     }
 
-    override public void spawnProjectile(bool facingRight){
+    override public void spawnProjectile(bool facingRight, Vector3 shootPos){
         GameObject proj = Instantiate(projectile, projectileTransform.position, Quaternion.identity);
-        proj.GetComponent<ProjectileBase>().setCourseOfFire(bulletSpeed, facingRight);
+        proj.GetComponent<ProjectileBase>().setCourseOfFire(bulletSpeed, facingRight, shootPos);
     }
 }
