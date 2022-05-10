@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStats : BaseStats
 {
-    public int souls; 
+    public int souls;
 
     override protected void Die(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -33,5 +33,5 @@ public class PlayerStats : BaseStats
         souls += quantity;
         if (souls < 0){souls = 0;}
     }
-    
+
 }

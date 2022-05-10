@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
 public struct pos
 {
     public int x;
@@ -34,7 +35,7 @@ public class GenerateLevel : MonoBehaviour
     public ScriptableLevelEnemies levelEnemies; //NOT WORKING ATM. 
     System.Random random = new System.Random();
 
-    [SerializeField] public Dictionary<int, Dictionary<Monsters, int>> dungeonTiers; 
+    [SerializeField] public Dictionary<int, Dictionary<Monsters, int>> dungeonTiers;
 
     void Awake()
     {

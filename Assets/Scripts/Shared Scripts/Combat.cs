@@ -53,7 +53,6 @@ public class Combat : MonoBehaviour
         //unfinished(receives poison which tickets every second)
     }
 
-
     public void Heal(float quantity){
         stats.addHealth(quantity);
     }
