@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Artifact1
   type: 2
+  image: {fileID: 21300000, guid: a325ef205f1650348933dba8b50114fe, type: 3}
   cost: 0
   isDefaultItem: 0
   itemObject: {fileID: 8935746270485276401, guid: b1d8b67a8fec34b99ad3308d5652d43c, type: 3}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class E_ViolinStats : BaseStats
 {
     public int soulsDropped;
+    public GameObject soul;
     public float directionChangeMin = 1f;
     public float directionChangeMax = 3f;
     private bool newDirection = true;
@@ -36,7 +37,8 @@ public class E_ViolinStats : BaseStats
     override protected void Die(){
         for(int i =0; i < soulsDropped; i++)
         {
-            Debug.Log("Drop a soul");
+            float offSet = Random.Range(-0.2f, 0.2f);
+            Instantiate(soul, transform.position + new Vector3(offSet, offSet), Quaternion.identity);
         }
         Destroy(gameObject);
     }

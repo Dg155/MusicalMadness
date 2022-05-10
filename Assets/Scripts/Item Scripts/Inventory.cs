@@ -6,7 +6,7 @@ public class Inventory : MonoBehaviour
 {
     #region Singleton
     public static Inventory instance;
-    public PlayerStats playerStats;
+    private PlayerStats playerStats;
 
     void Awake()
     {
@@ -21,29 +21,23 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
-    //creates an event (message) that updates UI
+    // Creates an event (message) that updates UI
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
-
+    // Variables to keep track of mainHand Weapon
     public Item mainHand;
     public GameObject mainHandObject;
+    // List of items, the "inventory"
     public List<Item> items = new List<Item>();
+    // Int limiting the amount of weapons the player could carry
     public int weaponSpace;
-    //we are only limiting how many weapons the player may have
+    // Varaibles to keep count of the types of weapons stored
+    int numWeapons = 0;
+    int numSouls = 0;
+    int numArtifacts = 0;
 
     public int GetItemTypeAmt(ItemType requestedItemType)
     {
-        //count how many of each type there are in item list
-        int numWeapons = 0;
-        int numSouls = 0;
-        int numArtifacts = 0;
-        foreach (Item it in items)
-        {
-            if (it.type == ItemType.Weapon) { numWeapons += 1; }
-            else if (it.type == ItemType.Soul) { numSouls += 1; }
-            else if (it.type == ItemType.Artifact) { numArtifacts += 1; }
-        }
-
         if (requestedItemType == ItemType.Weapon) { return numWeapons; }
         else if (requestedItemType == ItemType.Soul) { return numSouls; }
         else if (requestedItemType == ItemType.Artifact) { return numArtifacts; }
@@ -58,12 +52,12 @@ public class Inventory : MonoBehaviour
     public bool Add (Item item)
     //func returns a bool to say whether the player successfully picked up the item (true --> destroy gameObj, false --> don't destroy)
     {
-        int numWeapons = GetItemTypeAmt(ItemType.Weapon);
+        int numberOfWeapons = GetItemTypeAmt(ItemType.Weapon);
 
         //if the item isn't a default item, then we can consider adding it to inventory
         if (!item.isDefaultItem)
         {
-            if (item.type == ItemType.Weapon && GetItemTypeAmt(ItemType.Weapon) >= weaponSpace)
+            if (item.type == ItemType.Weapon && numberOfWeapons >= weaponSpace)
             {
                 Debug.Log(GetItemTypeAmt(ItemType.Weapon));
                 Debug.Log("You're carrying too many weapons");
@@ -77,7 +71,7 @@ public class Inventory : MonoBehaviour
                 return false;
             }
 
-            //there's no reason to not add the item to inventory, so let's pick it up. If we're not holding anything in the main hand, make the item the main hand
+            // Since there's no reason to not add the item to inventory we pick it up. If we're not holding anything in the main hand, make the item the main hand
             if (item.type == ItemType.Weapon && mainHand == null)
             {
                 SetMainHand(item, false);
@@ -87,6 +81,9 @@ public class Inventory : MonoBehaviour
             if (item != null)
             {
                 items.Add(item);
+                if (item.type == ItemType.Weapon) { numWeapons++; }
+                else if (item.type == ItemType.Soul) { numSouls++; }
+                else if (item.type == ItemType.Artifact) { numArtifacts++; }
             }
 
             //if statement checks if any methods are subscribed to this event
@@ -102,6 +99,9 @@ public class Inventory : MonoBehaviour
     public void Remove (Item item)
     {
         items.Remove(item);
+        if (item.type == ItemType.Weapon) { numWeapons--; }
+        else if (item.type == ItemType.Soul) { numSouls--; }
+        else if (item.type == ItemType.Artifact) { numArtifacts--; }
         if (onItemChangedCallback != null)
         {
             onItemChangedCallback.Invoke();

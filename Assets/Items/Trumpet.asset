@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Trumpet
   type: 0
+  image: {fileID: 7123785896266969840, guid: a42ffc7f493a8974e87d2cc13c0118b5, type: 3}
   cost: 0
   isDefaultItem: 0
   itemObject: {fileID: 2835349555388964073, guid: a547bd5714e97a045a032627f40e6cc3, type: 3}

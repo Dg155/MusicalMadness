@@ -9,7 +9,7 @@ public class ItemObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetComponent<SpriteRenderer>().sprite = item.image;
     }
 
     // Update is called once per frame
@@ -25,6 +25,10 @@ public class ItemObject : MonoBehaviour
             bool gotPickedUp = Inventory.instance.Add(item);
             if (gotPickedUp)
             {
+                if (item.name == "Soul")
+                {
+                    other.GetComponent<PlayerStats>().addSouls(1);
+                }
                 Destroy(gameObject);
             }
         }

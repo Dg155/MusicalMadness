@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Weapon1
   type: 0
+  image: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   cost: 0
   isDefaultItem: 0
   itemObject: {fileID: 8935746270485276401, guid: b1d8b67a8fec34b99ad3308d5652d43c, type: 3}
