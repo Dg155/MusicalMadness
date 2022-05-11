@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6acf3945cbe77541bdf9258ce5be6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currHealth: 100
+  currHealth: 1000
   maxHealth: 100
   moveSpeed: 4
   mainHand: {fileID: 0}
