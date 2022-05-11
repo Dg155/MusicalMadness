@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class QuarterNoteProjectile : ProjectileBase
 {
-    public override void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos)
+    public override void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
+        projTargetTags = targetTags;
         Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
         Vector3 direction = shootPos - transform.position;
         Vector3 rotation = transform.position - shootPos;

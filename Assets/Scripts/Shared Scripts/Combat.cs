@@ -22,10 +22,21 @@ public class Combat : MonoBehaviour
     Weapon offHand;
     BaseStats stats;
 
+    HashSet<string> targetTags = new HashSet<string>();
+
     entityType type;
     void Start()
     {
         stats = this.GetComponent<BaseStats>();
+
+        if (this.tag == "Enemy")
+        {
+            targetTags.Add("Player");
+        }
+        else
+        {
+            targetTags.Add("Enemy");
+        }
     }
     public BaseStats getStats(){
         if (stats == null){Debug.Log("Player stats is missing!");}
@@ -62,7 +73,7 @@ public class Combat : MonoBehaviour
         {
             setMainHand(); //move this later to only call when switching/changing weapons
         }
-        mainHand.StartCoroutine("Use", shootPos);
+        StartCoroutine(mainHand.Use(shootPos, targetTags));
     }
 
     public void UseOffHand(Vector3 shootPos)
@@ -71,7 +82,7 @@ public class Combat : MonoBehaviour
         {
             setOffHand();
         }
-        offHand.Use(shootPos);
+        offHand.Use(shootPos, targetTags);
     } 
 
     public void setMainHand(){

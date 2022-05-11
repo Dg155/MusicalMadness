@@ -25,15 +25,15 @@ public class Weapon : MonoBehaviour
         Render();
     }
 
-    virtual public IEnumerator Use(Vector3 shootPos)
+    virtual public IEnumerator Use(Vector3 shootPos, HashSet<string> targetTags)
     {
         if (canFire){
             canFire = false;
             if (ranged){
-                spawnProjectile(facingRight, shootPos);
+                spawnProjectile(facingRight, shootPos, targetTags);
             }
             else{
-                meleeAttack();
+                meleeAttack(targetTags);
             }
             animator.SetBool("Fire", true);
             yield return new WaitForSeconds(coolDown);
@@ -42,11 +42,11 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public virtual void spawnProjectile(bool facingRight, Vector3 shootPos){
+    public virtual void spawnProjectile(bool facingRight, Vector3 shootPos, HashSet<string> targetTags){
 
     }
 
-    public virtual void meleeAttack(){
+    public virtual void meleeAttack(HashSet<string> targetTags){
 
     }
 

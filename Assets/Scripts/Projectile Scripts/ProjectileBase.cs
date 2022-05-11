@@ -8,10 +8,11 @@ public class ProjectileBase : MonoBehaviour
     private Vector3 mousePos;
     private Rigidbody2D rb;
     public attackInfo attack;
+    public HashSet<string> projTargetTags = new HashSet<string>();
 
-    public virtual void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos)
+    public virtual void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
-        // Determine velocity and direction of projectile
+        // Determine velocity, direction, and targets of projectile
     }
 
     public void setAttackInfo(attackInfo newAttack)
@@ -25,7 +26,7 @@ public class ProjectileBase : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (other.tag == "Enemy")
+        else if (projTargetTags.Contains(other.tag))
         {
             other.GetComponent<Combat>().ReceiveAttack(attack);
             Destroy(gameObject);
