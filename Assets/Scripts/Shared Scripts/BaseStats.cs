@@ -12,12 +12,9 @@ public class BaseStats : MonoBehaviour
     [SerializeField] protected GameObject healthBar;
     [SerializeField] protected float offSet;
     protected bool facingRight;
-    private HealthBarScript HB;
-    protected void Start()
+    public HealthBarScript HB;
+    virtual protected void Start()
     {
-        GameObject health = Instantiate(healthBar, (transform.position -  new Vector3(0,offSet,0)), Quaternion.identity);
-        health.transform.parent = this.transform;
-        HB = GetComponentInChildren<HealthBarScript>();
     }
 
     private void Update() {

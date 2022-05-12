@@ -46,12 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4158f09fdc927af4fa7f7e6d9d7b5d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currPlayerPos:
-    x: 0
-    y: 0
-  dungeonInfo:
-    orderedMainRoom: []
-    deadEnds: []
   enemyManagerTEMP: {fileID: 5393293268420629736}
 --- !u!114 &5393293268420629737
 MonoBehaviour:
@@ -65,10 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fe2215f750e584fbbc53b4587014b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfRooms: 10
-  numOfDetours: 3
-  minDetourDepth: 3
-  maxDetourDepth: 5
+  levelLayout: {fileID: 11400000, guid: 87035190743e5064790d9f4379a925ea, type: 2}
+  levelEnemies: {fileID: 11400000, guid: 90d32e15a6f4ba440baa13d897e76aa3, type: 2}
 --- !u!114 &5393293268420629738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,21 +75,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   roomSize: 8
-  All: {fileID: 2831741049878607442, guid: 2a32f65cab38bcb489ade3c545361ede, type: 3}
-  R: {fileID: 6406802629295039107, guid: b0ba916e60b7f0f4bbe7fb94d4769c16, type: 3}
-  U: {fileID: 8788164902214105411, guid: b5f4c4ea86cb1224dbb76b50e42638d7, type: 3}
-  L: {fileID: 5828109573817491248, guid: 316ce5e23abb7f0449cbb29b5a0ed3d3, type: 3}
-  D: {fileID: 2853714428008052151, guid: cc7507e084424df4f8a28e6d06cc269d, type: 3}
-  RU: {fileID: 6719465273181485433, guid: 2b1fa0f85fc26514bbbd71bda00637b5, type: 3}
-  RL: {fileID: 6356093523125252921, guid: ecf5a753d19c344468d81bb5a444fb62, type: 3}
-  RD: {fileID: 202797257075140677, guid: 217a5eb74c10ca54b9a99b468ad88c46, type: 3}
-  UL: {fileID: 7129040086092591334, guid: 6919650c0d74db346a152c6b77a984c9, type: 3}
-  UD: {fileID: 5916413386888246569, guid: 8034ad0229e5e254e95c14b77c73e770, type: 3}
-  LD: {fileID: 3807548968483393536, guid: 68a925c749f34b54d84dd7ae029b8e18, type: 3}
-  RUL: {fileID: 4826178784013643645, guid: cfeae23a5977ea24b9b43397555d37e1, type: 3}
-  ULD: {fileID: 2242293079391290143, guid: c74aaf3d653cc384ea7e6c40929a61cc, type: 3}
-  RUD: {fileID: 561888553386051347, guid: 35bec1c1a0891624395d57dfeea01cf8, type: 3}
-  RLD: {fileID: 4333617130224121713, guid: 48cd65a1637e10d46a662561874d9f16, type: 3}
+  All: {fileID: 3276668678343685653, guid: bdb6029a28347bc44b05862938a30e6d, type: 3}
+  R: {fileID: 2925953086075360835, guid: 0a00fcb3e19c6344593a3b8a85a1356c, type: 3}
+  U: {fileID: 7899279111118462203, guid: fc2f1d34f27dcc94488e448dd4c88574, type: 3}
+  L: {fileID: 2647814379780403049, guid: 13825ed1fced5f84a8e0f8beda10ddfb, type: 3}
+  D: {fileID: 3766764381463703481, guid: 47358b09a2df76f46aed5d47c621781d, type: 3}
+  RU: {fileID: 4363780474474900797, guid: 768afcda0ef551c4295f32d6e71b5424, type: 3}
+  RL: {fileID: 2531599990147939590, guid: 17ec3e47ff4e946408688bbfd9813731, type: 3}
+  RD: {fileID: 7823361116273903535, guid: ebd7e77a42b8f8e4fab6e445c7086790, type: 3}
+  UL: {fileID: 8671576114026047901, guid: ebb31ade05fc4904bb2a17bf91106cbc, type: 3}
+  UD: {fileID: 67592375749135977, guid: 646f180ef055b144ab6ab997753da93f, type: 3}
+  LD: {fileID: 3914192338972152397, guid: 4f2ef76788ff6f145acacf0a3f19e917, type: 3}
+  RUL: {fileID: 1720768465717011059, guid: 3fbf615156822244b86b9a8322e7c957, type: 3}
+  ULD: {fileID: 5622028550946498135, guid: a0288dd4d6f4df74d951216495324a30, type: 3}
+  RUD: {fileID: 5455497206697439761, guid: 57c61227f9093a64d87fc7adca882dc8, type: 3}
+  RLD: {fileID: 1610813866156056881, guid: 7f8c42f919a8b2b4ca9eca9a20f9d877, type: 3}
 --- !u!114 &5393293268420629736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c797b68cdff984eaa809cca98933f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  violin: {fileID: 3590904311455547696, guid: 88a40fe8a7227c14fae95b754797ec4d, type: 3}
-  tambourine: {fileID: 3590904311455547696, guid: 88a40fe8a7227c14fae95b754797ec4d, type: 3}
-  demon: {fileID: 3590904311455547696, guid: 88a40fe8a7227c14fae95b754797ec4d, type: 3}
+  violin: {fileID: 2006987643916260004, guid: 4787d861a046b584aa78576ed6b465af, type: 3}
+  tambourine: {fileID: 2006987643916260004, guid: e68a3ec8369d6d24d8f076e9c60cd915, type: 3}
+  demon: {fileID: 2006987643916260004, guid: e68a3ec8369d6d24d8f076e9c60cd915, type: 3}

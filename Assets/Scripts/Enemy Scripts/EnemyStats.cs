@@ -8,6 +8,11 @@ public class EnemyStats : BaseStats
     public int maxSoulsDropped;
     public GameObject soul;
 
+    override protected void Start(){
+        GameObject health = Instantiate(healthBar, (transform.position -  new Vector3(0,offSet,0)), Quaternion.identity);
+        health.transform.parent = this.transform;
+        HB = GetComponentInChildren<HealthBarScript>();
+    }
     override protected void Die(){
         GetComponent<EnemyAI>().setAlive(false);
     }

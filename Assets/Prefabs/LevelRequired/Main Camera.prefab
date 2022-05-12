@@ -102,7 +102,7 @@ MonoBehaviour:
   pos: {fileID: 0}
   playerpos: {fileID: 0}
   moving: 0
-  roomsize: 0
+  roomsize: 8
   levelInfo: {fileID: 0}
 --- !u!114 &4605801233615364036
 MonoBehaviour:
