@@ -289,7 +289,7 @@ MonoBehaviour:
   moveSpeed: 4
   mainHand: {fileID: 0}
   offHand: {fileID: 0}
-  healthBar: {fileID: 577713689186748102, guid: 05320d0683265b746856a344120fc895, type: 3}
+  healthBar: {fileID: 0}
   offSet: 0.5
   HB: {fileID: 0}
   souls: 0
