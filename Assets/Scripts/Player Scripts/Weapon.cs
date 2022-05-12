@@ -13,13 +13,27 @@ public class Weapon : MonoBehaviour
     private bool canFire = true;
     protected attackInfo attack;
 
-    private bool facingRight;
+    public bool facingRight; //the sprite by default is facing right
+    Combat CombatScript;
+    bool pointingAtPlayer;
+    Transform playerTransform;
+    Vector3 targetPos;
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        facingRight = true;
+        CombatScript = transform.GetComponentInParent<Combat>();
+        if (CombatScript.getTargetTags().Contains("Enemy")) //i.e. if the Combat Script belongs to the Player
+        {
+            pointingAtPlayer = false;
+        }
+        else
+        {
+            pointingAtPlayer = true;
+            playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        }
     }
-
     void Update()
     {
         Render();
@@ -52,12 +66,19 @@ public class Weapon : MonoBehaviour
 
     protected virtual void Render()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = mousePosition - transform.position;
+        if (pointingAtPlayer)
+        {
+            targetPos = playerTransform.position;
+        }
+        else
+        {
+            targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        Vector3 direction = targetPos - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        if(mousePosition.x - this.transform.parent.position.x > 0 && !facingRight || mousePosition.x - this.transform.parent.position.x < 0 && facingRight)
+        if(targetPos.x - this.transform.parent.position.x > 0 && !facingRight || targetPos.x - this.transform.parent.position.x < 0 && facingRight)
         {
             flip();
         }

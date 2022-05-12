@@ -42,6 +42,12 @@ public class Combat : MonoBehaviour
         if (stats == null){Debug.Log("Player stats is missing!");}
         return stats;
     }
+
+    public HashSet<string> getTargetTags()
+    {
+        return targetTags;
+    }
+
     public void ReceiveAttack(attackInfo attack){
         TakeDamage(attack.damage);
         if (attack.stunDuration > 0){receiveStun(attack.stunDuration);}
