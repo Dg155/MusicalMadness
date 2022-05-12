@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyAI
   m_EditorClassIdentifier: 
   targetTag: Player
-  detectionRadius: 4
+  detectionRadius: 2
   roamingCurve:
     serializedVersion: 2
     m_Curve:
@@ -65,9 +65,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   aggressiveDelay: 0
-  aggressiveSpeed: 4
-  aggressiveDistanceFromTarget: 2
-  aggressiveStrafeFactor: 1
+  aggressiveSpeed: 6
+  aggressiveDistanceFromTarget: 1.5
+  aggressiveStrafeFactor: 1.5
   retreatCurve:
     serializedVersion: 2
     m_Curve:
@@ -94,8 +94,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   retreatHealthPercent: 0.5
   retreatDelay: 0
-  retreatSpeed: 3
-  retreatDistanceFromTarget: 3
+  retreatSpeed: 10
+  retreatDistanceFromTarget: 4
   retreatStrafeFactor: 2
   aimOffsetFactor: 0
   shootDistanceMin: 0

@@ -124,7 +124,7 @@ public class EnemyAI : MonoBehaviour
                 Debug.Log("PRESSING SHOOT BUTTON");
                 CombatScript.UseMainHand(ai.Aim(this.transform.position, target.position));
                 //ADD: once weapon usage is figured out, implement it here. Should pass the ai position into the weapon use
-                state = AIState.Aggressive;//defaulting to aggressive, FOR NOW
+                setState();
                 break;
 
             case AIState.Retreating:
