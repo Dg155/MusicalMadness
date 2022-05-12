@@ -49,9 +49,9 @@ public class Weapon : MonoBehaviour
             else{
                 meleeAttack(targetTags);
             }
-            animator.SetBool("Fire", true);
+            if (animator != null) { animator.SetBool("Fire", true);}
             yield return new WaitForSeconds(coolDown);
-            animator.SetBool("Fire", false);
+            if (animator != null) {animator.SetBool("Fire", false);}
             canFire = true;
         }
     }

@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currHealth: 1000
-  maxHealth: 100
+  maxHealth: 1000
   moveSpeed: 4
   mainHand: {fileID: 0}
   offHand: {fileID: 0}

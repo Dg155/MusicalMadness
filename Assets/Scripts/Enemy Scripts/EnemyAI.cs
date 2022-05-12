@@ -27,10 +27,6 @@ public class EnemyAI : MonoBehaviour
 
     private bool facingRight = true;
 
-    public float timeBetweenShooting = 1.0f;
-
-    private bool readyToShoot = true;
-
     void Start()
     {
         MovementScript = this.GetComponent<EnemyMove>();
@@ -116,9 +112,8 @@ public class EnemyAI : MonoBehaviour
                     MovementScript.MoveToward(movePos, ai.aggressiveSpeed, ref ai, ai.aggressiveCurve);
                 }
                 //Check if conditions are correct to shoot, if so, calculate an aiming position and shoot
-                if (ai.isReadyToShoot(this.transform.position, target) && readyToShoot){
+                if (ai.isReadyToShoot(this.transform.position, target)){
                     state = AIState.Shooting;
-                    StartCoroutine("resetShoot");
                     return;
                 }
                 setState();
@@ -181,13 +176,6 @@ public class EnemyAI : MonoBehaviour
     public bool getAlive()
     {
         return isAlive;
-    }
-
-    IEnumerator resetShoot()
-    {
-        readyToShoot = false;
-        yield return new WaitForSeconds(timeBetweenShooting);
-        readyToShoot = true;
     }
 
 }
