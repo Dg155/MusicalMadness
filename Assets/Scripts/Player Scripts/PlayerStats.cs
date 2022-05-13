@@ -7,9 +7,14 @@ using UnityEngine.SceneManagement;
 public class PlayerStats : BaseStats
 {
     public int souls;
-
     override protected void Die(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        LevelLoader l= FindObjectOfType<LevelLoader>();
+        if (l != null){
+            l.ReloadLevel();
+        }
+        else{
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     protected override void Render()

@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour
 
     Combat CombatScript; //combat script that deals with combat
 
-    AIState state; //current state: Roaming, Aggressive, Retreating, Shooting
+    [SerializeField] AIState state; //current state: Roaming, Aggressive, Retreating, Shooting
 
     public Transform target; //when detecting a player, target is that player
 
@@ -48,7 +48,6 @@ public class EnemyAI : MonoBehaviour
     
     public void OnUpdate(pos roomPos)
     {
-        
         if (target != null){
             if (!facingRight && target.transform.position.x - this.transform.position.x > 0){
                 facingRight = true;
@@ -80,9 +79,8 @@ public class EnemyAI : MonoBehaviour
             roomCenter = new Vector2(roomPos.x * 8, roomPos.y * 8);
         }
         //Debug.Log("ROOM CENTER IS: " + roomCenter.x.ToString() +  "," + roomCenter.y.ToString());
-     
         switch (state){
-            
+
             case AIState.Roaming:
                 //Ask AI to calculate new move position
                 if (Vector2.Distance(movePos, this.transform.position) < 0.01){
@@ -99,6 +97,10 @@ public class EnemyAI : MonoBehaviour
 
             case AIState.Aggressive:
                 //Ask AI to calculate new move position
+                if (target == null){
+                    setState();
+                    break;
+                }
                 timeSinceLastAction += Time.deltaTime;
                 if (Vector2.Distance(movePos, this.transform.position) < 0.01){
                     if (timeSinceLastAction > ai.aggressiveDelay){
@@ -122,6 +124,10 @@ public class EnemyAI : MonoBehaviour
             case AIState.Shooting:
                 //shoot, then return to previous state
                 //Debug.Log("PRESSING SHOOT BUTTON");
+                if (target == null){
+                    setState();
+                    break;
+                }
                 CombatScript.UseMainHand(ai.Aim(this.transform.position, target.position));
                 //ADD: once weapon usage is figured out, implement it here. Should pass the ai position into the weapon use
                 setState();
@@ -129,6 +135,9 @@ public class EnemyAI : MonoBehaviour
 
             case AIState.Retreating:
                 timeSinceLastAction += Time.deltaTime;
+                if (target == null){
+                    setState();
+                }
                 if (Vector2.Distance(movePos, this.transform.position) < 0.5){
                     if (timeSinceLastAction > ai.retreatDelay){
                         movePos = ai.NewRetreatPos(this.transform.position, target.position, roomCenter);
@@ -149,7 +158,9 @@ public class EnemyAI : MonoBehaviour
     }
 
     void setState(){
-        target = ai.GetTarget(this.transform.position);
+        if (target == null){
+            target = ai.GetTarget(this.transform.position);
+        }
         if (target){ //if there is a detectable target, consider either to aggress or retreat
             float healthPercent = CombatScript.getStats().getHealth()/CombatScript.getStats().getMaxHealth();
             //Debug.Log("HEALTH PERCENT IS " + healthPercent.ToString());

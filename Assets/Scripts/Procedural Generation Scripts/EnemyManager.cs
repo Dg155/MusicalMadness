@@ -30,8 +30,8 @@ public class EnemyManager : MonoBehaviour
         levelInfo = this.GetComponent<LevelInfo>();
         monsters = new Dictionary <Monsters, GameObject>();
         monsters.Add(Monsters.Violin, violin);
-        monsters.Add(Monsters.Tambourine, violin);//change once several enemies implemented
-        monsters.Add(Monsters.Demon, violin);//change once several enemies implemented
+        monsters.Add(Monsters.Tambourine, tambourine);//change once several enemies implemented
+        monsters.Add(Monsters.Demon, demon);//change once several enemies implemented
         InstantiateAdjacentEnemies();
         pos origin = new pos(0,0);
         InstantiateEnemiesInRoom(levelInfo.dungeonInfo.monstersPerRoom[origin], origin);
@@ -74,10 +74,10 @@ public class EnemyManager : MonoBehaviour
         alreadyInstantiated.Add(roomPos);
     }
     void InstantiateEnemyInRoom(Monsters monster, pos roomPos){
-        int spawnAreaOffset = roomscale/2;
-        int offsetx = UnityEngine.Random.Range(-roomscale, roomscale);
-        int offsety = UnityEngine.Random.Range(-roomscale, roomscale);
-        var enemy = Instantiate(monsters[monster], new Vector3(roomPos.x * roomscale, roomPos.y * roomscale,0), Quaternion.identity);
+        int spawnAreaOffset = roomscale/2 - 2;
+        int offsetx = UnityEngine.Random.Range(-spawnAreaOffset, spawnAreaOffset);
+        int offsety = UnityEngine.Random.Range(-spawnAreaOffset, spawnAreaOffset);
+        var enemy = Instantiate(monsters[monster], new Vector3(roomPos.x * roomscale + offsetx, roomPos.y * roomscale + offsety,0), Quaternion.identity);
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>(); //get the enemy's specific AI script
         EnemyStats enemyStats = enemy.GetComponent<EnemyStats>(); //get the enemy's specific Stats Script
         if (enemyAI != null){
