@@ -18,6 +18,7 @@ public struct pos
 [Flags] //NEW ROOM DATA STRUCTURE
 public enum Dir{R = 1, U = 2, L = 4, D = 8}
 public enum Monsters{Violin, Tambourine, Demon}
+public enum DeadEnds{Nothing, Chest, Amush}
 
 [System.Serializable]
 public struct DungeonInfo
@@ -25,7 +26,7 @@ public struct DungeonInfo
     public Dictionary<pos, Dir> mainPaths;
     public Dictionary<pos, Dir> detourPaths;
     public List<pos> orderedMainRoom;
-    public List<pos> deadEnds;
+    public Dictionary<pos, DeadEnds> deadEnds;
     public Dictionary<pos, List<Monsters>> monstersPerRoom;
 }
 
@@ -41,11 +42,11 @@ public class GenerateLevel : MonoBehaviour
     {
         levelEnemies.Generate();
         dungeonTiers = levelEnemies.dungeonTiers;
-        DungeonInfo temp = proceduralGenerationOne(levelLayout.amountOfRooms, levelLayout.numOfDetours, new pos(levelLayout.minDetourDepth,levelLayout.maxDetourDepth));
-        this.GetComponent<LevelInfo>().dungeonInfo = temp;
+        DungeonInfo Roomlayout = proceduralGenerationOne(levelLayout.amountOfRooms, levelLayout.numOfDetours, new pos(levelLayout.minDetourDepth,levelLayout.maxDetourDepth), levelLayout.chestRooms, levelLayout.amushRooms);
+        this.GetComponent<LevelInfo>().dungeonInfo = Roomlayout;
     }
 
-    public DungeonInfo proceduralGenerationOne(int mainrooms, int num_of_detours, pos detourDepth)
+    public DungeonInfo proceduralGenerationOne(int mainrooms, int num_of_detours, pos detourDepth, int num_of_chestrooms, int num_of_amushrooms)
     //Function creates the structure of the rooms based on specific parameters
     {
         //Create the dungeon information
@@ -53,7 +54,7 @@ public class GenerateLevel : MonoBehaviour
         Dictionary<pos, Dir> mainpaths = new Dictionary<pos, Dir>();
         Dictionary<pos, Dir> detours = new Dictionary<pos, Dir>();
         List<pos> orderedMainRoom = new List<pos>();
-        List<pos> deadEnds = new List<pos>();
+        Dictionary<pos, DeadEnds> deadEnds = new Dictionary<pos, DeadEnds>();
 
         //Create datastructures for enemy generation
         Dictionary<int, List<pos>> roomTiers = new Dictionary<int, List<pos>>();
@@ -146,7 +147,18 @@ public class GenerateLevel : MonoBehaviour
                 //Filter out all the directions taken up by already determined rooms
                 Dir filteredDetourPathOptions = filterPathOptions(detourPos, mainpaths, detours, all_Directions);
                 //If there are no available directions then detour can't go anywhere and is a dead end
-                if (filteredDetourPathOptions == 0) {deadEnds.Add(detourPos); if (!roomTiers[detourRoomTier].Contains(detourPos)) {roomTiers[detourRoomTier].Add(detourPos);} break;}
+                if (filteredDetourPathOptions == 0) 
+                {
+                    if (num_of_chestrooms != 0) {deadEnds.Add(detourPos, DeadEnds.Chest); num_of_chestrooms--;}
+                    else if (num_of_amushrooms != 0) {deadEnds.Add(detourPos, DeadEnds.Amush); num_of_amushrooms--;}
+                    else {deadEnds.Add(detourPos, DeadEnds.Amush);}
+                    /*
+                    if (!roomTiers[detourRoomTier].Contains(detourPos)) 
+                    {
+                        roomTiers[detourRoomTier].Add(detourPos);
+                    } */
+                    break;
+                }
                 //Create empty binary to store the detour room directions
                 Dir detourDoorOptions = 0;
                 //Add the previous direction to the binary
@@ -173,12 +185,14 @@ public class GenerateLevel : MonoBehaviour
                 //If the room is the last one in the detour path
                 {
                     //Add to deadEnds list
-                    deadEnds.Add(detourPos);
+                    if (num_of_chestrooms != 0) {deadEnds.Add(detourPos, DeadEnds.Chest); num_of_chestrooms--;}
+                    else if (num_of_amushrooms != 0) {deadEnds.Add(detourPos, DeadEnds.Amush); num_of_amushrooms--;}
+                    else {deadEnds.Add(detourPos, DeadEnds.Amush);}
                     //Add/replace the detour room into the dictionary
                     if (detours.ContainsKey(detourPos)) {detours[detourPos] = detourDoorOptions;}
                     else {detours.Add(detourPos, detourDoorOptions);}
                     //Add detour room into its respective tier
-                    if (!roomTiers[detourRoomTier].Contains(detourPos)) {roomTiers[detourRoomTier].Add(detourPos);}
+                    //if (!roomTiers[detourRoomTier].Contains(detourPos)) {roomTiers[detourRoomTier].Add(detourPos);}
                 }
             }
         }

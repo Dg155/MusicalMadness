@@ -9,4 +9,6 @@ public class ScriptableLevelLayout : ScriptableObject
     public int numOfDetours;
     public int minDetourDepth;
     public int maxDetourDepth;
+    public int chestRooms;
+    public int amushRooms;
 }

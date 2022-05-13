@@ -40,8 +40,6 @@ public class EnemyManager : MonoBehaviour
     public void InstantiateAdjacentEnemies(){
         //Debug.Log("DOING");
         foreach(pos currPos in AdjacentPositions(levelInfo.currPlayerPos)){
-            //Debug.Log(currPos.x);
-            //Debug.Log(currPos.y);
             if (
                 !alreadyInstantiated.Contains(currPos)
                 &&

@@ -16,3 +16,5 @@ MonoBehaviour:
   numOfDetours: 3
   minDetourDepth: 4
   maxDetourDepth: 6
+  chestRooms: 3
+  amushRooms: 0
