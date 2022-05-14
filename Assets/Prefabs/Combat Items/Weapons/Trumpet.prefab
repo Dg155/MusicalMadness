@@ -149,10 +149,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1370923df11dfd64288b7f743dbcef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDown: 0.1
+  coolDown: 0.2
+  coolDownSecondary: 0.4
+  facingRight: 0
   projectile: {fileID: 6102382208412875363, guid: d32f0dd933c42934090f3dc48589ba35, type: 3}
+  projectileSecondary: {fileID: 3144140597971581921, guid: 054eee3d96713e9499740068e9b59420, type: 3}
   projectileTransform: {fileID: 2835349553931640191}
   bulletSpeed: 10
+  bulletSpeedSecondary: 5
 --- !u!95 &5636066111209543549
 Animator:
   serializedVersion: 3

@@ -20,6 +20,15 @@ public class ProjectileBase : MonoBehaviour
         attack = newAttack;
     }
 
+    public void boostAttack(attackInfo attackBoost)
+    {
+        attack.damage += attackBoost.damage;
+        attack.stunDuration += attackBoost.stunDuration;
+        attack.blindDuration += attackBoost.blindDuration;
+        attack.poisonDuration += attackBoost.poisonDuration;
+        attack.poisonDamage += attackBoost.poisonDamage;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Wall")
