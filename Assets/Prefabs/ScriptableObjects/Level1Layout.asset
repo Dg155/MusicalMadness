@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68631f91a71f9f348adf55a8002b6548, type: 3}
   m_Name: Level1Layout
   m_EditorClassIdentifier: 
-  amountOfRooms: 16
-  numOfDetours: 3
-  minDetourDepth: 4
-  maxDetourDepth: 6
+  amountOfRooms: 30
+  numOfDetours: 8
+  minDetourDepth: 1
+  maxDetourDepth: 2
   chestRooms: 3
-  amushRooms: 0
+  amushRooms: 2

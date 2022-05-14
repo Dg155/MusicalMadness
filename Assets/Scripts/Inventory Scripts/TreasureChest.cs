@@ -20,7 +20,7 @@ public class TreasureChest : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if (Closed)
+        if (Closed && other.gameObject.tag == "Player")
         {
             Closed = false;
             GetComponent<SpriteRenderer>().sprite = openChest;

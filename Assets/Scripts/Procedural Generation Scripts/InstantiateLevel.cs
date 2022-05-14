@@ -13,7 +13,7 @@ public class InstantiateLevel : MonoBehaviour
     public ScriptableLevelArtifacts levelArtifacts;
     List<GameObject> artifacts = new List<GameObject>();
     System.Random random = new System.Random();
-    public GameObject ambushTrigger;
+    public GameObject ambushChest;
     void Awake(){
         rooms = new Dictionary<Dir, GameObject>();
         rooms.Add(Dir.D|Dir.L|Dir.R|Dir.U,All);
@@ -40,7 +40,7 @@ public class InstantiateLevel : MonoBehaviour
         newRoom.transform.parent = grid.transform;
     }
 
-    void InstantiateDeadEnd(pos position, DeadEnds roomType){
+    void InstantiateDeadEnd(pos position, DeadEnds roomType, Dir direction){
         if (roomType == DeadEnds.Chest) {
             var newChest = Instantiate(TreasureChest, new Vector3(position.x * roomSize ,position.y * roomSize, 0), Quaternion.identity);
             GameObject artifact = artifacts[random.Next(artifacts.Count)];
@@ -48,12 +48,15 @@ public class InstantiateLevel : MonoBehaviour
             newChest.GetComponent<TreasureChest>().setItem(artifact);
         }
         if (roomType == DeadEnds.Amush) {
-            Instantiate(ambushTrigger, new Vector3(position.x * roomSize ,position.y * roomSize, 0), Quaternion.identity);
+            var newChest = Instantiate(ambushChest, new Vector3(position.x * roomSize ,position.y * roomSize, 0), Quaternion.identity);
+            AmushTrigger chestScript = newChest.GetComponent<AmushTrigger>();
+            chestScript.setMonster(Monsters.Violin);
+            chestScript.setRoomPos(position);
+            chestScript.setBlocker(direction);
         }
     }
 
     public void InstantiateFromDungeonInfo(DungeonInfo info){
-        //UNFINISHED
         Dictionary<pos, Dir> mainPaths = info.mainPaths;
         foreach(var room in mainPaths){
             InstantiateRoom(room.Key, room.Value);
@@ -65,7 +68,7 @@ public class InstantiateLevel : MonoBehaviour
         Dictionary<pos, DeadEnds> deadEnds = info.deadEnds;
         foreach(var room in deadEnds)
         {
-            InstantiateDeadEnd(room.Key, room.Value);
+            InstantiateDeadEnd(room.Key, room.Value, detourPaths[room.Key]);
         }
     }
 }

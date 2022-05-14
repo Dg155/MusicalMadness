@@ -7,7 +7,10 @@ public class EnemyManager : MonoBehaviour
     LevelInfo levelInfo;
     int roomscale = 8;
     Dictionary <Monsters, GameObject> monsters;
+    private List<(EnemyStats, EnemyAI)> ambushMonsters;
+    private bool ambushRoomActivated = false;
     public GameObject violin, tambourine, demon;
+    public AudioClip classicalMusic;
 
     HashSet<pos> alreadyInstantiated;
 
@@ -22,11 +25,28 @@ public class EnemyManager : MonoBehaviour
                 e.Item2.OnUpdate(levelInfo.currPlayerPos);
             }
         }
+        if (ambushMonsters.Count != 0){
+            foreach((EnemyStats, EnemyAI) e in ambushMonsters)
+            {
+                if (!e.Item2.getAlive()) {ambushMonsters.Remove(e); e.Item1.destroyEnemy();}
+                e.Item2.OnUpdate(levelInfo.currPlayerPos);
+            }
+        }
+        if (ambushRoomActivated && ambushMonsters.Count == 0)
+        {
+            ambushRoomActivated = false;
+            AudioSource musicPlayer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+            musicPlayer.clip = classicalMusic;
+            musicPlayer.Play();
+            Destroy(GameObject.FindGameObjectWithTag("DoorBlock"));
+            //Reward the player
+        }
     }
     void Start()
     {
         instantiatedMonsters = new Dictionary<pos, List<(EnemyStats, EnemyAI)>>();
         alreadyInstantiated = new HashSet<pos>();
+        ambushMonsters = new List<(EnemyStats, EnemyAI)>();
         levelInfo = this.GetComponent<LevelInfo>();
         monsters = new Dictionary <Monsters, GameObject>();
         monsters.Add(Monsters.Violin, violin);
@@ -65,6 +85,25 @@ public class EnemyManager : MonoBehaviour
         return adjacentPositions;
     }
 
+    List<(int, int)> AmbushEnemiesSpawn(pos roomPos)
+    {
+        List<(int, int)> spawnPositions = new List<(int, int)>();
+        int roomCenterx = roomPos.x * roomscale;
+        int roomCentery = roomPos.y * roomscale;
+        for (int i = -1; i<2; ++i)
+        {
+            for (int j = -1; j<2; ++j)
+            {
+                if (i != 0)
+                {  
+                    spawnPositions.Add((roomCenterx + (2*i), roomCentery + (2*j)));
+                }
+            }
+        }
+
+        return spawnPositions;
+    }
+
     void InstantiateEnemiesInRoom(List<Monsters> monsters, pos roomPos){
         foreach(Monsters m in monsters){
             InstantiateEnemyInRoom(m, roomPos);
@@ -72,10 +111,10 @@ public class EnemyManager : MonoBehaviour
         alreadyInstantiated.Add(roomPos);
     }
     void InstantiateEnemyInRoom(Monsters monster, pos roomPos){
-        int spawnAreaOffset = roomscale/2;
-        int offsetx = UnityEngine.Random.Range(-roomscale, roomscale);
-        int offsety = UnityEngine.Random.Range(-roomscale, roomscale);
-        var enemy = Instantiate(monsters[monster], new Vector3(roomPos.x * roomscale, roomPos.y * roomscale,0), Quaternion.identity);
+        int spawnAreaOffset = roomscale/4;
+        int offsetx = UnityEngine.Random.Range(-spawnAreaOffset, spawnAreaOffset);
+        int offsety = UnityEngine.Random.Range(-spawnAreaOffset, spawnAreaOffset);
+        var enemy = Instantiate(monsters[monster], new Vector3((roomPos.x * roomscale) + offsetx, (roomPos.y * roomscale) + offsety,0), Quaternion.identity);
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>(); //get the enemy's specific AI script
         EnemyStats enemyStats = enemy.GetComponent<EnemyStats>(); //get the enemy's specific Stats Script
         if (enemyAI != null){
@@ -84,5 +123,15 @@ public class EnemyManager : MonoBehaviour
             }
             instantiatedMonsters[roomPos].Add((enemyStats, enemyAI));
         }
+    }
+    public void InstantiateAmbushRoomEnemies(Monsters monster, pos roomPos)
+    {
+        List<(int, int)> spawnPositions = AmbushEnemiesSpawn(roomPos);
+        foreach(var coordinate in spawnPositions)
+        {
+            var enemy = Instantiate(monsters[monster], new Vector3(coordinate.Item1, coordinate.Item2,0), Quaternion.identity);
+            ambushMonsters.Add((enemy.GetComponent<EnemyStats>(), enemy.GetComponent<EnemyAI>()));
+        }
+        ambushRoomActivated = true;
     }
 }

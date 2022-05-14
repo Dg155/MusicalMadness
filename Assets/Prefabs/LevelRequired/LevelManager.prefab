@@ -90,6 +90,9 @@ MonoBehaviour:
   ULD: {fileID: 5622028550946498135, guid: a0288dd4d6f4df74d951216495324a30, type: 3}
   RUD: {fileID: 5455497206697439761, guid: 57c61227f9093a64d87fc7adca882dc8, type: 3}
   RLD: {fileID: 1610813866156056881, guid: 7f8c42f919a8b2b4ca9eca9a20f9d877, type: 3}
+  TreasureChest: {fileID: 952119653340526877, guid: fb4936bd9f10c0142ba9488c753dca36, type: 3}
+  levelArtifacts: {fileID: 11400000, guid: 199be91c3c5843849a22c403b0da6205, type: 2}
+  ambushChest: {fileID: 4425196612355397283, guid: 6ebb51483e9ac25478765eb93543a40c, type: 3}
 --- !u!114 &5393293268420629736
 MonoBehaviour:
   m_ObjectHideFlags: 0
