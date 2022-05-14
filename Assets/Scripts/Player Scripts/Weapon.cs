@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public enum weaponMove
 {
@@ -28,14 +29,18 @@ public class Weapon : MonoBehaviour
     protected weaponMove secondaryMove;
     public List<weaponMove> LastMovesUsed = new List<weaponMove>(); //change this to protected after testing is over
     protected int maxComboLength;
+    protected bool comboTimerIsActive;
+    protected float comboLossTime; // the exact point in time that the combo will be lost
+    protected float comboLossTimeLimit; // max amt of time btwn player's last attack & combo being lost
 
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        facingRight = true;  //the sprite by default is facing right
+        facingRight = true;  // the sprite by default is facing right
         CombatScript = transform.GetComponentInParent<Combat>();
-        if (CombatScript.getTargetTags().Contains("Enemy")) //i.e. if the Combat Script belongs to the Player
+        comboTimerIsActive = false;
+        if (CombatScript.getTargetTags().Contains("Enemy")) // i.e. if the Combat Script belongs to the Player
         {
             pointingAtPlayer = false;
         }
@@ -69,9 +74,21 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    protected virtual attackInfo CalculateComboDamage(List<weaponMove> lastMovesUsed)
+    protected virtual attackInfo CalculateComboDamage()
     {
         return attack;
+    }
+
+    protected virtual async void StartComboTimer() // async instead of coroutine is used here bc a single async can be endlessly extended & only clear LastMovesUsed once after a single completion. Using coroutines forces us to constantly create new instances of coroutines which then end all at once, causing LastMovesUsed to be constantly emptied if the player continuously fires
+    {
+        comboTimerIsActive = true;
+        while (Time.time < comboLossTime)
+        {
+            await Task.Yield();
+        }
+        Debug.Log("Combo lost");
+        LastMovesUsed.Clear();
+        comboTimerIsActive = false;
     }
 
     virtual public IEnumerator Use(Vector3 shootPos, HashSet<string> targetTags)
@@ -79,6 +96,8 @@ public class Weapon : MonoBehaviour
         if (canFire){
             canFire = false;
             AddMoveToCombo(primaryMove);
+            comboLossTime = Time.time + comboLossTimeLimit; // reset the combo loss time limit
+            if (!comboTimerIsActive) { StartComboTimer(); } // i.e. if the async StartComboTimer() isn't already active, start it
             if (ranged){
                 spawnProjectile(facingRight, shootPos, targetTags);
             }
@@ -97,6 +116,8 @@ public class Weapon : MonoBehaviour
         if (canFire){
             canFire = false;
             AddMoveToCombo(secondaryMove);
+            comboLossTime = Time.time + comboLossTimeLimit; // reset the combo loss time limit
+            if (!comboTimerIsActive) { StartComboTimer(); } // i.e. if the async StartComboTimer() isn't already active, start it
             if (ranged)
             {
                 spawnProjectileSecondary(facingRight, shootPos, targetTags);

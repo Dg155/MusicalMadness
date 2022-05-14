@@ -16,5 +16,6 @@ MonoBehaviour:
   type: 1
   image: {fileID: 21300000, guid: ef5bb9da8815ca94baa5d7110e8da49e, type: 3}
   cost: 0
+  soulWorth: 1
   isDefaultItem: 0
   itemObject: {fileID: 8935746270485276401, guid: b1d8b67a8fec34b99ad3308d5652d43c, type: 3}

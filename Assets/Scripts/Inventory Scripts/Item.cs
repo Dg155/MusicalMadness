@@ -7,6 +7,7 @@ public class Item: ScriptableObject
     public ItemType type = ItemType.Soul;
     public Sprite image = null;
     public int cost = 0;
+    public int soulWorth = 0;
     public bool isDefaultItem = false;
     public GameObject itemObject;
 
