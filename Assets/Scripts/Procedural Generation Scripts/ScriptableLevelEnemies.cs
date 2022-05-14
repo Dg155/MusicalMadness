@@ -19,7 +19,7 @@ public class ScriptableLevelEnemies : ScriptableObject
             if (ViolinEnemy[i] > 0){
                 dungeonTiers[i].Add(Monsters.Violin, ViolinEnemy[i]);
                 }
-            if (TambourineEnemy[0] > 0){
+            if (TambourineEnemy[i] > 0){
             dungeonTiers[i].Add(Monsters.Tambourine, TambourineEnemy[i]);}
             if (DemonEnemy[i] > 0){
             dungeonTiers[i].Add(Monsters.Demon, DemonEnemy[i]);
