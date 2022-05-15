@@ -33,13 +33,12 @@ public class Inventory : MonoBehaviour
     public int weaponSpace;
     // Varaibles to keep count of the types of weapons stored
     int numWeapons = 0;
-    int numSouls = 0;
     int numArtifacts = 0;
 
     public int GetItemTypeAmt(ItemType requestedItemType)
     {
         if (requestedItemType == ItemType.Weapon) { return numWeapons; }
-        else if (requestedItemType == ItemType.Soul) { return numSouls; }
+        else if (requestedItemType == ItemType.Soul) { return playerStats.getSouls(); }
         else if (requestedItemType == ItemType.Artifact) { return numArtifacts; }
         else
         {
@@ -80,10 +79,15 @@ public class Inventory : MonoBehaviour
 
             if (item != null)
             {
-                items.Add(item);
-                if (item.type == ItemType.Weapon) { numWeapons++; }
-                else if (item.type == ItemType.Soul) { numSouls++; }
-                else if (item.type == ItemType.Artifact) { numArtifacts++; }
+                if (item.type == ItemType.Weapon) {
+                    items.Add(item);
+                    numWeapons++;
+                }
+                else if (item.type == ItemType.Artifact) {
+                    items.Add(item);
+                    numArtifacts++;
+                }
+                else if (item.type == ItemType.Soul) { playerStats.addSouls(item.soulWorth); }
             }
 
             //if statement checks if any methods are subscribed to this event
@@ -98,10 +102,16 @@ public class Inventory : MonoBehaviour
     }
     public void Remove (Item item)
     {
-        items.Remove(item);
-        if (item.type == ItemType.Weapon) { numWeapons--; }
-        else if (item.type == ItemType.Soul) { numSouls--; }
-        else if (item.type == ItemType.Artifact) { numArtifacts--; }
+        if (item.type == ItemType.Weapon) {
+            items.Remove(item);
+            numWeapons--;
+        }
+        else if (item.type == ItemType.Artifact) {
+            items.Remove(item);
+            numArtifacts--;
+        }
+        else if (item.type == ItemType.Soul) { playerStats.addSouls(-item.soulWorth); }
+
         if (onItemChangedCallback != null)
         {
             onItemChangedCallback.Invoke();

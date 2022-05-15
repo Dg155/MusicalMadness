@@ -29,7 +29,8 @@ public class InputManager : MonoBehaviour
             UseMainHand(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
         if (Input.GetMouseButton(1)){
-            UseOffHand(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            //UseOffHand(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            UseMainHandSecondary(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
     }
 
@@ -40,6 +41,10 @@ public class InputManager : MonoBehaviour
 
     private void UseMainHand(Vector3 mousePos) {
         playerCombat.UseMainHand(mousePos);
+    }
+
+    private void UseMainHandSecondary(Vector3 mousePos) {
+        playerCombat.UseMainHandSecondary(mousePos);
     }
 
     private void UseOffHand(Vector3 mousePos) {
