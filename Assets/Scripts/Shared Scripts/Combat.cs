@@ -14,6 +14,9 @@ public struct attackInfo{ //stores all info of the weapon when it collides an en
     public float blindDuration;
     public float poisonDuration;
     public float poisonDamage;
+
+    public GameObject animCol;
+    public GameObject animTrail;
 }
 
 public class Combat : MonoBehaviour

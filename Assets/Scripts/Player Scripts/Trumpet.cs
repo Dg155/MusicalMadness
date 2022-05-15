@@ -12,7 +12,7 @@ public class Trumpet : Weapon
     
     public int bulletSpeed;
     public int bulletSpeedSecondary;
-
+    public GameObject animDefault, animCombo1, animCombo2, animCombo3;
     List<weaponMove> combo1 = new List<weaponMove>();
     List<weaponMove> combo2 = new List<weaponMove>();
     List<weaponMove> combo3 = new List<weaponMove>();
@@ -55,6 +55,7 @@ public class Trumpet : Weapon
         {
             Debug.Log("You did combo1!");
             comboAttack.damage = 25; //new total damage of trumpet secondary attack: 75
+            comboAttack.animCol = animCombo1;
             LastMovesUsed.Clear();
             return comboAttack;
         }
@@ -62,6 +63,7 @@ public class Trumpet : Weapon
         {
             Debug.Log("You did combo2!");
             comboAttack.damage = 45; //new damage: 95
+            comboAttack.animCol = animCombo2;
             LastMovesUsed.Clear();
             return comboAttack;
         }
@@ -69,6 +71,7 @@ public class Trumpet : Weapon
         {
             Debug.Log("You did combo3!");
             comboAttack.damage = 75; //new damage: 125
+            comboAttack.animCol = animCombo3;
             LastMovesUsed.Clear();
             return comboAttack;
         }

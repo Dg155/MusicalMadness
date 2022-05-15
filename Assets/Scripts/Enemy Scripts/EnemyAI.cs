@@ -176,6 +176,7 @@ public class EnemyAI : MonoBehaviour
         else{
             //Debug.Log("SWITCHING TO ROAMING STATE");
             state = AIState.Roaming;
+            state = AIState.Aggressive;
         }
     }
 

@@ -29,6 +29,9 @@ public class ProjectileBase : MonoBehaviour
         attack.blindDuration += attackBoost.blindDuration;
         attack.poisonDuration += attackBoost.poisonDuration;
         attack.poisonDamage += attackBoost.poisonDamage;
+        if (attackBoost.animCol != null){
+            attack.animCol = attackBoost.animCol;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -36,11 +39,16 @@ public class ProjectileBase : MonoBehaviour
         if (other.tag == "Wall")
         {
             Destroy(gameObject);
+            if (attack.animCol){
+                Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
+            }
         }
         else if (projTargetTags.Contains(other.tag))
         {
-            FindObjectOfType<CameraMove>().Shake(0.25f, 0.025f);
-            Instantiate(collisionParticle, this.transform.position, Quaternion.identity); //DELETE LATER
+            if (attack.animCol){
+                Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
+            }
+            FindObjectOfType<CameraMove>().Shake(0.25f, 0.025f);//shakes camera
             other.GetComponent<Combat>().ReceiveAttack(attack);
 
             Destroy(gameObject);
