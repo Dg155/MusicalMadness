@@ -49,7 +49,7 @@ public class InstantiateLevel : MonoBehaviour
         }
         if (roomType == DeadEnds.Amush) {
             var newChest = Instantiate(ambushChest, new Vector3(position.x * roomSize ,position.y * roomSize, 0), Quaternion.identity);
-            AmushTrigger chestScript = newChest.GetComponent<AmushTrigger>();
+            AmbushTrigger chestScript = newChest.GetComponent<AmbushTrigger>();
             chestScript.setMonster(Monsters.Violin);
             chestScript.setRoomPos(position);
             chestScript.setBlocker(direction);

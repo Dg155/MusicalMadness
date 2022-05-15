@@ -34,13 +34,19 @@ public class EnemyManager : MonoBehaviour
         }
         if (ambushRoomActivated && ambushMonsters.Count == 0)
         {
-            ambushRoomActivated = false;
-            AudioSource musicPlayer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
-            musicPlayer.clip = classicalMusic;
-            musicPlayer.Play();
-            Destroy(GameObject.FindGameObjectWithTag("DoorBlock"));
-            //Reward the player
+            StartCoroutine(CompleteAmbushRoom());
         }
+    }
+    IEnumerator CompleteAmbushRoom(){
+        ambushRoomActivated = false;
+        GameObject door = GameObject.FindGameObjectWithTag("DoorBlock");
+        door.GetComponent<Animator>().SetTrigger("ambushBeaten");
+        AudioSource musicPlayer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        musicPlayer.clip = classicalMusic;
+        musicPlayer.Play();
+        yield return new WaitForSeconds(2);
+        Destroy(GameObject.FindGameObjectWithTag("DoorBlock"));
+        //Reward the player
     }
     void Start()
     {

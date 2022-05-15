@@ -22,8 +22,18 @@ public class LevelLoader : MonoBehaviour
     }
 
     IEnumerator LoadLevel(int levelIndex){
-        transition.SetTrigger("Start");
+        transition.SetBool("Dark", true);
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(levelIndex);
     }
+
+
+    public void DarkenScreen(){
+        transition.SetBool("Dark", true);
+    }
+    public void LightenScreen(){
+        transition.SetBool("Dark", false);
+    }
+
+
 }
