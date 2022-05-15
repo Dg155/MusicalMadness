@@ -51,7 +51,7 @@ public class AmbushTrigger : MonoBehaviour
         AudioSource musicPlayer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
         musicPlayer.clip = ambushMusic;
         musicPlayer.Play();
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(1f);
         enemyManager.InstantiateAmbushRoomEnemies(ambushMonster, roomPos);
 
         if (l != null){

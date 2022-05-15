@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4649931746079608568}
   - component: {fileID: 4868849831577541718}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderR
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8729420871131819992}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliders
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 569817389945455983}
   - component: {fileID: 3256221334010621853}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderD
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 245006502074145643}
   - component: {fileID: 6628102179750328465}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderU
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7540179309838855311}
   - component: {fileID: 5097208775091839394}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderL
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 7823361115682319593}
   - component: {fileID: 7823361115682319595}
   - component: {fileID: 7823361115682319594}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1101,7 +1101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7823361116273903528}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Classic_RD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1138,7 +1138,7 @@ GameObject:
   - component: {fileID: 7823361116637066476}
   - component: {fileID: 7823361116637066467}
   - component: {fileID: 7823361116637066466}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1580,7 +1580,7 @@ GameObject:
   - component: {fileID: 7823361116921882934}
   - component: {fileID: 7823361116921882928}
   - component: {fileID: 7823361116921882935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Decor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

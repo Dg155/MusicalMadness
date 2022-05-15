@@ -44,7 +44,7 @@ public class EnemyManager : MonoBehaviour
         AudioSource musicPlayer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
         musicPlayer.clip = classicalMusic;
         musicPlayer.Play();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(.8f);
         Destroy(GameObject.FindGameObjectWithTag("DoorBlock"));
         //Reward the player
     }
@@ -60,7 +60,6 @@ public class EnemyManager : MonoBehaviour
         monsters.Add(Monsters.Demon, demon);//change once several enemies implemented
         InstantiateAdjacentEnemies();
         pos origin = new pos(0,0);
-        InstantiateEnemiesInRoom(levelInfo.dungeonInfo.monstersPerRoom[origin], origin);
     }
 
     public void InstantiateAdjacentEnemies(){

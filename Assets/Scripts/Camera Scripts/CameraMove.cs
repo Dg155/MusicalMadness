@@ -9,7 +9,7 @@ public class CameraMove : MonoBehaviour
     public Transform playerpos; // must be set in scene view
     public bool moving;
     public int roomsize;
-
+    bool shaking = false;
     public LevelInfo levelInfo;
     // Start is called before the first frame update
     void Start()
@@ -23,6 +23,9 @@ public class CameraMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (shaking){
+            return;
+        }
         if (!moving){
             if (playerpos.position.x > pos.position.x + roomsize/2){
                 newpos = newpos + Vector3.right * roomsize;
@@ -53,5 +56,23 @@ public class CameraMove : MonoBehaviour
                 pos.position = Vector3.Lerp(pos.position, newpos, 4.5F * Time.deltaTime);
             }
         }
+    }
+
+        public void Shake(float duration, float magnitude){
+        StartCoroutine(shakeCamera(duration, magnitude));
+    }
+    IEnumerator shakeCamera(float duration, float magnitude){
+        shaking = true;
+        Vector3 originalPosition = this.transform.position;
+        float timeElapsed = 0f;
+        while (timeElapsed < duration){
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
+            this.transform.position = this.transform.position + new Vector3(x, y, 0);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        this.transform.position = originalPosition;
+        shaking = false;
     }
 }

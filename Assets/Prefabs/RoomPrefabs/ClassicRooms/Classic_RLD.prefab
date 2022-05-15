@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1610813865310364644}
   - component: {fileID: 1610813865310364646}
   - component: {fileID: 1610813865310364645}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -842,7 +842,7 @@ GameObject:
   - component: {fileID: 1610813865697017536}
   - component: {fileID: 1610813865697017551}
   - component: {fileID: 1610813865697017550}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1264,7 +1264,7 @@ GameObject:
   - component: {fileID: 1610813865735814841}
   - component: {fileID: 1610813865735814843}
   - component: {fileID: 1610813865735814842}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Decor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1478,7 +1478,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1610813866156056882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Classic_RLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1512,7 +1512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2629168954038331113}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliders
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1547,7 +1547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2264951284026807259}
   - component: {fileID: 4329818577079186356}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderD
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1604,7 +1604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5138249187072089511}
   - component: {fileID: 4684241061117233502}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderU
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1661,7 +1661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2027550867628311835}
   - component: {fileID: 6901429598270258333}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderL
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1718,7 +1718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3838164841382179481}
   - component: {fileID: 8976634560029427573}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderR
   m_TagString: Wall
   m_Icon: {fileID: 0}

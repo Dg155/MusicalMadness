@@ -222,6 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 11400000, guid: 97c6f5adbf9ffcc49927690ede44ef39, type: 2}
+  state: 0
   target: {fileID: 0}
   movePos: {x: 0, y: 0}
   timeSinceLastAction: 0
@@ -260,6 +261,7 @@ MonoBehaviour:
   minSoulsDropped: 1
   maxSoulsDropped: 5
   soul: {fileID: 7654927979853257837, guid: 7bb58fb93c88ae04084f398534e222a9, type: 3}
+  deathParticle: {fileID: 4643671852923827495, guid: 267d31af44a41024db76db92e9d8cac8, type: 3}
 --- !u!1 &6708422954802491975
 GameObject:
   m_ObjectHideFlags: 0

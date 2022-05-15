@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 103039806748865695}
   - component: {fileID: 103039806748865694}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderR
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 103039807096284141}
   - component: {fileID: 103039807096284140}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderD
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 103039807655029781}
   - component: {fileID: 103039807655029780}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderU
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 103039808398172018}
   - component: {fileID: 103039808398172017}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliderL
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 103039808555813104}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletColliders
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 3766764379951067096}
   - component: {fileID: 3766764379951067098}
   - component: {fileID: 3766764379951067099}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Decor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 3766764380781322986}
   - component: {fileID: 3766764380781322987}
   - component: {fileID: 3766764380781322984}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -962,7 +962,7 @@ GameObject:
   - component: {fileID: 3766764381176473953}
   - component: {fileID: 3766764381176473955}
   - component: {fileID: 3766764381176473952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1790,7 +1790,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3766764381463703480}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Classic_D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

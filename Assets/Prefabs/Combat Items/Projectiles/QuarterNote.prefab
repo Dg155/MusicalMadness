@@ -103,6 +103,7 @@ MonoBehaviour:
     blindDuration: 0
     poisonDuration: 0
     poisonDamage: 0
+  collisionParticle: {fileID: 4993843559921728325, guid: 5b1def5bd80cd334ab25024448972f16, type: 3}
 --- !u!50 &6102382208412875362
 Rigidbody2D:
   serializedVersion: 4

@@ -8,12 +8,18 @@ public class EnemyStats : BaseStats
     public int maxSoulsDropped;
     public GameObject soul;
 
+    public GameObject deathParticle; 
+
+
+
     override protected void Start(){
         GameObject health = Instantiate(healthBar, (transform.position -  new Vector3(0,offSet,0)), Quaternion.identity);
         health.transform.parent = this.transform;
         HB = GetComponentInChildren<HealthBarScript>();
     }
     override protected void Die(){
+        var dP = Instantiate(deathParticle, this.transform.position, Quaternion.identity);
+        dP.GetComponent<ParticleSystem>().Play();
         GetComponent<EnemyAI>().setAlive(false);
     }
 
