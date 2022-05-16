@@ -104,9 +104,7 @@ MonoBehaviour:
     blindDuration: 0
     poisonDuration: 0
     poisonDamage: 0
-    animCol: {fileID: 4993843559921728331, guid: fc831b547d8f76745a5a94a2efa90a37, type: 3}
-    animTrail: {fileID: 8910857455875218727, guid: a635b90fb7b234b418ae70d0871cccf9, type: 3}
-  collisionParticle: {fileID: 4993843559921728325, guid: fc831b547d8f76745a5a94a2efa90a37, type: 3}
+    animCol: {fileID: 0}
 --- !u!50 &6102382208412875362
 Rigidbody2D:
   serializedVersion: 4

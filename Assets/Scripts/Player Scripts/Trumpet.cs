@@ -12,13 +12,15 @@ public class Trumpet : Weapon
     
     public int bulletSpeed;
     public int bulletSpeedSecondary;
-    public GameObject animDefault, animCombo1, animCombo2, animCombo3;
+
+    public GameObject animCombo1, animCombo2, animCombo3;
     List<weaponMove> combo1 = new List<weaponMove>();
     List<weaponMove> combo2 = new List<weaponMove>();
     List<weaponMove> combo3 = new List<weaponMove>();
 
     private void Awake()
     {
+
         gameObject.SetActive(true);
     }
 

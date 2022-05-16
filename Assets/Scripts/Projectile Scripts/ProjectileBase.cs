@@ -10,7 +10,6 @@ public class ProjectileBase : MonoBehaviour
     public attackInfo attack;
     public HashSet<string> projTargetTags = new HashSet<string>();
 
-    public ParticleSystem collisionParticle; //DELETE LATER
 
     public virtual void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
@@ -54,7 +53,7 @@ public class ProjectileBase : MonoBehaviour
             if (attack.animCol){
                 Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
             }
-            FindObjectOfType<CameraMove>().Shake(0.25f, 0.025f);//shakes camera
+            FindObjectOfType<CameraMove>().Shake(0.25f, 0.012f);//shakes camera
             other.GetComponent<Combat>().ReceiveAttack(attack);
 
             Destroy(gameObject);
