@@ -52,6 +52,11 @@ public class Combat : MonoBehaviour
     }
 
     public void ReceiveAttack(attackInfo attack){
+
+        EntVisAudFX FX = this.GetComponent<EntVisAudFX>();
+        if (FX != null){
+            FX.Flash();
+        }
         TakeDamage(attack.damage);
         if (attack.stunDuration > 0){receiveStun(attack.stunDuration);}
         if (attack.blindDuration > 0){receiveBlind(attack.blindDuration);}

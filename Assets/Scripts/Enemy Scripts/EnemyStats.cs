@@ -18,9 +18,8 @@ public class EnemyStats : BaseStats
         HB = GetComponentInChildren<HealthBarScript>();
     }
     override protected void Die(){
-        var dP = Instantiate(deathParticle, this.transform.position, Quaternion.identity);
-        dP.GetComponent<ParticleSystem>().Play();
         GetComponent<EnemyAI>().setAlive(false);
+        GetComponent<EntVisAudFX>().DeathEffect();
     }
 
     public void destroyEnemy(){

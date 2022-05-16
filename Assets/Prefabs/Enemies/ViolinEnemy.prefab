@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2006987643916260006}
   - component: {fileID: 2006987643916260007}
   - component: {fileID: 4252575367035218851}
+  - component: {fileID: 6608942888541196934}
   m_Layer: 3
   m_Name: ViolinEnemy
   m_TagString: Enemy
@@ -262,6 +263,22 @@ MonoBehaviour:
   maxSoulsDropped: 5
   soul: {fileID: 7654927979853257837, guid: 7bb58fb93c88ae04084f398534e222a9, type: 3}
   deathParticle: {fileID: 4643671852923827495, guid: 267d31af44a41024db76db92e9d8cac8, type: 3}
+--- !u!114 &6608942888541196934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006987643916260004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a680a091cd2e0064eaca4ea1020d1f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticle: {fileID: 4643671852923827495, guid: 267d31af44a41024db76db92e9d8cac8, type: 3}
+  collisionParticle: {fileID: 0}
+  sprite: {fileID: 0}
+  flashWhite: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
 --- !u!1 &6708422954802491975
 GameObject:
   m_ObjectHideFlags: 0

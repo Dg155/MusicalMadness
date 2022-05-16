@@ -45,6 +45,12 @@ public class ProjectileBase : MonoBehaviour
         }
         else if (projTargetTags.Contains(other.tag))
         {
+            if (other.GetComponent<EntVisAudFX>() != null){
+                other.GetComponent<EntVisAudFX>().CollisionEffect(this.transform.position);
+            }
+            else{
+                Debug.Log("COULD NOT FIND COLLISOIN SCRIPT");
+            }
             if (attack.animCol){
                 Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
             }

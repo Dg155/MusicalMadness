@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 2975328503818995557}
   - component: {fileID: 2975328503818995556}
   - component: {fileID: 1230126949}
+  - component: {fileID: 1293926777}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -352,6 +353,23 @@ MonoBehaviour:
   mainHandObject: {fileID: 0}
   items: []
   weaponSpace: 3
+--- !u!114 &1293926777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2975328503818995563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a680a091cd2e0064eaca4ea1020d1f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticle: {fileID: 4993843559921728331, guid: 5b1def5bd80cd334ab25024448972f16, type: 3}
+  collisionParticle: {fileID: 0}
+  sprite: {fileID: 0}
+  flashWhite: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  flashColor: {r: 0.29874206, g: 0.9809927, b: 1, a: 1}
 --- !u!1 &6741858351351844205
 GameObject:
   m_ObjectHideFlags: 0

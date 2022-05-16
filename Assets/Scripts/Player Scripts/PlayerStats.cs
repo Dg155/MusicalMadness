@@ -9,6 +9,9 @@ public class PlayerStats : BaseStats
     public int souls;
     override protected void Die(){
         LevelLoader l= FindObjectOfType<LevelLoader>();
+        if (this.GetComponent<EntVisAudFX>() != null){
+            this.GetComponent<EntVisAudFX>().DeathEffect();
+        }
         if (l != null){
             l.ReloadLevel();
         }

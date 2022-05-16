@@ -52,11 +52,12 @@ public class AmbushTrigger : MonoBehaviour
         musicPlayer.clip = ambushMusic;
         musicPlayer.Play();
         yield return new WaitForSeconds(1f);
-        enemyManager.InstantiateAmbushRoomEnemies(ambushMonster, roomPos);
-
         if (l != null){
             l.LightenScreen();
         }
+        yield return new WaitForSeconds(0.3f);
+        enemyManager.InstantiateAmbushRoomEnemies(ambushMonster, roomPos);
+
         // Lighten the screen
     }
 
