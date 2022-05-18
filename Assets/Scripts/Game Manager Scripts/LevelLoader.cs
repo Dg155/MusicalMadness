@@ -26,4 +26,32 @@ public class LevelLoader : MonoBehaviour
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(levelIndex);
     }
+
+    public void LoadNextScene(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void LoadPreviousScene(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    public void LoadSettingsScene(){
+        SceneManager.LoadScene("Settings");
+    }
+
+    public void LoadTitleScreenScene(){
+        SceneManager.LoadScene("TitleScreen");
+    }
+
+    public void LoadCreditsScene(){
+        SceneManager.LoadScene("Credits");
+    }
+
+    public void LoadHowToPlayScene(){
+        SceneManager.LoadScene("HowToPlay");
+    }
+
+    public void LoadControlsScene(){
+        SceneManager.LoadScene("Controls");
+    }
 }
