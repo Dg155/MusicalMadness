@@ -7,9 +7,15 @@ public class ProjectileBase : MonoBehaviour
 
     private Vector3 mousePos;
     private Rigidbody2D rb;
+    public AudioClip soundEffect;
     public attackInfo attack;
     public HashSet<string> projTargetTags = new HashSet<string>();
 
+    private void Awake(){
+        //CHANGE LATER TO WORK WITH EVENTS
+        FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffect);
+
+    }
 
     public virtual void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
