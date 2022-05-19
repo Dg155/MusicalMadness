@@ -7,7 +7,16 @@ public class TreasureChest : MonoBehaviour
 
     public Sprite openChest;
     public GameObject item;
+    private Item itemInfo;
     private bool Closed = true;
+
+    private void Start() {
+        itemInfo = item.GetComponent<Item>();
+        if (itemInfo.type == ItemType.Healing)
+        {
+            itemInfo.setItemWorth(500);
+        }
+    }
 
     public void setItem(GameObject chestItem)
     {

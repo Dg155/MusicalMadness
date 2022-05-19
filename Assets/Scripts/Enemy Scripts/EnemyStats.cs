@@ -7,6 +7,9 @@ public class EnemyStats : BaseStats
     public int minSoulsDropped;
     public int maxSoulsDropped;
     public GameObject soul;
+    public float heartHealPercentage = 10;
+    public int heartDropPercentage = 10;
+    public GameObject heart;
 
     override protected void Start(){
         GameObject health = Instantiate(healthBar, (transform.position -  new Vector3(0,offSet,0)), Quaternion.identity);
@@ -23,6 +26,14 @@ public class EnemyStats : BaseStats
         {
             float offSet = Random.Range(-0.2f, 0.2f);
             Instantiate(soul, transform.position + new Vector3(offSet, offSet), Quaternion.identity);
+        }
+        if (Random.Range(0, 100) < heartDropPercentage)
+        {
+            float heartHealAmount = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().getMaxHealth() * (heartHealPercentage / 100);
+            Debug.Log(heartHealAmount);
+            heart.GetComponent<ItemObject>().item.setItemWorth(heartHealAmount);
+            float offSet = Random.Range(-0.2f, 0.2f);
+            Instantiate(heart, transform.position + new Vector3(offSet, offSet), Quaternion.identity);
         }
         Destroy(gameObject);
     }

@@ -87,7 +87,8 @@ public class Inventory : MonoBehaviour
                     items.Add(item);
                     numArtifacts++;
                 }
-                else if (item.type == ItemType.Soul) { playerStats.addSouls(item.soulWorth); }
+                else if (item.type == ItemType.Soul) { playerStats.addSouls((int)item.itemWorth); }
+                else if (item.type == ItemType.Healing) { playerStats.addHealth(item.itemWorth); }
             }
 
             //if statement checks if any methods are subscribed to this event
@@ -110,7 +111,7 @@ public class Inventory : MonoBehaviour
             items.Remove(item);
             numArtifacts--;
         }
-        else if (item.type == ItemType.Soul) { playerStats.addSouls(-item.soulWorth); }
+        else if (item.type == ItemType.Soul) { playerStats.addSouls((int)-item.itemWorth); }
 
         if (onItemChangedCallback != null)
         {
