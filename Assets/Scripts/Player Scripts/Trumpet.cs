@@ -11,8 +11,8 @@ public class Trumpet : Weapon
     public GameObject projectileComboFinisher;
     public Transform projectileTransform;
     
-    public int bulletSpeed;
-    public int bulletSpeedSecondary;
+    public float bulletSpeed;
+    public float bulletSpeedSecondary;
 
     List<weaponMove> combo1 = new List<weaponMove>();
     List<weaponMove> combo2 = new List<weaponMove>();
@@ -60,6 +60,7 @@ public class Trumpet : Weapon
             comboAttack.knockback = 7;
             comboAttack.targetNewDrag = 6.5f;
             comboAttack.blastRadius = 3;
+            bulletSpeedSecondary = 10;
             LastMovesUsed.Clear();
             return comboAttack;
         }
@@ -68,6 +69,7 @@ public class Trumpet : Weapon
             Debug.Log("You did combo2!");
             comboAttack.damage = 45; //new damage: 95
             comboAttack.stunDuration = 1;
+            bulletSpeedSecondary = 5;
             LastMovesUsed.Clear();
             return comboAttack;
         }
@@ -78,11 +80,14 @@ public class Trumpet : Weapon
             comboAttack.stunDuration = 1f;
             comboAttack.knockback = 13;
             comboAttack.targetNewDrag = 3.5f;
-            comboAttack.blastRadius = 10;
+            comboAttack.blastRadius = 6;
+            bulletSpeedSecondary = 7.5f;
             LastMovesUsed.Clear();
             return comboAttack;
         }
         comboAttack.damage = 0; //new damage: default
+        bulletSpeed = 10;
+        bulletSpeedSecondary = 5;
         return comboAttack;
     }
 

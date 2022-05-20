@@ -20,6 +20,20 @@ public struct attackInfo{ //stores all info of the weapon when it collides an en
     public float knockback;
     public float targetNewDrag; //how slidy we want the target to be once they receive knockback
     public float blastRadius;
+
+    public static attackInfo operator+ (attackInfo a, attackInfo b)
+    {
+        attackInfo c = new attackInfo();
+        c.damage = a.damage + b.damage;
+        c.stunDuration = a.stunDuration + b.stunDuration;
+        c.blindDuration = a.blindDuration + b.blindDuration;
+        c.poisonDuration = a.poisonDuration + b.poisonDuration;
+        c.poisonDamage = a.poisonDamage + b.poisonDamage;
+
+        c.knockback = a.knockback + b.knockback;
+        c.blastRadius = a.blastRadius + b.blastRadius;
+        return c;
+    }
 }
 
 public class Combat : MonoBehaviour

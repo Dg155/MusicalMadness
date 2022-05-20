@@ -15,7 +15,7 @@ public class ProjectileBase : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
     }
 
-    public virtual void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
+    public virtual void setCourseOfFire(float bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
         // Determine velocity, direction, and targets of projectile
     }
@@ -27,38 +27,36 @@ public class ProjectileBase : MonoBehaviour
 
     public void boostAttack(attackInfo attackBoost)
     {
+        attack += attackBoost;
         attack.targetNewDrag = attackBoost.targetNewDrag;
-
-        attack.damage += attackBoost.damage;
-        attack.stunDuration += attackBoost.stunDuration;
-        attack.blindDuration += attackBoost.blindDuration;
-        attack.poisonDuration += attackBoost.poisonDuration;
-        attack.poisonDamage += attackBoost.poisonDamage;
-        attack.knockback += attackBoost.knockback;
-        attack.blastRadius += attackBoost.blastRadius;
     }
 
     public virtual void OnTriggerEnter2D(Collider2D other)
     {
-        if (attack.blastRadius > 0)
+        //Check if projectile hit something that destroys the projectile
+        if (projTargetTags.Contains(other.tag) || other.tag == "Wall")
         {
-            var colliders = Physics2D.OverlapCircleAll(rb.position, attack.blastRadius);
-            attack.attackerPos = rb.position; //update the attacker's position to the place where the projectile impacted, not where it was shot from
-            foreach (Collider2D c in colliders)
+            //Do damage to the thing it hit if it's an opponent
+            attack.attackerPos = rb.position; //attackerPos is set upon impact to set the attack's position to the place where the projectile impacted, not where it was shot from
+            if (attack.blastRadius > 0)
             {
-                if (projTargetTags.Contains(c.tag))
+                var colliders = Physics2D.OverlapCircleAll(rb.position, attack.blastRadius);
+                foreach (Collider2D c in colliders)
                 {
-                    c.GetComponent<Combat>().ReceiveAttack(attack);
+                    if (projTargetTags.Contains(c.tag))
+                    {
+                        c.GetComponent<Combat>().ReceiveAttack(attack);
+                    }
                 }
             }
-        }
-        else if (projTargetTags.Contains(other.tag))
-        {
-            other.GetComponent<Combat>().ReceiveAttack(attack);
-        }
+            else
+            {
+                if (projTargetTags.Contains(other.tag))
+                {
+                    other.GetComponent<Combat>().ReceiveAttack(attack);
+                }
+            }
 
-        if (other.tag == "Wall" || other.tag == "Enemy")
-        {
             Destroy(gameObject);
         }
     }

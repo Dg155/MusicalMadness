@@ -94,7 +94,7 @@ public class EnemyAI : MonoBehaviour
             case AIState.Knocked:
                 //In this state, no movement occurs per frame
                 //When rb velocity is zero, we can set the state again
-                if(Vector2.Distance(Vector2.zero, this.rb.velocity) < 0.1){
+                if(rb.velocity.magnitude < 0.1){
                         movePos = this.transform.position;
                         setState();
                         break;
@@ -185,7 +185,6 @@ public class EnemyAI : MonoBehaviour
     }
 
     void setState(){
-        //in spite of everything above, the enemy may still be stunned
         if (CombatScript.getIsStunned()){
             state = AIState.Stunned;
             return;

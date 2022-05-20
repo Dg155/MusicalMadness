@@ -5,7 +5,7 @@ using UnityEngine;
 public class QuarterNoteProjectile : ProjectileBase
 {
 
-    public override void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
+    public override void setCourseOfFire(float bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
         projTargetTags = targetTags;
         Rigidbody2D rb = this.GetComponent<Rigidbody2D>();

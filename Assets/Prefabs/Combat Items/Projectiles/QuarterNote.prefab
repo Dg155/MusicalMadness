@@ -103,6 +103,10 @@ MonoBehaviour:
     blindDuration: 0
     poisonDuration: 0
     poisonDamage: 0
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 0
+    targetNewDrag: 0
+    blastRadius: 0
 --- !u!50 &6102382208412875362
 Rigidbody2D:
   serializedVersion: 4
