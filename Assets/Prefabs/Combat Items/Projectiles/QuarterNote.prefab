@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6ffff4ee7544d4ca03ed1d5fdd20a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8300000, guid: ac5dc2ac954f4e440bb84038d17b2e7f, type: 3}
+  soundEffect: {fileID: 8300000, guid: 078e1723f7704e94dbb6c19c1e1ea9d7, type: 3}
   attack:
     damage: 25
     stunDuration: 0
