@@ -144,7 +144,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 6.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024ead9de304ba94ca13ac45e336301b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStunned: 0
 --- !u!95 &2006987643916260001
 Animator:
   serializedVersion: 3
@@ -222,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 11400000, guid: 97c6f5adbf9ffcc49927690ede44ef39, type: 2}
+  state: 0
   target: {fileID: 0}
   movePos: {x: 0, y: 0}
   timeSinceLastAction: 0
@@ -249,8 +251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f051d3538cff88742878c7ca10aa21ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currHealth: 100
-  maxHealth: 100
+  currHealth: 10000
+  maxHealth: 10000
   moveSpeed: 4
   mainHand: {fileID: 2412233823034051384}
   offHand: {fileID: 0}

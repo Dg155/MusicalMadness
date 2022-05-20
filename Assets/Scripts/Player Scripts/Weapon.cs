@@ -133,7 +133,8 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public virtual void spawnProjectile(bool facingRight, Vector3 shootPos, HashSet<string> targetTags){
+    public virtual void spawnProjectile(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
+    {
 
     }
 
@@ -142,7 +143,8 @@ public class Weapon : MonoBehaviour
 
     }
 
-    public virtual void meleeAttack(HashSet<string> targetTags){
+    public virtual void meleeAttack(HashSet<string> targetTags)
+    {
 
     }
 

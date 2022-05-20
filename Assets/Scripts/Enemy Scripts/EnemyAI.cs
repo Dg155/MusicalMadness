@@ -4,7 +4,7 @@ using UnityEngine;
 
 //Enemy AI written by Hung Bui
 enum AIState {
-    Roaming, Aggressive, Retreating, Shooting
+    Roaming, Aggressive, Retreating, Shooting, Stunned
 }
 public class EnemyAI : MonoBehaviour
 {
@@ -80,6 +80,10 @@ public class EnemyAI : MonoBehaviour
         }
         //Debug.Log("ROOM CENTER IS: " + roomCenter.x.ToString() +  "," + roomCenter.y.ToString());
         switch (state){
+
+            case AIState.Stunned:
+                setState();
+                break;
 
             case AIState.Roaming:
                 //Ask AI to calculate new move position
@@ -176,6 +180,11 @@ public class EnemyAI : MonoBehaviour
         else{
             //Debug.Log("SWITCHING TO ROAMING STATE");
             state = AIState.Roaming;
+        }
+
+        //in spite of everything above, the enemy may still be stunned
+        if (CombatScript.getIsStunned()){
+            state = AIState.Stunned;
         }
     }
 

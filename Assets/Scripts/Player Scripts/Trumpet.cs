@@ -8,6 +8,7 @@ public class Trumpet : Weapon
 {
     public GameObject projectile;
     public GameObject projectileSecondary;
+    public GameObject projectileComboFinisher;
     public Transform projectileTransform;
     
     public int bulletSpeed;
@@ -30,18 +31,18 @@ public class Trumpet : Weapon
         maxComboLength = 4;
         comboLossTimeLimit = 1.5f;
 
-        // set combo1: q-q-h
+        // set combo1: q-q-h --> baby explosion w/ baby AOE & knockback
         combo1.Add(weaponMove.trumpetPrimary);
         combo1.Add(weaponMove.trumpetPrimary);
         combo1.Add(weaponMove.trumpetSecondary);
 
-        // set combo2: q-q-q-h
+        // set combo2: q-q-q-h --> explosion w/ AOE that stuns
         combo2.Add(weaponMove.trumpetPrimary);
         combo2.Add(weaponMove.trumpetPrimary);
         combo2.Add(weaponMove.trumpetPrimary);
         combo2.Add(weaponMove.trumpetSecondary);
 
-        // set combo3: h-h-q-h
+        // set combo3: h-h-q-h --> chunky explosion w/ AOE, knockback, & stun
         combo3.Add(weaponMove.trumpetSecondary);
         combo3.Add(weaponMove.trumpetSecondary);
         combo3.Add(weaponMove.trumpetPrimary);
@@ -55,6 +56,10 @@ public class Trumpet : Weapon
         {
             Debug.Log("You did combo1!");
             comboAttack.damage = 25; //new total damage of trumpet secondary attack: 75
+            comboAttack.stunDuration = .5f;
+            comboAttack.knockback = 7;
+            comboAttack.targetNewDrag = 6.5f;
+            comboAttack.blastRadius = 3;
             LastMovesUsed.Clear();
             return comboAttack;
         }
@@ -62,6 +67,7 @@ public class Trumpet : Weapon
         {
             Debug.Log("You did combo2!");
             comboAttack.damage = 45; //new damage: 95
+            comboAttack.stunDuration = 1;
             LastMovesUsed.Clear();
             return comboAttack;
         }
@@ -69,6 +75,10 @@ public class Trumpet : Weapon
         {
             Debug.Log("You did combo3!");
             comboAttack.damage = 75; //new damage: 125
+            comboAttack.stunDuration = 1f;
+            comboAttack.knockback = 13;
+            comboAttack.targetNewDrag = 3.5f;
+            comboAttack.blastRadius = 10;
             LastMovesUsed.Clear();
             return comboAttack;
         }

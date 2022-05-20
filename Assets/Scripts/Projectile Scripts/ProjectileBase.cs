@@ -10,6 +10,11 @@ public class ProjectileBase : MonoBehaviour
     public attackInfo attack;
     public HashSet<string> projTargetTags = new HashSet<string>();
 
+    void Start()
+    {
+        rb = this.GetComponent<Rigidbody2D>();
+    }
+
     public virtual void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
         // Determine velocity, direction, and targets of projectile
@@ -22,22 +27,38 @@ public class ProjectileBase : MonoBehaviour
 
     public void boostAttack(attackInfo attackBoost)
     {
+        attack.targetNewDrag = attackBoost.targetNewDrag;
+
         attack.damage += attackBoost.damage;
         attack.stunDuration += attackBoost.stunDuration;
         attack.blindDuration += attackBoost.blindDuration;
         attack.poisonDuration += attackBoost.poisonDuration;
         attack.poisonDamage += attackBoost.poisonDamage;
+        attack.knockback += attackBoost.knockback;
+        attack.blastRadius += attackBoost.blastRadius;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public virtual void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Wall")
+        if (attack.blastRadius > 0)
         {
-            Destroy(gameObject);
+            var colliders = Physics2D.OverlapCircleAll(rb.position, attack.blastRadius);
+            attack.attackerPos = rb.position; //update the attacker's position to the place where the projectile impacted, not where it was shot from
+            foreach (Collider2D c in colliders)
+            {
+                if (projTargetTags.Contains(c.tag))
+                {
+                    c.GetComponent<Combat>().ReceiveAttack(attack);
+                }
+            }
         }
         else if (projTargetTags.Contains(other.tag))
         {
             other.GetComponent<Combat>().ReceiveAttack(attack);
+        }
+
+        if (other.tag == "Wall" || other.tag == "Enemy")
+        {
             Destroy(gameObject);
         }
     }

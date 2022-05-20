@@ -284,8 +284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6acf3945cbe77541bdf9258ce5be6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currHealth: 1000
-  maxHealth: 1000
+  currHealth: 10000
+  maxHealth: 10000
   moveSpeed: 4
   mainHand: {fileID: 0}
   offHand: {fileID: 0}
@@ -317,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024ead9de304ba94ca13ac45e336301b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStunned: 0
 --- !u!95 &2975328503818995556
 Animator:
   serializedVersion: 3
