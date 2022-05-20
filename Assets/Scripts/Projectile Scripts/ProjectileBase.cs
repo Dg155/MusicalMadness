@@ -43,10 +43,10 @@ public class ProjectileBase : MonoBehaviour
     {
         if (other.tag == "Wall")
         {
-            Destroy(gameObject);
             if (attack.animCol){
                 Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
             }
+            Destroy(gameObject);
         }
         else if (projTargetTags.Contains(other.tag))
         {
