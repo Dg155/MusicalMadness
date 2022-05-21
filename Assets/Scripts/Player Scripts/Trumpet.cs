@@ -36,8 +36,8 @@ public class Trumpet : Weapon
         combo1.Add(weaponMove.trumpetPrimary);
         combo1.Add(weaponMove.trumpetSecondary);
 
-        // set combo2: q-q-q-h --> explosion w/ AOE that stuns
-        combo2.Add(weaponMove.trumpetPrimary);
+        // set combo2: h-q-q-h --> explosion w/ AOE that stuns
+        combo2.Add(weaponMove.trumpetSecondary);
         combo2.Add(weaponMove.trumpetPrimary);
         combo2.Add(weaponMove.trumpetPrimary);
         combo2.Add(weaponMove.trumpetSecondary);
@@ -61,7 +61,7 @@ public class Trumpet : Weapon
             comboAttack.targetNewDrag = 6.5f;
             comboAttack.blastRadius = 3;
             bulletSpeedSecondary = 10;
-            LastMovesUsed.Clear();
+            ClearLastMoves();
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo2))
@@ -69,8 +69,8 @@ public class Trumpet : Weapon
             Debug.Log("You did combo2!");
             comboAttack.damage = 45; //new damage: 95
             comboAttack.stunDuration = 1;
-            bulletSpeedSecondary = 5;
-            LastMovesUsed.Clear();
+            bulletSpeedSecondary = 8;
+            ClearLastMoves();
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo3))
@@ -82,7 +82,7 @@ public class Trumpet : Weapon
             comboAttack.targetNewDrag = 3.5f;
             comboAttack.blastRadius = 6;
             bulletSpeedSecondary = 7.5f;
-            LastMovesUsed.Clear();
+            ClearLastMoves();
             return comboAttack;
         }
         comboAttack.damage = 0; //new damage: default
