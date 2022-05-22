@@ -33,6 +33,9 @@ public class Weapon : MonoBehaviour
     protected float comboLossTime; // the exact point in time that the combo will be lost
     protected float comboLossTimeLimit; // max amt of time btwn player's last attack & combo being lost
 
+    public delegate void OnWeaponMove(List<weaponMove> lastMovesUsed); //Creates an event that updates UI w/ combo moves
+    public OnWeaponMove onWeaponMoveCallback;
+
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -79,6 +82,15 @@ public class Weapon : MonoBehaviour
         return attack;
     }
 
+    protected void ClearLastMoves() //shortens the code
+    {
+        LastMovesUsed.Clear();
+        if (onWeaponMoveCallback != null) //If there are any methods subscribed to the event,
+        {
+            onWeaponMoveCallback.Invoke(LastMovesUsed);
+        }
+    }
+
     protected virtual async void StartComboTimer() // async instead of coroutine is used here bc a single async can be endlessly extended & only clear LastMovesUsed once after a single completion. Using coroutines forces us to constantly create new instances of coroutines which then end all at once, causing LastMovesUsed to be constantly emptied if the player continuously fires
     {
         comboTimerIsActive = true;
@@ -87,7 +99,7 @@ public class Weapon : MonoBehaviour
             await Task.Yield();
         }
         Debug.Log("Combo lost");
-        LastMovesUsed.Clear();
+        ClearLastMoves();
         comboTimerIsActive = false;
     }
 
@@ -95,9 +107,15 @@ public class Weapon : MonoBehaviour
     {
         if (canFire){
             canFire = false;
+
             AddMoveToCombo(primaryMove);
+            if (onWeaponMoveCallback != null){
+                onWeaponMoveCallback.Invoke(LastMovesUsed);
+            }
+
             comboLossTime = Time.time + comboLossTimeLimit; // reset the combo loss time limit
             if (!comboTimerIsActive) { StartComboTimer(); } // i.e. if the async StartComboTimer() isn't already active, start it
+
             if (ranged){
                 spawnProjectile(facingRight, shootPos, targetTags);
             }
@@ -116,8 +134,13 @@ public class Weapon : MonoBehaviour
         if (canFire){
             canFire = false;
             AddMoveToCombo(secondaryMove);
+            if (onWeaponMoveCallback != null){
+                onWeaponMoveCallback.Invoke(LastMovesUsed);
+            }
+
             comboLossTime = Time.time + comboLossTimeLimit; // reset the combo loss time limit
             if (!comboTimerIsActive) { StartComboTimer(); } // i.e. if the async StartComboTimer() isn't already active, start it
+
             if (ranged)
             {
                 spawnProjectileSecondary(facingRight, shootPos, targetTags);
@@ -133,7 +156,8 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public virtual void spawnProjectile(bool facingRight, Vector3 shootPos, HashSet<string> targetTags){
+    public virtual void spawnProjectile(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
+    {
 
     }
 
@@ -142,7 +166,8 @@ public class Weapon : MonoBehaviour
 
     }
 
-    public virtual void meleeAttack(HashSet<string> targetTags){
+    public virtual void meleeAttack(HashSet<string> targetTags)
+    {
 
     }
 

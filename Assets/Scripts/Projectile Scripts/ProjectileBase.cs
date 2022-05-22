@@ -14,7 +14,12 @@ public class ProjectileBase : MonoBehaviour
 
     public void Awake(){
     }
-    public virtual void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
+     void Start()
+    {
+        rb = this.GetComponent<Rigidbody2D>();
+    }
+
+    public virtual void setCourseOfFire(float bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
         // Determine velocity, direction, and targets of projectile
     }
@@ -34,11 +39,14 @@ public class ProjectileBase : MonoBehaviour
         attack.animCol = attackBoost.animCol;
         attack.screenShakeDeg = attackBoost.screenShakeDeg;
         attack.screenShakeTime = attackBoost.screenShakeTime;
+        //attack += attackBoost; FIX LATER
+        attack.targetNewDrag = attackBoost.targetNewDrag;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public virtual void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Wall")
+        //Check if projectile hit something that destroys the projectile
+        if (projTargetTags.Contains(other.tag) || other.tag == "Wall")
         {
             if (attack.animCol != null){
                 Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
@@ -64,6 +72,26 @@ public class ProjectileBase : MonoBehaviour
                 FindObjectOfType<CameraMove>().Shake(attack.screenShakeTime, attack.screenShakeDeg);//shakes camera
             }
             other.GetComponent<Combat>().ReceiveAttack(attack);
+            //Do damage to the thing it hit if it's an opponent
+            attack.attackerPos = rb.position; //attackerPos is set upon impact to set the attack's position to the place where the projectile impacted, not where it was shot from
+            if (attack.blastRadius > 0)
+            {
+                var colliders = Physics2D.OverlapCircleAll(rb.position, attack.blastRadius);
+                foreach (Collider2D c in colliders)
+                {
+                    if (projTargetTags.Contains(c.tag))
+                    {
+                        c.GetComponent<Combat>().ReceiveAttack(attack);
+                    }
+                }
+            }
+            else
+            {
+                if (projTargetTags.Contains(other.tag))
+                {
+                    other.GetComponent<Combat>().ReceiveAttack(attack);
+                }
+            }
 
             Destroy(gameObject);
         }

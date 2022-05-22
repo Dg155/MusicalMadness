@@ -8,10 +8,11 @@ public class Trumpet : Weapon
 {
     public GameObject projectile;
     public GameObject projectileSecondary;
+    public GameObject projectileComboFinisher;
     public Transform projectileTransform;
     
-    public int bulletSpeed;
-    public int bulletSpeedSecondary;
+    public float bulletSpeed;
+    public float bulletSpeedSecondary;
 
     public GameObject animCombo1, animCombo2, animCombo3;
     List<weaponMove> combo1 = new List<weaponMove>();
@@ -32,18 +33,18 @@ public class Trumpet : Weapon
         maxComboLength = 4;
         comboLossTimeLimit = 1.5f;
 
-        // set combo1: q-q-h
+        // set combo1: q-q-h --> baby explosion w/ baby AOE & knockback
         combo1.Add(weaponMove.trumpetPrimary);
         combo1.Add(weaponMove.trumpetPrimary);
         combo1.Add(weaponMove.trumpetSecondary);
 
-        // set combo2: q-q-q-h
-        combo2.Add(weaponMove.trumpetPrimary);
+        // set combo2: h-q-q-h --> explosion w/ AOE that stuns
+        combo2.Add(weaponMove.trumpetSecondary);
         combo2.Add(weaponMove.trumpetPrimary);
         combo2.Add(weaponMove.trumpetPrimary);
         combo2.Add(weaponMove.trumpetSecondary);
 
-        // set combo3: h-h-q-h
+        // set combo3: h-h-q-h --> chunky explosion w/ AOE, knockback, & stun
         combo3.Add(weaponMove.trumpetSecondary);
         combo3.Add(weaponMove.trumpetSecondary);
         combo3.Add(weaponMove.trumpetPrimary);
@@ -61,6 +62,12 @@ public class Trumpet : Weapon
             comboAttack.screenShakeDeg = 0.006f;
             comboAttack.screenShakeTime = 0.25f;
             LastMovesUsed.Clear();
+            comboAttack.stunDuration = .5f;
+            comboAttack.knockback = 7;
+            comboAttack.targetNewDrag = 6.5f;
+            comboAttack.blastRadius = 3;
+            bulletSpeedSecondary = 10;
+            ClearLastMoves();
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo2))
@@ -72,6 +79,9 @@ public class Trumpet : Weapon
             comboAttack.screenShakeTime = 0.35f;
 
             LastMovesUsed.Clear();
+            comboAttack.stunDuration = 1;
+            bulletSpeedSecondary = 8;
+            ClearLastMoves();
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo3))
@@ -82,9 +92,17 @@ public class Trumpet : Weapon
             comboAttack.screenShakeDeg = 0.048f;
             comboAttack.screenShakeTime = .6f;
             LastMovesUsed.Clear();
+            comboAttack.stunDuration = 1f;
+            comboAttack.knockback = 13;
+            comboAttack.targetNewDrag = 3.5f;
+            comboAttack.blastRadius = 6;
+            bulletSpeedSecondary = 7.5f;
+            ClearLastMoves();
             return comboAttack;
         }
         comboAttack.damage = 0; //new damage: default
+        bulletSpeed = 10;
+        bulletSpeedSecondary = 5;
         return comboAttack;
     }
 

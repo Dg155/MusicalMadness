@@ -4,7 +4,7 @@ using UnityEngine;
 
 //Enemy AI written by Hung Bui
 enum AIState {
-    Roaming, Aggressive, Retreating, Shooting
+    Roaming, Aggressive, Retreating, Shooting, Stunned, Knocked
 }
 public class EnemyAI : MonoBehaviour
 {
@@ -27,6 +27,8 @@ public class EnemyAI : MonoBehaviour
 
     private bool facingRight = true;
 
+    private Rigidbody2D rb;
+
     void Start()
     {
         MovementScript = this.GetComponent<EnemyMove>();
@@ -34,6 +36,7 @@ public class EnemyAI : MonoBehaviour
         state = AIState.Roaming;
         movePos = this.transform.position;
         timeSinceLastAction = 0;
+        rb = this.GetComponent<Rigidbody2D>();
         
     }
     /*
@@ -80,6 +83,30 @@ public class EnemyAI : MonoBehaviour
         }
         //Debug.Log("ROOM CENTER IS: " + roomCenter.x.ToString() +  "," + roomCenter.y.ToString());
         switch (state){
+
+            case AIState.Stunned:
+                setState(); //check if is still stunned
+                if (state != AIState.Stunned){
+                    state = AIState.Knocked;
+                }
+                break;
+
+            case AIState.Knocked:
+                //In this state, no movement occurs per frame
+                //When rb velocity is zero, we can set the state again
+                if(rb.velocity.magnitude < 0.1){
+                        movePos = this.transform.position;
+                        setState();
+                        break;
+                    }
+                //knocked enemies can still use weapons however
+                target = ai.GetTarget(this.transform.position);
+                if (target != null){
+                    CombatScript.UseMainHand(ai.Aim(this.transform.position, target.position));
+                }
+                break;
+        
+
 
             case AIState.Roaming:
                 //Ask AI to calculate new move position
@@ -158,6 +185,11 @@ public class EnemyAI : MonoBehaviour
     }
 
     void setState(){
+        if (CombatScript.getIsStunned()){
+            state = AIState.Stunned;
+            return;
+        }
+        
         if (target == null){
             target = ai.GetTarget(this.transform.position);
         }
@@ -178,6 +210,7 @@ public class EnemyAI : MonoBehaviour
             state = AIState.Roaming;
             state = AIState.Aggressive;
         }
+
     }
 
     public void setAlive(bool liveStatus)
