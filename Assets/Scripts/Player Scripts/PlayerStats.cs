@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 public class PlayerStats : BaseStats
 {
     public int souls;
+
+    void Awake(){
+        if (HB == null){
+            HB = FindObjectOfType<HealthBarScript>();
+        }
+    }
     override protected void Die(){
         LevelLoader l= FindObjectOfType<LevelLoader>();
         if (this.GetComponent<EntVisAudFX>() != null){

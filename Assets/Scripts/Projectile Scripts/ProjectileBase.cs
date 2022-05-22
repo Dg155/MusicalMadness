@@ -31,6 +31,7 @@ public class ProjectileBase : MonoBehaviour
 
     public void boostAttack(attackInfo attackBoost)
     {
+        /*
         attack.damage += attackBoost.damage;
         attack.stunDuration += attackBoost.stunDuration;
         attack.blindDuration += attackBoost.blindDuration;
@@ -39,14 +40,17 @@ public class ProjectileBase : MonoBehaviour
         attack.animCol = attackBoost.animCol;
         attack.screenShakeDeg = attackBoost.screenShakeDeg;
         attack.screenShakeTime = attackBoost.screenShakeTime;
-        //attack += attackBoost; FIX LATER
+        */
+        attack += attackBoost;
         attack.targetNewDrag = attackBoost.targetNewDrag;
+        attack.animCol = attackBoost.animCol;
     }
 
     public virtual void OnTriggerEnter2D(Collider2D other)
     {
         //Check if projectile hit something that destroys the projectile
-        if (projTargetTags.Contains(other.tag) || other.tag == "Wall")
+        //Check if wall
+        if (other.tag == "Wall")
         {
             if (attack.animCol != null){
                 Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
@@ -54,10 +58,15 @@ public class ProjectileBase : MonoBehaviour
             else if (wallCollision != null){
                 Instantiate(wallCollision, this.transform.position, Quaternion.identity);
             }
+            if (attack.screenShakeDeg >= 0f){
+                FindObjectOfType<CameraMove>().Shake(attack.screenShakeTime, attack.screenShakeDeg);//shakes camera
+            }
             Destroy(gameObject);
         }
+        //Check if hit an enemy
         else if (projTargetTags.Contains(other.tag))
         {
+            Debug.Log("Path 2");
             if (other.GetComponent<EntVisAudFX>() != null){
                 other.GetComponent<EntVisAudFX>().CollisionEffect(this.transform.position);
             }
@@ -68,12 +77,12 @@ public class ProjectileBase : MonoBehaviour
                 Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
             }
             if (attack.screenShakeDeg >= 0f){
-                Debug.Log("ALOHA");
                 FindObjectOfType<CameraMove>().Shake(attack.screenShakeTime, attack.screenShakeDeg);//shakes camera
             }
             other.GetComponent<Combat>().ReceiveAttack(attack);
             //Do damage to the thing it hit if it's an opponent
             attack.attackerPos = rb.position; //attackerPos is set upon impact to set the attack's position to the place where the projectile impacted, not where it was shot from
+            //Apply AOE if there is a blast radius
             if (attack.blastRadius > 0)
             {
                 var colliders = Physics2D.OverlapCircleAll(rb.position, attack.blastRadius);

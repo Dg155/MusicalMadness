@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2835349553931640190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2835349555388964077}
@@ -154,10 +154,10 @@ MonoBehaviour:
   LastMovesUsed: 
   projectile: {fileID: 6102382208412875363, guid: 290878b71f6260a458d8b3fd3c79bee6, type: 3}
   projectileSecondary: {fileID: 3144140597971581921, guid: 054eee3d96713e9499740068e9b59420, type: 3}
+  projectileComboFinisher: {fileID: 0}
   projectileTransform: {fileID: 2835349553931640191}
   bulletSpeed: 10
   bulletSpeedSecondary: 5
-  animDefault: {fileID: 4993843559921728331, guid: fc831b547d8f76745a5a94a2efa90a37, type: 3}
   animCombo1: {fileID: 4993843559921728331, guid: 8021fb508a8fc2040a06a49cc14472ac, type: 3}
   animCombo2: {fileID: 4993843559921728331, guid: 8021fb508a8fc2040a06a49cc14472ac, type: 3}
   animCombo3: {fileID: 4993843559921728331, guid: 5b1def5bd80cd334ab25024448972f16, type: 3}

@@ -35,6 +35,8 @@ public struct attackInfo{ //stores all info of the weapon when it collides an en
 
         c.knockback = a.knockback + b.knockback;
         c.blastRadius = a.blastRadius + b.blastRadius;
+        c.screenShakeDeg = a.screenShakeDeg + b.screenShakeDeg;
+        c.screenShakeTime = a.screenShakeTime + b.screenShakeTime;
         return c;
     }
 }
