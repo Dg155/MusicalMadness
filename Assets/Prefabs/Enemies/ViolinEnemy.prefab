@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathParticle: {fileID: 4643671852923827495, guid: 267d31af44a41024db76db92e9d8cac8, type: 3}
-  collisionParticle: {fileID: 8047624644977881977, guid: d89cdcfdfd4849e49a0fe961aa71cc78, type: 3}
+  collisionParticle: {fileID: 8047624644977881977, guid: bfe94dba836ac9d48bf2a6d463b669b8, type: 3}
   sprite: {fileID: 0}
   flashWhite: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   flashColor: {r: 0, g: 0, b: 0, a: 0}
