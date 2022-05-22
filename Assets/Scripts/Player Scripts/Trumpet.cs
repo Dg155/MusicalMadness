@@ -58,6 +58,8 @@ public class Trumpet : Weapon
             Debug.Log("You did combo1!");
             comboAttack.damage = 25; //new total damage of trumpet secondary attack: 75
             comboAttack.animCol = animCombo1;
+            comboAttack.screenShakeDeg = 0.006f;
+            comboAttack.screenShakeTime = 0.25f;
             LastMovesUsed.Clear();
             return comboAttack;
         }
@@ -66,6 +68,9 @@ public class Trumpet : Weapon
             Debug.Log("You did combo2!");
             comboAttack.damage = 45; //new damage: 95
             comboAttack.animCol = animCombo2;
+            comboAttack.screenShakeDeg = 0.012f;
+            comboAttack.screenShakeTime = 0.35f;
+
             LastMovesUsed.Clear();
             return comboAttack;
         }
@@ -74,6 +79,8 @@ public class Trumpet : Weapon
             Debug.Log("You did combo3!");
             comboAttack.damage = 75; //new damage: 125
             comboAttack.animCol = animCombo3;
+            comboAttack.screenShakeDeg = 0.048f;
+            comboAttack.screenShakeTime = .6f;
             LastMovesUsed.Clear();
             return comboAttack;
         }

@@ -11,6 +11,8 @@ public class CameraMove : MonoBehaviour
     public int roomsize;
     bool shaking = false;
     public LevelInfo levelInfo;
+
+    public Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,7 @@ public class CameraMove : MonoBehaviour
         moving = false;
         roomsize = 8;
         newpos = pos.position;
+        rb = this.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -68,7 +71,7 @@ public class CameraMove : MonoBehaviour
         while (timeElapsed < duration){
             float x = Random.Range(-1f, 1f) * magnitude;
             float y = Random.Range(-1f, 1f) * magnitude;
-            this.transform.position = this.transform.position + new Vector3(x, y, 0);
+            rb.MovePosition(this.transform.position + new Vector3(x, y, 0));
             timeElapsed += Time.deltaTime;
             yield return null;
         }

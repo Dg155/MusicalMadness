@@ -14,7 +14,8 @@ public struct attackInfo{ //stores all info of the weapon when it collides an en
     public float blindDuration;
     public float poisonDuration;
     public float poisonDamage;
-
+    public float screenShakeDeg;
+    public float screenShakeTime;
     public GameObject animCol; //The animation upon collision
 }
 

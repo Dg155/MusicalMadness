@@ -7,10 +7,13 @@ public class ProjectileBase : MonoBehaviour
 
     private Vector3 mousePos;
     private Rigidbody2D rb;
+    public AudioClip soundEffect;
+    public GameObject wallCollision;
     public attackInfo attack;
     public HashSet<string> projTargetTags = new HashSet<string>();
 
-
+    public void Awake(){
+    }
     public virtual void setCourseOfFire(int bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
         // Determine velocity, direction, and targets of projectile
@@ -28,19 +31,22 @@ public class ProjectileBase : MonoBehaviour
         attack.blindDuration += attackBoost.blindDuration;
         attack.poisonDuration += attackBoost.poisonDuration;
         attack.poisonDamage += attackBoost.poisonDamage;
-        if (attackBoost.animCol != null){
-            attack.animCol = attackBoost.animCol;
-        }
+        attack.animCol = attackBoost.animCol;
+        attack.screenShakeDeg = attackBoost.screenShakeDeg;
+        attack.screenShakeTime = attackBoost.screenShakeTime;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Wall")
         {
-            Destroy(gameObject);
-            if (attack.animCol){
+            if (attack.animCol != null){
                 Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
             }
+            else if (wallCollision != null){
+                Instantiate(wallCollision, this.transform.position, Quaternion.identity);
+            }
+            Destroy(gameObject);
         }
         else if (projTargetTags.Contains(other.tag))
         {
@@ -48,12 +54,15 @@ public class ProjectileBase : MonoBehaviour
                 other.GetComponent<EntVisAudFX>().CollisionEffect(this.transform.position);
             }
             else{
-                Debug.Log("COULD NOT FIND COLLISOIN SCRIPT");
+                Debug.Log("COULD NOT FIND COLLISION SCRIPT");
             }
-            if (attack.animCol){
+            if (attack.animCol != null){
                 Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
             }
-            FindObjectOfType<CameraMove>().Shake(0.25f, 0.012f);//shakes camera
+            if (attack.screenShakeDeg >= 0f){
+                Debug.Log("ALOHA");
+                FindObjectOfType<CameraMove>().Shake(attack.screenShakeTime, attack.screenShakeDeg);//shakes camera
+            }
             other.GetComponent<Combat>().ReceiveAttack(attack);
 
             Destroy(gameObject);
