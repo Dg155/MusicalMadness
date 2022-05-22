@@ -106,6 +106,8 @@ MonoBehaviour:
     blindDuration: 0
     poisonDuration: 0
     poisonDamage: 0
+    screenShakeDeg: 0.0125
+    screenShakeTime: 0.25
     animCol: {fileID: 4993843559921728331, guid: fc831b547d8f76745a5a94a2efa90a37, type: 3}
 --- !u!50 &6102382208412875362
 Rigidbody2D:
