@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class ItemObject : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class ItemObject : MonoBehaviour
     void Start()
     {
         GetComponent<SpriteRenderer>().sprite = item.image;
+        if (item.type == ItemType.Soul) {destroySoul();}
     }
 
     // Update is called once per frame
@@ -18,18 +20,19 @@ public class ItemObject : MonoBehaviour
         
     }
 
+    async void destroySoul()
+    {
+        await Task.Delay(50000);
+        Destroy(gameObject);
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
             bool gotPickedUp = Inventory.instance.Add(item);
-            Debug.Log(gotPickedUp);
             if (gotPickedUp)
             {
-                if (item.name == "Soul")
-                {
-                    other.GetComponent<PlayerStats>().addSouls(1);
-                }
                 Destroy(gameObject);
             }
         }

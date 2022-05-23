@@ -14,6 +14,7 @@ public class InstantiateLevel : MonoBehaviour
     List<GameObject> artifacts = new List<GameObject>();
     System.Random random = new System.Random();
     public GameObject ambushChest;
+    public GameObject chestHeart;
     void Awake(){
         rooms = new Dictionary<Dir, GameObject>();
         rooms.Add(Dir.D|Dir.L|Dir.R|Dir.U,All);
@@ -43,9 +44,13 @@ public class InstantiateLevel : MonoBehaviour
     void InstantiateDeadEnd(pos position, DeadEnds roomType, Dir direction){
         if (roomType == DeadEnds.Chest) {
             var newChest = Instantiate(TreasureChest, new Vector3(position.x * roomSize ,position.y * roomSize, 0), Quaternion.identity);
-            GameObject artifact = artifacts[random.Next(artifacts.Count)];
-            artifacts.Remove(artifact);
-            newChest.GetComponent<TreasureChest>().setItem(artifact);
+            if (artifacts.Count > 0)
+            {
+                GameObject artifact = artifacts[random.Next(artifacts.Count)];
+                artifacts.Remove(artifact);
+                newChest.GetComponent<TreasureChest>().setItem(artifact);
+            }
+            else {newChest.GetComponent<TreasureChest>().setItem(chestHeart);}
         }
         if (roomType == DeadEnds.Amush) {
             var newChest = Instantiate(ambushChest, new Vector3(position.x * roomSize ,position.y * roomSize, 0), Quaternion.identity);
