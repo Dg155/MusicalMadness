@@ -12,16 +12,11 @@ public class ProjectileBase : MonoBehaviour
     public attackInfo attack;
     public HashSet<string> projTargetTags = new HashSet<string>();
 
-    void Start()
-    {
-        rb = this.GetComponent<Rigidbody2D>();
-    public attackInfo attack;
-    public HashSet<string> projTargetTags = new HashSet<string>();
 
     private void Awake(){
         //CHANGE LATER TO WORK WITH EVENTS
         FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffect);
-
+        rb = this.GetComponent<Rigidbody2D>();
     }
 
     public virtual void setCourseOfFire(float bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
