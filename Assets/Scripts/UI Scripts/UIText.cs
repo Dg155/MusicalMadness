@@ -3,7 +3,7 @@ using TMPro;
 
 public class UIText : MonoBehaviour
 {
-    public TextMeshProUGUI valueText;
+    private TextMeshProUGUI valueText;
     public ItemType valueType;
 
     void Start()

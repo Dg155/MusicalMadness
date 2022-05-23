@@ -20,6 +20,14 @@ public class ItemObject : MonoBehaviour
         
     }
 
+    public async void justSpawned()
+    {
+        CircleCollider2D CC = GetComponent<CircleCollider2D>();
+        CC.enabled = false;
+        await Task.Delay(1000);
+        CC.enabled = true;
+    }
+
     async void destroySoul()
     {
         await Task.Delay(50000);

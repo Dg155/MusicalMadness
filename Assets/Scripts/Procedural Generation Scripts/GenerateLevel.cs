@@ -325,5 +325,16 @@ public class GenerateLevel : MonoBehaviour
         }
         return monstersPerRoom;
     }
+
+    private void checkMonsterRooms(Dictionary<int, List<pos>> roomTiers)
+    {
+        for (int i=0; i <2; ++i)
+        {
+            foreach(pos position in roomTiers[0])
+            {
+                Debug.Log(position.x + ", " + position.y);
+            }
+        }
+    }
     
 }

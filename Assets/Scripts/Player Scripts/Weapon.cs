@@ -98,7 +98,7 @@ public class Weapon : MonoBehaviour
         {
             await Task.Yield();
         }
-        Debug.Log("Combo lost");
+        //Debug.Log("Combo lost");
         ClearLastMoves();
         comboTimerIsActive = false;
     }

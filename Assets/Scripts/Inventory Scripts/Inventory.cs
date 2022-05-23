@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
     public OnItemChanged onItemChangedCallback;
     // Variables to keep track of mainHand Weapon
     public Item mainHand;
-    public GameObject mainHandObject;
+    public GameObject mainHandObject = null;
     // List of items, the "inventory"
     public List<Item> items = new List<Item>();
     // Int limiting the amount of weapons the player could carry
@@ -87,7 +87,7 @@ public class Inventory : MonoBehaviour
                     items.Add(item);
                     numArtifacts++;
                 }
-                else if (item.type == ItemType.Soul) { playerStats.addSouls((int)item.itemWorth); }
+                else if (item.type == ItemType.Soul) {playerStats.addSouls((int)item.itemWorth); }
                 else if (item.type == ItemType.Healing) { playerStats.addHealth(item.itemWorth); }
             }
 
@@ -97,7 +97,6 @@ public class Inventory : MonoBehaviour
                 onItemChangedCallback.Invoke();
             }
         }
-
         return true;
 
     }

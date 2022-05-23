@@ -11,7 +11,7 @@ public class TreasureChest : MonoBehaviour
     private bool Closed = true;
 
     private void Start() {
-        itemInfo = item.GetComponent<Item>();
+        itemInfo = item.GetComponent<ItemObject>().item;
         if (itemInfo.type == ItemType.Healing)
         {
             itemInfo.setItemWorth(500);
@@ -33,7 +33,8 @@ public class TreasureChest : MonoBehaviour
         {
             Closed = false;
             GetComponent<SpriteRenderer>().sprite = openChest;
-            Instantiate(item, this.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+            GameObject Item = Instantiate(item, this.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+            Item.GetComponent<ItemObject>().justSpawned();
         }
     }
 
