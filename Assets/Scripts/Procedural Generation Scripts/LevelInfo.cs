@@ -31,11 +31,13 @@ public class LevelInfo : MonoBehaviour
 
     public void setFinalRoom(pos position, Dir direction)
     {
+        GameObject doorBlock;
         finalRoom = (position, direction);
-        if (direction == Dir.R) {Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(4, 0, 0), Quaternion.Euler(0f, 0f, 90f));}
-        else if (direction == Dir.L) {Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(-4, 0, 0), Quaternion.Euler(0f, 0f, 90f));}
-        else if (direction == Dir.U) {Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(0, 4, 0), Quaternion.identity);}
-        else {Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(0, -4, 0), Quaternion.identity);}
+        if (direction == Dir.R) {doorBlock = Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(4, 0, 0), Quaternion.Euler(0f, 0f, 90f));}
+        else if (direction == Dir.L) {doorBlock = Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(-4, 0, 0), Quaternion.Euler(0f, 0f, 90f));}
+        else if (direction == Dir.U) {doorBlock = Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(0, 4, 0), Quaternion.identity);}
+        else {doorBlock = Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(0, -4, 0), Quaternion.identity);}
+        doorBlock.tag = "FinalBlock";
     }
     
 }
