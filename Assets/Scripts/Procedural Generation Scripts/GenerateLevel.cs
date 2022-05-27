@@ -123,10 +123,17 @@ public class GenerateLevel : MonoBehaviour
             if (i < lastTierOne) {roomTiers[0].Add(currentPos);}
             else if (i < lastTierTwo) {roomTiers[1].Add(currentPos);}
             else {roomTiers[2].Add(currentPos);}
-            //Update previous to be the opposite of the new direction
-            previous = flipDir(New_Main_Direction);
-            //Update current position depending on the new direction
-            currentPos = offsetPos(currentPos, New_Main_Direction);
+            if (i == mainrooms -1)
+            {
+                this.GetComponent<LevelInfo>().setFinalRoom(currentPos, New_Main_Direction);
+            }
+            else
+            {
+                //Update previous to be the opposite of the new direction
+                previous = flipDir(New_Main_Direction);
+                //Update current position depending on the new direction
+                currentPos = offsetPos(currentPos, New_Main_Direction);
+            }
         }
         
         // Loop to create the detours

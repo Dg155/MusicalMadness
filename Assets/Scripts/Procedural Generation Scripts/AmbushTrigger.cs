@@ -61,8 +61,8 @@ public class AmbushTrigger : MonoBehaviour
         // Lighten the screen
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
-        if (!Ambushed && other.gameObject.tag == "Player")
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (!Ambushed && other.tag == "Player")
         {
             StartCoroutine("startAmbush");
         }

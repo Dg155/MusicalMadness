@@ -20,6 +20,11 @@ public class ItemObject : MonoBehaviour
         
     }
 
+    public void setDetails(Item newItem)
+    {
+        item = newItem;
+    }
+
     public async void justSpawned()
     {
         CircleCollider2D CC = GetComponent<CircleCollider2D>();

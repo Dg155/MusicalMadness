@@ -4,5 +4,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelArtifacts", menuName = "ScriptableObjects/LevelArtifacts")]
 public class ScriptableLevelArtifacts : ScriptableObject
 {
-    public List<GameObject> Artifacts;
+    public List<Item> Artifacts;
 }

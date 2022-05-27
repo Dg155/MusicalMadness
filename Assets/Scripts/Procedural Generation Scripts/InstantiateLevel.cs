@@ -10,11 +10,12 @@ public class InstantiateLevel : MonoBehaviour
     public int roomSize = 8;
     public GameObject All, R, U, L, D, RU, RL, RD, UL, UD, LD, RUL, ULD, RUD, RLD;
     public GameObject TreasureChest;
-    public ScriptableLevelArtifacts levelArtifacts;
-    List<GameObject> artifacts = new List<GameObject>();
+    private List<Item> artifacts = new List<Item>();
+    private List<GameObject> spawnedChests = new List<GameObject>();
     System.Random random = new System.Random();
     public GameObject ambushChest;
-    public GameObject chestHeart;
+    public Item chestHeart;
+
     void Awake(){
         rooms = new Dictionary<Dir, GameObject>();
         rooms.Add(Dir.D|Dir.L|Dir.R|Dir.U,All);
@@ -33,9 +34,15 @@ public class InstantiateLevel : MonoBehaviour
         rooms.Add(Dir.R|Dir.U|Dir.D,RUD);
         rooms.Add(Dir.U|Dir.L|Dir.D,ULD);
     }
+
     void Start(){
-        artifacts = new List<GameObject>(levelArtifacts.Artifacts);
     }
+
+    public void setArtifacts(ScriptableLevelArtifacts levelArtifacts)
+    {
+        artifacts = new List<Item>(levelArtifacts.Artifacts);
+    }
+
     void InstantiateRoom(pos position, Dir roomType){
         var newRoom = Instantiate (rooms[roomType], new Vector3(position.x * roomSize ,position.y * roomSize, 0) , Quaternion.identity);
         newRoom.transform.parent = grid.transform;
@@ -44,13 +51,7 @@ public class InstantiateLevel : MonoBehaviour
     void InstantiateDeadEnd(pos position, DeadEnds roomType, Dir direction){
         if (roomType == DeadEnds.Chest) {
             var newChest = Instantiate(TreasureChest, new Vector3(position.x * roomSize ,position.y * roomSize, 0), Quaternion.identity);
-            if (artifacts.Count > 0)
-            {
-                GameObject artifact = artifacts[random.Next(artifacts.Count)];
-                artifacts.Remove(artifact);
-                newChest.GetComponent<TreasureChest>().setItem(artifact);
-            }
-            else {newChest.GetComponent<TreasureChest>().setItem(chestHeart);}
+            spawnedChests.Add(newChest);
         }
         if (roomType == DeadEnds.Amush) {
             var newChest = Instantiate(ambushChest, new Vector3(position.x * roomSize ,position.y * roomSize, 0), Quaternion.identity);
@@ -58,6 +59,22 @@ public class InstantiateLevel : MonoBehaviour
             chestScript.setMonster(Monsters.Violin);
             chestScript.setRoomPos(position);
             chestScript.setBlocker(direction);
+        }
+    }
+
+    void populateChests()
+    {
+        while (spawnedChests.Count != 0)
+        {
+            var newChest = spawnedChests[random.Next(spawnedChests.Count)];
+            spawnedChests.Remove(newChest);
+            if (artifacts.Count > 0)
+            {
+                Item artifact = artifacts[random.Next(artifacts.Count)];
+                artifacts.Remove(artifact);
+                newChest.GetComponent<TreasureChest>().setItem(artifact);
+            }
+            else {newChest.GetComponent<TreasureChest>().setItem(chestHeart);}
         }
     }
 
@@ -75,6 +92,7 @@ public class InstantiateLevel : MonoBehaviour
         {
             InstantiateDeadEnd(room.Key, room.Value, detourPaths[room.Key]);
         }
+        populateChests();
     }
 }
 

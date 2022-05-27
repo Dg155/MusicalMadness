@@ -22,14 +22,10 @@ public class ComboMovesUI : MonoBehaviour
 
     void UpdateMainHand()
     {
-        try
+        if (inventory.mainHandObject != null)
         {
             mainHand = inventory.mainHandObject.GetComponent<Weapon>();
             mainHand.onWeaponMoveCallback += UpdateText;
-        }
-        catch
-        {
-            throw;
         }
     }
 

@@ -10,17 +10,12 @@ public class TreasureChest : MonoBehaviour
     private Item itemInfo;
     private bool Closed = true;
 
-    private void Start() {
-        itemInfo = item.GetComponent<ItemObject>().item;
-        if (itemInfo.type == ItemType.Healing)
-        {
-            itemInfo.setItemWorth(500);
-        }
+    private void Start() {  
     }
 
-    public void setItem(GameObject chestItem)
+    public void setItem(Item chestItem)
     {
-        item = chestItem;
+        itemInfo = chestItem;
     }
 
     public GameObject getItem()
@@ -28,11 +23,13 @@ public class TreasureChest : MonoBehaviour
         return item;
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
-        if (Closed && other.gameObject.tag == "Player")
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (Closed && other.tag == "Player")
         {
             Closed = false;
             GetComponent<SpriteRenderer>().sprite = openChest;
+            item.GetComponent<ItemObject>().setDetails(itemInfo);
+            if (itemInfo.type == ItemType.Healing){itemInfo.setItemWorth(500);}
             GameObject Item = Instantiate(item, this.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
             Item.GetComponent<ItemObject>().justSpawned();
         }

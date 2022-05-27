@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Level1Artifacts
   m_EditorClassIdentifier: 
   Artifacts:
-  - {fileID: 7654927979853257837, guid: 7bb58fb93c88ae04084f398534e222a9, type: 3}
-  - {fileID: 7048102088220630138, guid: e60e5dac3e556624998c7eecc880379a, type: 3}
-  - {fileID: 5466420041229478877, guid: c2e98117d122a64488d912d34de0b691, type: 3}
+  - {fileID: 11400000, guid: ddccb7f537e73574e912b9e2e5f568c2, type: 2}
+  - {fileID: 11400000, guid: 0775ee4a2e04dcb459b1164133617bd1, type: 2}
+  - {fileID: 11400000, guid: be15c1ad56ef1854eaaedcfaf1f71b0f, type: 2}
