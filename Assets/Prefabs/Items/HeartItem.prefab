@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1756328753361294698}
   - component: {fileID: 3207408656537073741}
   - component: {fileID: 315636057044809112}
+  - component: {fileID: 1720672546}
   m_Layer: 0
   m_Name: HeartItem
   m_TagString: Untagged
@@ -113,3 +114,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 4e1c3460ae43ee54f9f45908bd104bec, type: 2}
+--- !u!95 &1720672546
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713696232024858866}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c66c813c34747846a3fcb74cad6569c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
