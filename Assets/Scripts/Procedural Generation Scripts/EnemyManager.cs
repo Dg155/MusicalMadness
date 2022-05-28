@@ -45,7 +45,7 @@ public class EnemyManager : MonoBehaviour
         musicPlayer.clip = classicalMusic;
         musicPlayer.Play();
         yield return new WaitForSeconds(.8f);
-        Destroy(GameObject.FindGameObjectWithTag("DoorBlock"));
+        Destroy(door);
         //Reward the player
     }
     void Start()

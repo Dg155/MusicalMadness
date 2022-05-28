@@ -5,4 +5,5 @@ using UnityEngine;
 public class ScriptableLevelArtifacts : ScriptableObject
 {
     public List<Item> Artifacts;
+    public string nameOfKey;
 }

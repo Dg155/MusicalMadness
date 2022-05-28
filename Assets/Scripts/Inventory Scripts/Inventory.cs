@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
     #region Singleton
     public static Inventory instance;
     private PlayerStats playerStats;
+    private LevelInfo levelInfo;
 
     void Awake()
     {
@@ -18,6 +19,7 @@ public class Inventory : MonoBehaviour
         instance = this;
 
         playerStats = gameObject.GetComponent<PlayerStats>();
+        levelInfo = GameObject.FindObjectOfType<LevelInfo>();
     }
     #endregion
 
@@ -28,7 +30,8 @@ public class Inventory : MonoBehaviour
     public Item mainHand;
     public GameObject mainHandObject = null;
     // List of items, the "inventory"
-    public List<Item> items = new List<Item>();
+    public List<Item> weaponItems = new List<Item>();
+    public List<Item> artifactItems = new List<Item>();
     // Int limiting the amount of weapons the player could carry
     public int weaponSpace;
     // Varaibles to keep count of the types of weapons stored
@@ -80,12 +83,13 @@ public class Inventory : MonoBehaviour
             if (item != null)
             {
                 if (item.type == ItemType.Weapon) {
-                    items.Add(item);
+                    weaponItems.Add(item);
                     numWeapons++;
                 }
                 else if (item.type == ItemType.Artifact) {
-                    items.Add(item);
+                    artifactItems.Add(item);
                     numArtifacts++;
+                    levelInfo.checkArtifacts(artifactItems);
                 }
                 else if (item.type == ItemType.Soul) {playerStats.addSouls((int)item.itemWorth); }
                 else if (item.type == ItemType.Healing) { playerStats.addHealth(item.itemWorth); }
@@ -103,11 +107,11 @@ public class Inventory : MonoBehaviour
     public void Remove (Item item)
     {
         if (item.type == ItemType.Weapon) {
-            items.Remove(item);
+            weaponItems.Remove(item);
             numWeapons--;
         }
         else if (item.type == ItemType.Artifact) {
-            items.Remove(item);
+            artifactItems.Remove(item);
             numArtifacts--;
         }
         else if (item.type == ItemType.Soul) { playerStats.addSouls((int)-item.itemWorth); }
@@ -130,12 +134,12 @@ public class Inventory : MonoBehaviour
         //if you're setting a new main hand bc you were unarmed and you're picking up a weapon from the ground or a chest, don't remove anything from the inventory's item list. This is why the bool is only used in the Add function above and is false by default
         if (switchedFromItemInInventory)
         {
-            items.Remove(newMainHand); //don't use the Inventory's Remove method bc we don't want the callback called twice with just one function
+            weaponItems.Remove(newMainHand); //don't use the Inventory's Remove method bc we don't want the callback called twice with just one function
         }
 
         if (mainHand != null) //why is this condition checked? If mainHand is null and we try to add it to the items list, it will actually add a "None(Item)" element to the list instead of doing nothing, causing errors
         {
-            items.Add(mainHand); //don't use the Inventory's Add method bc of the previous reason and we don't need to check the weaponSpace condition (we're not actually adding anything to our inventory)
+            weaponItems.Add(mainHand); //don't use the Inventory's Add method bc of the previous reason and we don't need to check the weaponSpace condition (we're not actually adding anything to our inventory)
         }
 
         mainHand = newMainHand;

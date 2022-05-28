@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - WeaponHold
   - DoorBlock
+  - FinalBlock
+  - PopUpText
   layers:
   - Default
   - TransparentFX
