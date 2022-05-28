@@ -126,6 +126,7 @@ public class GenerateLevel : MonoBehaviour
             if (i == mainrooms -1)
             {
                 this.GetComponent<LevelInfo>().setFinalRoom(currentPos, New_Main_Direction);
+                currentPos = offsetPos(currentPos, New_Main_Direction);
             }
             else
             {
