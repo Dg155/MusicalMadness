@@ -28,30 +28,10 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void LoadNextScene(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
     public void LoadPreviousScene(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-    }
-
-    public void LoadSettingsScene(){
-        SceneManager.LoadScene("Settings");
-    }
-
-    public void LoadTitleScreenScene(){
-        SceneManager.LoadScene("TitleScreen");
-    }
-
-    public void LoadCreditsScene(){
-        SceneManager.LoadScene("Credits");
-    }
-
-    public void LoadHowToPlayScene(){
-        SceneManager.LoadScene("HowToPlay");
-    }
-
-    public void LoadControlsScene(){
-        SceneManager.LoadScene("Controls");
+        LoadLevel(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }
