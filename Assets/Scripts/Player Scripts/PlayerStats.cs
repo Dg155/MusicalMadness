@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStats : BaseStats
 {
+    public float hitboxVisualizerRadius;
+
     public int souls;
 
     void Awake(){
@@ -48,4 +50,9 @@ public class PlayerStats : BaseStats
         if (souls < 0){souls = 0;}
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, hitboxVisualizerRadius);
+    }
 }

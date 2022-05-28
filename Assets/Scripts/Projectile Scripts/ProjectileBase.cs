@@ -5,15 +5,17 @@ using UnityEngine;
 public class ProjectileBase : MonoBehaviour
 {
 
-    private Vector3 mousePos;
-    private Rigidbody2D rb;
+    protected Vector3 mousePos;
+    protected Rigidbody2D rb;
+
     public AudioClip soundEffect;
     public GameObject wallCollision;
+
     public attackInfo attack;
     public HashSet<string> projTargetTags = new HashSet<string>();
 
 
-    private void Awake(){
+    protected virtual void Awake(){
         //CHANGE LATER TO WORK WITH EVENTS
         FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffect);
         rb = this.GetComponent<Rigidbody2D>();
@@ -31,19 +33,10 @@ public class ProjectileBase : MonoBehaviour
 
     public void boostAttack(attackInfo attackBoost)
     {
-        /*
-        attack.damage += attackBoost.damage;
-        attack.stunDuration += attackBoost.stunDuration;
-        attack.blindDuration += attackBoost.blindDuration;
-        attack.poisonDuration += attackBoost.poisonDuration;
-        attack.poisonDamage += attackBoost.poisonDamage;
-        attack.animCol = attackBoost.animCol;
-        attack.screenShakeDeg = attackBoost.screenShakeDeg;
-        attack.screenShakeTime = attackBoost.screenShakeTime;
-        */
         attack += attackBoost;
         attack.targetNewDrag = attackBoost.targetNewDrag;
         attack.animCol = attackBoost.animCol;
+        attack.isPiercing = attackBoost.isPiercing;
     }
 
     public virtual void OnTriggerEnter2D(Collider2D other)
@@ -61,12 +54,26 @@ public class ProjectileBase : MonoBehaviour
             if (attack.screenShakeDeg >= 0f){
                 FindObjectOfType<CameraMove>().Shake(attack.screenShakeTime, attack.screenShakeDeg);//shakes camera
             }
+
+            if (attack.blastRadius > 0)
+            {
+                attack.attackerPos = rb.position;
+                var colliders = Physics2D.OverlapCircleAll(rb.position, attack.blastRadius);
+                foreach (Collider2D c in colliders)
+                {
+                    if (projTargetTags.Contains(c.tag))
+                    {
+                        c.GetComponent<Combat>().ReceiveAttack(attack);
+                    }
+                }
+            }
+
             Destroy(gameObject);
         }
         //Check if hit an enemy
         else if (projTargetTags.Contains(other.tag))
         {
-            Debug.Log("Path 2");
+            //Debug.Log("Path 2");
             if (other.GetComponent<EntVisAudFX>() != null){
                 other.GetComponent<EntVisAudFX>().CollisionEffect(this.transform.position);
             }
@@ -79,12 +86,12 @@ public class ProjectileBase : MonoBehaviour
             if (attack.screenShakeDeg >= 0f){
                 FindObjectOfType<CameraMove>().Shake(attack.screenShakeTime, attack.screenShakeDeg);//shakes camera
             }
-            other.GetComponent<Combat>().ReceiveAttack(attack);
+
             //Do damage to the thing it hit if it's an opponent
-            attack.attackerPos = rb.position; //attackerPos is set upon impact to set the attack's position to the place where the projectile impacted, not where it was shot from
             //Apply AOE if there is a blast radius
             if (attack.blastRadius > 0)
             {
+                attack.attackerPos = rb.position; //attackerPos is set upon impact to set the attack's position to the place where the projectile impacted, not where it was shot from
                 var colliders = Physics2D.OverlapCircleAll(rb.position, attack.blastRadius);
                 foreach (Collider2D c in colliders)
                 {
@@ -96,13 +103,14 @@ public class ProjectileBase : MonoBehaviour
             }
             else
             {
-                if (projTargetTags.Contains(other.tag))
-                {
-                    other.GetComponent<Combat>().ReceiveAttack(attack);
-                }
+                attack.attackerPos = rb.position;
+                other.GetComponent<Combat>().ReceiveAttack(attack);
             }
 
-            Destroy(gameObject);
+            if (!attack.isPiercing)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

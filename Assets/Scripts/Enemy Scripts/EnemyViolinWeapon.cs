@@ -7,7 +7,7 @@ public class EnemyViolinWeapon : Weapon
     public GameObject projectile;
     private Transform projectileTransform;
     
-    public int bulletSpeed;
+    public float bulletSpeed;
 
     private void Awake()
     {
@@ -16,7 +16,7 @@ public class EnemyViolinWeapon : Weapon
 
     new private void Start() {
         base.Start();
-        ranged = true;
+        primaryRanged = true;
         projectileTransform = this.transform;
     }
 

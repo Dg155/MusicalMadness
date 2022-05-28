@@ -149,18 +149,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1370923df11dfd64288b7f743dbcef90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDown: 0.2
-  coolDownSecondary: 0.4
+  coolDownPrimary: 0.25
+  coolDownSecondary: 0.5
+  attack:
+    damage: 0
+    stunDuration: 0
+    blindDuration: 0
+    poisonDuration: 0
+    poisonDamage: 0
+    screenShakeDeg: 0
+    screenShakeTime: 0
+    animCol: {fileID: 0}
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 0
+    blastRadius: 0
+    targetNewDrag: 0
+    isPiercing: 0
   LastMovesUsed: 
   projectile: {fileID: 6102382208412875363, guid: 290878b71f6260a458d8b3fd3c79bee6, type: 3}
   projectileSecondary: {fileID: 3144140597971581921, guid: 054eee3d96713e9499740068e9b59420, type: 3}
-  projectileComboFinisher: {fileID: 0}
   projectileTransform: {fileID: 2835349553931640191}
-  bulletSpeed: 10
+  bulletSpeed: 7.5
   bulletSpeedSecondary: 5
   animCombo1: {fileID: 4993843559921728331, guid: 8021fb508a8fc2040a06a49cc14472ac, type: 3}
   animCombo2: {fileID: 4993843559921728331, guid: 8021fb508a8fc2040a06a49cc14472ac, type: 3}
   animCombo3: {fileID: 4993843559921728331, guid: 5b1def5bd80cd334ab25024448972f16, type: 3}
+  comboFinisher1:
+    damage: 25
+    stunDuration: 0
+    blindDuration: 0
+    poisonDuration: 0
+    poisonDamage: 0
+    screenShakeDeg: 0.006
+    screenShakeTime: 0.25
+    animCol: {fileID: 0}
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 7
+    blastRadius: 1
+    targetNewDrag: 6.5
+    isPiercing: 0
+  comboFinisher2:
+    damage: 45
+    stunDuration: 1
+    blindDuration: 0
+    poisonDuration: 0
+    poisonDamage: 0
+    screenShakeDeg: 0.012
+    screenShakeTime: 0.35
+    animCol: {fileID: 0}
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 0
+    blastRadius: 0
+    targetNewDrag: 0
+    isPiercing: 0
+  comboFinisher3:
+    damage: 75
+    stunDuration: 0
+    blindDuration: 0
+    poisonDuration: 0
+    poisonDamage: 0
+    screenShakeDeg: 0.048
+    screenShakeTime: 0.6
+    animCol: {fileID: 0}
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 8
+    blastRadius: 2
+    targetNewDrag: 6.5
+    isPiercing: 0
 --- !u!95 &5636066111209543549
 Animator:
   serializedVersion: 3

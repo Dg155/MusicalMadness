@@ -192,6 +192,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStunned: 0
+  isVulnerableToPierce: 0
+  pierceInvulTime: 0.2
 --- !u!95 &2006987643916260001
 Animator:
   serializedVersion: 3
@@ -252,8 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f051d3538cff88742878c7ca10aa21ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currHealth: 100
-  maxHealth: 100
+  currHealth: 150
+  maxHealth: 150
   moveSpeed: 4
   mainHand: {fileID: 2412233823034051384}
   offHand: {fileID: 0}

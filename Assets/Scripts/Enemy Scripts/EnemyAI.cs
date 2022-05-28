@@ -59,7 +59,7 @@ public class EnemyAI : MonoBehaviour
             else if (facingRight && target.transform.position.x - this.transform.position.x < 0)
             {
                 facingRight = false;
-                this.transform.localScale = new Vector2(-1, 1);
+                this.transform.localScale = new Vector2(1, 1);
             }
         }
         else if (!facingRight && (movePos.x - this.transform.position.x > 0
@@ -72,7 +72,7 @@ public class EnemyAI : MonoBehaviour
         || (target !=null &&  target.transform.position.x - this.transform.position.x < 0))
         {
             facingRight = false;
-            this.transform.localScale = new Vector2(-1, 1);
+            this.transform.localScale = new Vector2(1, 1);
         }
 
 
