@@ -8,4 +8,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Old Scenes/LevelOne.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MenuScenes/TitleScreen.unity
+    guid: 83e9092ce2b2dfc4490cda0460baa570
+  - enabled: 1
+    path: Assets/Scenes/MergeScenes/BaseScene_5_21_22.unity
+    guid: 06f0d0abf39fa784e85004c203624dd2
+  - enabled: 0
+    path: Assets/Scenes/MergeScenes/BaseScene_5_14_22.unity
+    guid: bba70d3269668324b893086de74f53fa
+  - enabled: 0
+    path: Assets/Scenes/MenuScenes/Settings.unity
+    guid: ee3b802ae980e6544a9daf3f619ed08c
+  - enabled: 0
+    path: Assets/Scenes/MenuScenes/Credits.unity
+    guid: 9af9ae53ea276f044b7fc683f090bd49
   m_configObjects: {}

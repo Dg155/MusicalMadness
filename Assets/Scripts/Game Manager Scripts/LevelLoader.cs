@@ -36,4 +36,11 @@ public class LevelLoader : MonoBehaviour
     }
 
 
+    public void LoadNextScene(){
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+    }
+
+    public void LoadPreviousScene(){
+        LoadLevel(SceneManager.GetActiveScene().buildIndex - 1);
+    }
 }
