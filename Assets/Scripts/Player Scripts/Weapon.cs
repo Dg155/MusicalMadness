@@ -5,18 +5,20 @@ using System.Threading.Tasks;
 
 public enum weaponMove
 {
-    trumpetPrimary, trumpetSecondary
+    trumpetPrimary, trumpetSecondary, drumPrimary, drumSecondary
 }
 
 public class Weapon : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator animator;
-    protected bool ranged;
-    public float coolDown;
+    protected bool primaryRanged;
+    protected bool secondaryRanged;
+    public float coolDownPrimary;
     public float coolDownSecondary;
     private bool canFire = true;
-    protected attackInfo attack;
+    public attackInfo attack;
+    protected attackInfo baseAttack;
 
     // weapon render variables
     Combat CombatScript;
@@ -40,6 +42,7 @@ public class Weapon : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        baseAttack = attack;
         facingRight = true;  // the sprite by default is facing right
         CombatScript = transform.GetComponentInParent<Combat>();
         comboTimerIsActive = false;
@@ -75,6 +78,10 @@ public class Weapon : MonoBehaviour
         {
             LastMovesUsed.RemoveAt(0);
         }
+        if (onWeaponMoveCallback != null)
+        {
+            onWeaponMoveCallback.Invoke(LastMovesUsed);
+        }
     }
 
     protected virtual attackInfo CalculateComboDamage()
@@ -109,21 +116,19 @@ public class Weapon : MonoBehaviour
             canFire = false;
 
             AddMoveToCombo(primaryMove);
-            if (onWeaponMoveCallback != null){
-                onWeaponMoveCallback.Invoke(LastMovesUsed);
-            }
-
             comboLossTime = Time.time + comboLossTimeLimit; // reset the combo loss time limit
             if (!comboTimerIsActive) { StartComboTimer(); } // i.e. if the async StartComboTimer() isn't already active, start it
 
-            if (ranged){
+            if (primaryRanged)
+            {
                 spawnProjectile(facingRight, shootPos, targetTags);
             }
-            else{
+            else
+            {
                 meleeAttack(targetTags);
             }
             if (animator != null) { animator.SetBool("Fire", true);}
-            yield return new WaitForSeconds(coolDown);
+            yield return new WaitForSeconds(coolDownPrimary);
             if (animator != null) {animator.SetBool("Fire", false);}
             canFire = true;
         }
@@ -133,15 +138,12 @@ public class Weapon : MonoBehaviour
     {
         if (canFire){
             canFire = false;
-            AddMoveToCombo(secondaryMove);
-            if (onWeaponMoveCallback != null){
-                onWeaponMoveCallback.Invoke(LastMovesUsed);
-            }
 
+            AddMoveToCombo(secondaryMove);
             comboLossTime = Time.time + comboLossTimeLimit; // reset the combo loss time limit
             if (!comboTimerIsActive) { StartComboTimer(); } // i.e. if the async StartComboTimer() isn't already active, start it
 
-            if (ranged)
+            if (secondaryRanged)
             {
                 spawnProjectileSecondary(facingRight, shootPos, targetTags);
             }
@@ -164,6 +166,18 @@ public class Weapon : MonoBehaviour
     public virtual void spawnProjectileSecondary(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
 
+    }
+
+    public virtual void boostMelee(attackInfo attackBoost)
+    {
+        attack += attackBoost;
+        attack.targetNewDrag = attackBoost.targetNewDrag;
+        attack.animCol = attackBoost.animCol;
+    }
+
+    public virtual void resetMelee()
+    {
+        attack = baseAttack;
     }
 
     public virtual void meleeAttack(HashSet<string> targetTags)

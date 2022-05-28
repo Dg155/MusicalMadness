@@ -7,13 +7,16 @@ enum entityType{
 }
 
 [System.Serializable]
-public struct attackInfo{ //stores all info of the weapon when it collides an enemy:
-//the damage, the length of stun, the length of blinding, the poison damage, the knockback
+public struct attackInfo{ //stores all info of the weapon when it collides an enemy
+
+    //attack stat vars (except for knockback)
     public float damage;
     public float stunDuration;
     public float blindDuration;
     public float poisonDuration;
     public float poisonDamage;
+
+    //visual vars
     public float screenShakeDeg;
     public float screenShakeTime;
     public GameObject animCol; //The animation upon collision
@@ -21,9 +24,12 @@ public struct attackInfo{ //stores all info of the weapon when it collides an en
     //knockback & explosion vars
     public Vector3 attackerPos;
     public float knockback;
-    public float targetNewDrag; //how slidy we want the target to be once they receive knockback
     public float blastRadius;
+    public float targetNewDrag; //how slidy we want the target to be once they receive knockback
 
+    public bool isPiercing;
+
+    //allows us to add attackInfo instances
     public static attackInfo operator+ (attackInfo a, attackInfo b)
     {
         attackInfo c = new attackInfo();
@@ -33,10 +39,14 @@ public struct attackInfo{ //stores all info of the weapon when it collides an en
         c.poisonDuration = a.poisonDuration + b.poisonDuration;
         c.poisonDamage = a.poisonDamage + b.poisonDamage;
 
-        c.knockback = a.knockback + b.knockback;
-        c.blastRadius = a.blastRadius + b.blastRadius;
         c.screenShakeDeg = a.screenShakeDeg + b.screenShakeDeg;
         c.screenShakeTime = a.screenShakeTime + b.screenShakeTime;
+
+        c.knockback = a.knockback + b.knockback;
+        c.blastRadius = a.blastRadius + b.blastRadius;
+
+        if (c.knockback > 0) { c.stunDuration += .01f; } //knockback ALWAYS needs stun >0
+
         return c;
     }
 }
@@ -53,11 +63,15 @@ public class Combat : MonoBehaviour
     entityType type;
 
     public bool isStunned; //false by default
+    public bool isVulnerableToPierce; //true by default; determines whether an enemy can be hit by a piercing attack (so it doesn't take tons of damage instantly)
+    public float pierceInvulTime; //how long someone is invulnerable to piercing attacks after being hit by one (should be the same for all enemies & player)
 
     void Start()
     {
         stats = this.GetComponent<BaseStats>();
         rb = this.GetComponent<Rigidbody2D>();
+
+        isVulnerableToPierce = true;
 
         if (this.tag == "Enemy")
         {
@@ -84,6 +98,10 @@ public class Combat : MonoBehaviour
         if (FX != null){
             FX.Flash();
         }
+
+        if (attack.isPiercing == true){
+            StartCoroutine(receivePierce(pierceInvulTime));
+        }
         TakeDamage(attack.damage);
         if (attack.stunDuration > 0){StartCoroutine(receiveStun(attack.stunDuration));}
         if (attack.blindDuration > 0){receiveBlind(attack.blindDuration);}
@@ -92,6 +110,12 @@ public class Combat : MonoBehaviour
     }
     void TakeDamage(float quantity){
         stats.addHealth(-quantity);
+    }
+
+    public IEnumerator receivePierce(float sec){
+        isVulnerableToPierce = true;
+        yield return new WaitForSeconds(sec);
+        isVulnerableToPierce = false;
     }
 
     public bool getIsStunned()

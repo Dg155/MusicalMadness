@@ -65,8 +65,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8916aaf275c8441ade6652217c794e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDown: 0.1
+  coolDownPrimary: 0.6
   coolDownSecondary: 0
   LastMovesUsed: 
   projectile: {fileID: 6102382208412875363, guid: d32f0dd933c42934090f3dc48589ba35, type: 3}
-  bulletSpeed: 10
+  bulletSpeed: 7.5

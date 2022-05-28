@@ -8,7 +8,6 @@ public class Trumpet : Weapon
 {
     public GameObject projectile;
     public GameObject projectileSecondary;
-    public GameObject projectileComboFinisher;
     public Transform projectileTransform;
     
     public float bulletSpeed;
@@ -19,19 +18,29 @@ public class Trumpet : Weapon
     List<weaponMove> combo2 = new List<weaponMove>();
     List<weaponMove> combo3 = new List<weaponMove>();
 
+    [SerializeField] attackInfo comboFinisher1;
+    [SerializeField] attackInfo comboFinisher2;
+    [SerializeField] attackInfo comboFinisher3;
+
+    public AudioClip soundEffect;
+
     private void Awake()
     {
-
         gameObject.SetActive(true);
+        FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffect);
     }
 
-    new private void Start() {
+    new private void Start()
+    {
         base.Start();
-        ranged = true;
+        primaryRanged = true;
+        secondaryRanged = true;
         primaryMove = weaponMove.trumpetPrimary;
         secondaryMove = weaponMove.trumpetSecondary;
         maxComboLength = 4;
-        comboLossTimeLimit = 1.5f;
+        comboLossTimeLimit = 1.25f;
+
+        //q = quarter note, h = half note
 
         // set combo1: q-q-h --> baby explosion w/ baby AOE & knockback
         combo1.Add(weaponMove.trumpetPrimary);
@@ -56,53 +65,43 @@ public class Trumpet : Weapon
         attackInfo comboAttack = new attackInfo();
         if (LastMovesUsed.Take(3).SequenceEqual(combo1)) // Personal Note: since lists are reference types, we can't use == to compare them like we can with value types. == will check if 2 lists refer to the same object, not if they have the same values.
         {
-            //Debug.Log("You did combo1!");
-            comboAttack.damage = 25; //new total damage of trumpet secondary attack: 75
+            comboAttack += comboFinisher1; //new total damage of trumpet secondary attack: 75
+
+            comboAttack.targetNewDrag = comboFinisher1.targetNewDrag;
             comboAttack.animCol = animCombo1;
-            comboAttack.screenShakeDeg = 0.006f;
-            comboAttack.screenShakeTime = 0.25f;
-            LastMovesUsed.Clear();
-            comboAttack.stunDuration = .5f;
-            comboAttack.knockback = 7;
-            comboAttack.targetNewDrag = 6.5f;
-            comboAttack.blastRadius = 3;
+
             bulletSpeedSecondary = 10;
+
             ClearLastMoves();
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo2))
         {
-            //Debug.Log("You did combo2!");
-            comboAttack.damage = 45; //new damage: 95
-            comboAttack.animCol = animCombo2;
-            comboAttack.screenShakeDeg = 0.012f;
-            comboAttack.screenShakeTime = 0.35f;
+            comboAttack += comboFinisher2; //new damage: 95
 
-            LastMovesUsed.Clear();
-            comboAttack.stunDuration = 1;
+            comboAttack.animCol = animCombo2;
+
             bulletSpeedSecondary = 8;
+
             ClearLastMoves();
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo3))
         {
-            //Debug.Log("You did combo3!");
-            comboAttack.damage = 75; //new damage: 125
+            comboAttack += comboFinisher3; //new damage: 125
+
+            comboAttack.targetNewDrag = comboFinisher3.targetNewDrag;
             comboAttack.animCol = animCombo3;
-            comboAttack.screenShakeDeg = 0.048f;
-            comboAttack.screenShakeTime = .6f;
-            LastMovesUsed.Clear();
-            comboAttack.stunDuration = 1f;
-            comboAttack.knockback = 13;
-            comboAttack.targetNewDrag = 3.5f;
-            comboAttack.blastRadius = 6;
+
             bulletSpeedSecondary = 7.5f;
+
             ClearLastMoves();
             return comboAttack;
         }
-        comboAttack.damage = 0; //new damage: default
-        bulletSpeed = 10;
+        //no combo finisher --> default
+
         bulletSpeedSecondary = 5;
+
         return comboAttack;
     }
 

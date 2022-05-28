@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class QuarterNoteProjectile : ProjectileBase
 {
-
     public override void setCourseOfFire(float bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
         projTargetTags = targetTags;
