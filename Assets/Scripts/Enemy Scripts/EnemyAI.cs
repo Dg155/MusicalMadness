@@ -29,6 +29,8 @@ public class EnemyAI : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private Animator animator;
+
     void Start()
     {
         MovementScript = this.GetComponent<EnemyMove>();
@@ -37,6 +39,7 @@ public class EnemyAI : MonoBehaviour
         movePos = this.transform.position;
         timeSinceLastAction = 0;
         rb = this.GetComponent<Rigidbody2D>();
+        animator = this.GetComponent<Animator>();
         
     }
     /*
@@ -85,6 +88,7 @@ public class EnemyAI : MonoBehaviour
         switch (state){
 
             case AIState.Stunned:
+                animator.SetFloat("Speed", 0);
                 setState(); //check if is still stunned
                 if (state != AIState.Stunned){
                     state = AIState.Knocked;
@@ -94,6 +98,7 @@ public class EnemyAI : MonoBehaviour
             case AIState.Knocked:
                 //In this state, no movement occurs per frame
                 //When rb velocity is zero, we can set the state again
+                animator.SetFloat("Speed", 0);
                 if(rb.velocity.magnitude < 0.1){
                         movePos = this.transform.position;
                         setState();
@@ -110,9 +115,16 @@ public class EnemyAI : MonoBehaviour
 
             case AIState.Roaming:
                 //Ask AI to calculate new move position
+                timeSinceLastAction += Time.deltaTime;
                 if (Vector2.Distance(movePos, this.transform.position) < 0.01){
-                    movePos = ai.NewRoamPos(this.transform.position, roomCenter);
-                    MovementScript.SetPositions(this.transform.position, movePos);
+                    animator.SetFloat("Speed", 0);
+                    if (timeSinceLastAction > ai.roamingDelay)
+                    {
+                        movePos = ai.NewRoamPos(this.transform.position, roomCenter);
+                        MovementScript.SetPositions(this.transform.position, movePos);
+                        animator.SetFloat("Speed", 1);
+                        timeSinceLastAction = 0;
+                    }
                 }
                 //If not at new movePos, move toward that position
                 else{
@@ -130,10 +142,12 @@ public class EnemyAI : MonoBehaviour
                 }
                 timeSinceLastAction += Time.deltaTime;
                 if (Vector2.Distance(movePos, this.transform.position) < 0.01){
+                    animator.SetFloat("Speed", 1);
                     if (timeSinceLastAction > ai.aggressiveDelay){
                         movePos = ai.NewAggressivePos(this.transform.position, target.position, roomCenter);
                         MovementScript.SetPositions(this.transform.position, movePos);
                         timeSinceLastAction = 0;
+                        animator.SetFloat("Speed", 1);
                     }
                 }
                 //if not at new movePos, move toward that position
@@ -166,10 +180,12 @@ public class EnemyAI : MonoBehaviour
                     setState();
                 }
                 if (Vector2.Distance(movePos, this.transform.position) < 0.5){
+                    animator.SetFloat("Speed", 0);
                     if (timeSinceLastAction > ai.retreatDelay){
                         movePos = ai.NewRetreatPos(this.transform.position, target.position, roomCenter);
                         MovementScript.SetPositions(this.transform.position, movePos);
                         timeSinceLastAction = 0;
+                        animator.SetFloat("Speed", 1);
                     }
                 }
                 //if not at new movePos, move toward that position
@@ -208,7 +224,6 @@ public class EnemyAI : MonoBehaviour
         else{
             //Debug.Log("SWITCHING TO ROAMING STATE");
             state = AIState.Roaming;
-            state = AIState.Aggressive;
         }
 
     }
