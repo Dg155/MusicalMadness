@@ -62,7 +62,7 @@ public class Drum : Weapon
         attackInfo comboAttack = new attackInfo();
         if (LastMovesUsed.Take(3).SequenceEqual(combo1))
         {
-            comboAttack += comboFinisher1; //new total damage of drum secondary attack: 75
+            comboAttack += comboFinisher1; //new total damage of drum secondary attack: 80
 
             comboAttack.targetNewDrag = comboFinisher1.targetNewDrag;
             comboAttack.animCol = animCombo1;
@@ -74,24 +74,20 @@ public class Drum : Weapon
         }
         if (LastMovesUsed.SequenceEqual(combo2))
         {
-            comboAttack += comboFinisher2; //new damage: 50
+            comboAttack += comboFinisher2; //new damage: 35
 
             comboAttack.targetNewDrag = comboFinisher1.targetNewDrag;
             comboAttack.animCol = animCombo2;
-
-            bulletSpeedSecondary = 8;
 
             ClearLastMoves();
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo3))
         {
-            comboAttack += comboFinisher3; //new damage: 125
+            comboAttack += comboFinisher3; //new damage: 100
 
             comboAttack.targetNewDrag = comboFinisher3.targetNewDrag;
             comboAttack.animCol = animCombo3;
-
-            bulletSpeedSecondary = 7.5f;
 
             ClearLastMoves();
             return comboAttack;
