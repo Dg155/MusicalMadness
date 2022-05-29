@@ -16,9 +16,11 @@ public class Weapon : MonoBehaviour
     protected bool secondaryRanged;
     public float coolDownPrimary;
     public float coolDownSecondary;
-    private bool canFire = true;
+    public bool canFire = true;
     public attackInfo attack;
     protected attackInfo baseAttack;
+    public attackInfo secondaryAttack;
+    protected attackInfo secondaryBaseAttack;
 
     // weapon render variables
     Combat CombatScript;
@@ -43,6 +45,7 @@ public class Weapon : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         baseAttack = attack;
+        secondaryBaseAttack = secondaryAttack;
         facingRight = true;  // the sprite by default is facing right
         CombatScript = transform.GetComponentInParent<Combat>();
         comboTimerIsActive = false;
@@ -175,9 +178,21 @@ public class Weapon : MonoBehaviour
         attack.animCol = attackBoost.animCol;
     }
 
+    public virtual void boostMeleeSecondary(attackInfo attackBoost)
+    {
+        secondaryAttack += attackBoost;
+        secondaryAttack.targetNewDrag = attackBoost.targetNewDrag;
+        secondaryAttack.animCol = attackBoost.animCol;
+    }
+
     public virtual void resetMelee()
     {
         attack = baseAttack;
+    }
+
+    public virtual void resetMeleeSecondary()
+    {
+        secondaryAttack = secondaryBaseAttack;
     }
 
     public virtual void meleeAttack(HashSet<string> targetTags)

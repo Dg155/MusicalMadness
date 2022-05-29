@@ -6,10 +6,10 @@ using System.Linq;
 
 public class Drum : Weapon
 {
-    public GameObject projectileSecondary;
+    public GameObject comboProjectile;
     public Transform projectileTransform;
 
-    public float bulletSpeedSecondary;
+    public float bulletSpeedComboProj;
 
     public GameObject animCombo1, animCombo2, animCombo3;
     List<weaponMove> combo1 = new List<weaponMove>();
@@ -31,26 +31,26 @@ public class Drum : Weapon
     new private void Start()
     {
         base.Start();
-        primaryRanged = false;
+        primaryRanged = true;
         secondaryRanged = true;
         primaryMove = weaponMove.drumPrimary;
         secondaryMove = weaponMove.drumSecondary;
         maxComboLength = 4;
         comboLossTimeLimit = 1.5f;
 
-        //b = boom, s = seismic slam
+        //1 = small blast, 2 = big blast
 
-        // set combo1: b-b-s --> strong woosh
+        // set combo1: 1-1-2
         combo1.Add(weaponMove.drumPrimary);
         combo1.Add(weaponMove.drumPrimary);
         combo1.Add(weaponMove.drumSecondary);
 
-        // set combo2: s-s-b --> flashbang; small boom w/ extremely long stun
-        combo2.Add(weaponMove.drumSecondary);
-        combo2.Add(weaponMove.drumSecondary);
+        // set combo2: 1-2-2
         combo2.Add(weaponMove.drumPrimary);
+        combo2.Add(weaponMove.drumSecondary);
+        combo2.Add(weaponMove.drumSecondary);
 
-        // set combo3: s-b-s-b --> megaboosh that covers entire room
+        // set combo3: 2-1-2-1
         combo3.Add(weaponMove.drumSecondary);
         combo3.Add(weaponMove.drumPrimary);
         combo3.Add(weaponMove.drumSecondary);
@@ -67,7 +67,7 @@ public class Drum : Weapon
             comboAttack.targetNewDrag = comboFinisher1.targetNewDrag;
             comboAttack.animCol = animCombo1;
 
-            bulletSpeedSecondary = 10;
+            bulletSpeedComboProj = 5;
 
             ClearLastMoves();
             return comboAttack;
@@ -79,6 +79,8 @@ public class Drum : Weapon
             comboAttack.targetNewDrag = comboFinisher1.targetNewDrag;
             comboAttack.animCol = animCombo2;
 
+            bulletSpeedComboProj = 7.5f;
+
             ClearLastMoves();
             return comboAttack;
         }
@@ -89,37 +91,76 @@ public class Drum : Weapon
             comboAttack.targetNewDrag = comboFinisher3.targetNewDrag;
             comboAttack.animCol = animCombo3;
 
+            bulletSpeedComboProj = 10;
+
             ClearLastMoves();
             return comboAttack;
         }
         //no combo finisher --> default
 
+        primaryRanged = false;
+        secondaryRanged = false;
+
         comboAttack.targetNewDrag = 6.5f;
-        bulletSpeedSecondary = 5;
 
         return comboAttack;
     }
 
-    override public void meleeAttack(HashSet<string> targetTags)
+    override public void spawnProjectile(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
         boostMelee(CalculateComboDamage());
-        attack.isPiercing = false;
-        attack.attackerPos = transform.position;
-        var colliders = Physics2D.OverlapCircleAll(transform.position, attack.blastRadius);
-        foreach (Collider2D c in colliders)
+        if (primaryRanged)
         {
-            if (targetTags.Contains(c.tag))
-            {
-                c.GetComponent<Combat>().ReceiveAttack(attack);
-            }
+            //If this move is a combo finisher, emit a seismic slam
+            attack.isPiercing = true;
+            GameObject proj = Instantiate(comboProjectile, projectileTransform.position, Quaternion.identity);
+            proj.GetComponent<ProjectileBase>().boostAttack(CalculateComboDamage());
+            proj.GetComponent<ProjectileBase>().setCourseOfFire(bulletSpeedComboProj, facingRight, shootPos, targetTags);
         }
-        resetMelee();
+        else
+        {
+            attack.isPiercing = false;
+            attack.attackerPos = transform.position;
+            var colliders = Physics2D.OverlapCircleAll(transform.position, attack.blastRadius);
+            foreach (Collider2D c in colliders)
+            {
+                if (targetTags.Contains(c.tag))
+                {
+                    c.GetComponent<Combat>().ReceiveAttack(attack);
+                }
+            }
+            resetMelee();
+        }
+        primaryRanged = true;
+        secondaryRanged = true;
     }
 
     override public void spawnProjectileSecondary(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
-        GameObject proj = Instantiate(projectileSecondary, projectileTransform.position, Quaternion.identity);
-        proj.GetComponent<ProjectileBase>().boostAttack(CalculateComboDamage());
-        proj.GetComponent<ProjectileBase>().setCourseOfFire(bulletSpeedSecondary, facingRight, shootPos, targetTags);
+        boostMeleeSecondary(CalculateComboDamage());
+        if (secondaryRanged)
+        {
+            //If this move is a combo finisher, emit a seismic slam
+            secondaryAttack.isPiercing = true;
+            GameObject proj = Instantiate(comboProjectile, projectileTransform.position, Quaternion.identity);
+            proj.GetComponent<ProjectileBase>().boostAttack(CalculateComboDamage());
+            proj.GetComponent<ProjectileBase>().setCourseOfFire(bulletSpeedComboProj, facingRight, shootPos, targetTags);
+        }
+        else
+        {
+            secondaryAttack.isPiercing = false;
+            secondaryAttack.attackerPos = transform.position;
+            var colliders = Physics2D.OverlapCircleAll(transform.position, secondaryAttack.blastRadius);
+            foreach (Collider2D c in colliders)
+            {
+                if (targetTags.Contains(c.tag))
+                {
+                    c.GetComponent<Combat>().ReceiveAttack(secondaryAttack);
+                }
+            }
+            resetMeleeSecondary();
+        }
+        primaryRanged = true;
+        secondaryRanged = true;
     }
 }

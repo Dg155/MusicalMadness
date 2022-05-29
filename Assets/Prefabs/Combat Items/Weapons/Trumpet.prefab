@@ -151,7 +151,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownPrimary: 0.25
   coolDownSecondary: 0.5
+  canFire: 1
   attack:
+    damage: 0
+    stunDuration: 0
+    blindDuration: 0
+    poisonDuration: 0
+    poisonDamage: 0
+    screenShakeDeg: 0
+    screenShakeTime: 0
+    animCol: {fileID: 0}
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 0
+    blastRadius: 0
+    targetNewDrag: 0
+    isPiercing: 0
+  secondaryAttack:
     damage: 0
     stunDuration: 0
     blindDuration: 0
@@ -184,8 +199,8 @@ MonoBehaviour:
     screenShakeTime: 0.25
     animCol: {fileID: 0}
     attackerPos: {x: 0, y: 0, z: 0}
-    knockback: 7
-    blastRadius: 1
+    knockback: 5
+    blastRadius: 0.7
     targetNewDrag: 6.5
     isPiercing: 0
   comboFinisher2:
@@ -212,10 +227,11 @@ MonoBehaviour:
     screenShakeTime: 0.6
     animCol: {fileID: 0}
     attackerPos: {x: 0, y: 0, z: 0}
-    knockback: 8
-    blastRadius: 2
+    knockback: 6
+    blastRadius: 1.2
     targetNewDrag: 6.5
     isPiercing: 0
+  soundEffect: {fileID: 0}
 --- !u!95 &5636066111209543549
 Animator:
   serializedVersion: 3
