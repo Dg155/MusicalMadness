@@ -66,6 +66,8 @@ public class Combat : MonoBehaviour
     public bool isVulnerableToPierce; //true by default; determines whether an enemy can be hit by a piercing attack (so it doesn't take tons of damage instantly)
     public float pierceInvulTime; //how long someone is invulnerable to piercing attacks after being hit by one (should be the same for all enemies & player)
 
+    public bool isDefensiveBoss; //false by default; for boss only, checks if in defensive state to reduce damage taken
+
     void Start()
     {
         stats = this.GetComponent<BaseStats>();
@@ -109,7 +111,12 @@ public class Combat : MonoBehaviour
         if (attack.knockback > 0){receiveKnockback(attack.attackerPos, attack.knockback, attack.targetNewDrag);}
     }
     void TakeDamage(float quantity){
-        stats.addHealth(-quantity);
+        if (isDefensiveBoss){
+            stats.addHealth(-(quantity * 0.6f)); //Reduce damage by 40%
+        }
+        else {
+            stats.addHealth(-quantity);
+        }
     }
 
     public IEnumerator receivePierce(float sec){
