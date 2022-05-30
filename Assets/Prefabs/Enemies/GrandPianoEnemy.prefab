@@ -320,8 +320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f051d3538cff88742878c7ca10aa21ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currHealth: 150
-  maxHealth: 150
+  currHealth: 400
+  maxHealth: 400
   moveSpeed: 4
   mainHand: {fileID: 6209172175344955261}
   offHand: {fileID: 0}
@@ -335,6 +335,7 @@ MonoBehaviour:
   heartDropPercentage: 10
   heart: {fileID: 3713696232024858866, guid: 219d34d09db8784468176ff1a177a49d, type: 3}
   deathParticle: {fileID: 4643671852923827495, guid: 267d31af44a41024db76db92e9d8cac8, type: 3}
+  isBoss: 1
 --- !u!114 &3235060459608209091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,8 +372,9 @@ MonoBehaviour:
   movePos: {x: 0, y: 0}
   timeSinceLastAction: 0
   phaseTimer: 5
-  summonedUnit: {fileID: 0}
   numSummons: 4
+  spiralAttackSpeed: 0.1
+  spiralProjectileSpeed: 3
 --- !u!1001 &2324784662735817567
 PrefabInstance:
   m_ObjectHideFlags: 0

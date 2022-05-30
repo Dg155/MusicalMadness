@@ -67,6 +67,7 @@ public class Combat : MonoBehaviour
     public float pierceInvulTime; //how long someone is invulnerable to piercing attacks after being hit by one (should be the same for all enemies & player)
 
     public bool isDefensiveBoss; //false by default; for boss only, checks if in defensive state to reduce damage taken
+    public float damageReductionBoss = 0.6f;
 
     void Start()
     {
@@ -112,7 +113,7 @@ public class Combat : MonoBehaviour
     }
     void TakeDamage(float quantity){
         if (isDefensiveBoss){
-            stats.addHealth(-(quantity * 0.6f)); //Reduce damage by 40%
+            stats.addHealth(-(quantity * damageReductionBoss)); //Reduce damage by 40%
         }
         else {
             stats.addHealth(-quantity);

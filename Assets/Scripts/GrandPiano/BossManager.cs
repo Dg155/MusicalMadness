@@ -37,7 +37,7 @@ public class BossManager : MonoBehaviour
             e.Item2.OnUpdate(levelInfo.currPlayerPos);
         }
 
-        if (!instantiatedBoss.Item2.getAlive()) { instantiatedBoss.Item1.destroyEnemy(); } //is it necessary to remove reference to boss?
+        if (!instantiatedBoss.Item2.getAlive()) { instantiatedBoss.Item1.destroyEnemy(); instantiatedBoss = (null, null); }
         instantiatedBoss.Item2.OnUpdate(levelInfo.currPlayerPos);
     }
 

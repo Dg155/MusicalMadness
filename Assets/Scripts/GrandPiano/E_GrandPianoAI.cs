@@ -39,13 +39,16 @@ public class E_GrandPianoAI : MonoBehaviour
 
     private Animator animator;
 
-    public float phaseTimer = 10f;
+    [SerializeField] private float phaseTimer = 10f;
     private float savedTime;
-    [SerializeField] GameObject summonedUnit;
-    public int numSummons = 4;
     private float angle = 0f;
     private BossManager manager;
     private bool minionSpawned;
+    private EnemyViolinWeapon weaponReference;
+    private float oldAttackSpeed;
+    private float oldProjectileSpeed;
+    [SerializeField] private float spiralAttackSpeed;
+    [SerializeField] private float spiralProjectileSpeed;
 
     void Start()
     {
@@ -57,7 +60,10 @@ public class E_GrandPianoAI : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
         savedTime = phaseTimer;
-        manager = GameObject.Find("Boss Manager").GetComponent<BossManager>(); //REPLACE LATER THIS IS SO SHIT HAHA
+        manager = GameObject.Find("Boss Manager").GetComponent<BossManager>(); //Replace later this is really bad method
+        weaponReference = this.transform.GetComponentInChildren<EnemyViolinWeapon>(); //Replace with Grand Piano's weapons reference
+        oldAttackSpeed = weaponReference.coolDownPrimary;
+        oldProjectileSpeed = weaponReference.bulletSpeed;
     }
     /*
     void Update() //temporary, delete later once called in EnemyManager script
@@ -111,6 +117,9 @@ public class E_GrandPianoAI : MonoBehaviour
         {
             case GrandPianoAIPhase.RegularAttack:
                 CombatScript.isDefensiveBoss = false;
+                weaponReference.coolDownPrimary = oldAttackSpeed;
+                weaponReference.bulletSpeed = oldProjectileSpeed;
+
                 switch (state)
                 {
                     case GrandPianoAIState.Aggressive:
@@ -201,6 +210,9 @@ public class E_GrandPianoAI : MonoBehaviour
                 CombatScript.isDefensiveBoss = false;
                 minionSpawned = false;
 
+                weaponReference.coolDownPrimary = spiralAttackSpeed;
+                weaponReference.bulletSpeed = spiralProjectileSpeed;
+
                 float dirX = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180f);
                 float dirY = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180f);
 
@@ -208,7 +220,7 @@ public class E_GrandPianoAI : MonoBehaviour
 
                 CombatScript.UseMainHand(ai.Aim(this.transform.position, firePos));
 
-                angle += 10f;
+                angle += 1f;
 
                 if (checkPhase())
                 {
