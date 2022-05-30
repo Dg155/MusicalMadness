@@ -44,6 +44,8 @@ public class E_GrandPianoAI : MonoBehaviour
     [SerializeField] GameObject summonedUnit;
     public int numSummons = 4;
     private float angle = 0f;
+    private BossManager manager;
+    private bool minionSpawned;
 
     void Start()
     {
@@ -55,7 +57,7 @@ public class E_GrandPianoAI : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
         savedTime = phaseTimer;
-
+        manager = GameObject.Find("Boss Manager").GetComponent<BossManager>(); //REPLACE LATER THIS IS SO SHIT HAHA
     }
     /*
     void Update() //temporary, delete later once called in EnemyManager script
@@ -177,9 +179,11 @@ public class E_GrandPianoAI : MonoBehaviour
 
                 if (healthPercent <= 0.5)
                 {
-                    for (int i = 0; i < numSummons; i++)
+                    //find ref to manager, and then call instantiateMinions function from there
+                    if (!minionSpawned)
                     {
-                        Instantiate(summonedUnit, new Vector2(this.transform.position.x, this.transform.position.y) + Random.insideUnitCircle.normalized, this.transform.rotation);
+                        manager.InstantiateMinions();
+                        minionSpawned = true;
                     }
                 }
 
@@ -195,6 +199,7 @@ public class E_GrandPianoAI : MonoBehaviour
                 //Hold current position
                 //Fire in spiral pattern
                 CombatScript.isDefensiveBoss = false;
+                minionSpawned = false;
 
                 float dirX = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180f);
                 float dirY = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180f);
