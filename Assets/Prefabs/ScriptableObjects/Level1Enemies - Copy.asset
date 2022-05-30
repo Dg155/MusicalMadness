@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3abc977c7b374a46a7cfeb2f4a7a9e6, type: 3}
   m_Name: Level1Enemies - Copy
   m_EditorClassIdentifier: 
-  ViolinEnemy: 050000000500000005000000
-  TambourineEnemy: 000000000000000000000000
+  ViolinEnemy: 030000000400000005000000
+  TambourineEnemy: 030000000400000005000000
   DemonEnemy: 000000000000000000000000

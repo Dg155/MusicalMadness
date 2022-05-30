@@ -15,6 +15,7 @@ public class InstantiateLevel : MonoBehaviour
     System.Random random = new System.Random();
     public GameObject ambushChest;
     public Item chestHeart;
+    public GameObject transporter;
 
     void Awake(){
         rooms = new Dictionary<Dir, GameObject>();
@@ -60,6 +61,11 @@ public class InstantiateLevel : MonoBehaviour
             chestScript.setRoomPos(position);
             chestScript.setBlocker(direction);
         }
+    }
+
+    public void InstantiateTransport(pos position)
+    {
+        Instantiate(transporter, new Vector3(position.x * roomSize ,position.y * roomSize, 0), Quaternion.identity);
     }
 
     void populateChests()
