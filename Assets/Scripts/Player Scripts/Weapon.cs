@@ -128,7 +128,7 @@ public class Weapon : MonoBehaviour
             }
             else
             {
-                meleeAttack(targetTags);
+                meleeAttack(facingRight, shootPos, targetTags);
             }
             if (animator != null) { animator.SetBool("Fire", true);}
             yield return new WaitForSeconds(coolDownPrimary);
@@ -152,7 +152,7 @@ public class Weapon : MonoBehaviour
             }
             else
             {
-                meleeAttackSecondary(targetTags);
+                meleeAttackSecondary(facingRight, shootPos, targetTags);
             }
             if (animator != null) { animator.SetBool("Fire", true); }
             yield return new WaitForSeconds(coolDownSecondary);
@@ -195,12 +195,12 @@ public class Weapon : MonoBehaviour
         secondaryAttack = secondaryBaseAttack;
     }
 
-    public virtual void meleeAttack(HashSet<string> targetTags)
+    public virtual void meleeAttack(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
 
     }
 
-    public virtual void meleeAttackSecondary(HashSet<string> targetTags)
+    public virtual void meleeAttackSecondary(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
 
     }

@@ -6,7 +6,7 @@ public class SeismicSlamProjectile : ProjectileBase
 {
     public override void setCourseOfFire(float bulletSpeed, bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
-        //attack.isPiercing = true;
+        attack.isPiercing = true;
         projTargetTags = targetTags;
         Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
         Vector3 direction = shootPos - transform.position;

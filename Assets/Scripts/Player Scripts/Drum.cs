@@ -31,8 +31,8 @@ public class Drum : Weapon
     new private void Start()
     {
         base.Start();
-        primaryRanged = true;
-        secondaryRanged = true;
+        primaryRanged = false;
+        secondaryRanged = false;
         primaryMove = weaponMove.drumPrimary;
         secondaryMove = weaponMove.drumSecondary;
         maxComboLength = 4;
@@ -62,6 +62,8 @@ public class Drum : Weapon
         attackInfo comboAttack = new attackInfo();
         if (LastMovesUsed.Take(3).SequenceEqual(combo1))
         {
+            secondaryRanged = true;
+
             comboAttack += comboFinisher1; //new total damage of drum secondary attack: 80
 
             comboAttack.targetNewDrag = comboFinisher1.targetNewDrag;
@@ -74,6 +76,8 @@ public class Drum : Weapon
         }
         if (LastMovesUsed.SequenceEqual(combo2))
         {
+            secondaryRanged = true;
+
             comboAttack += comboFinisher2; //new damage: 35
 
             comboAttack.targetNewDrag = comboFinisher1.targetNewDrag;
@@ -86,6 +90,8 @@ public class Drum : Weapon
         }
         if (LastMovesUsed.SequenceEqual(combo3))
         {
+            primaryRanged = true;
+
             comboAttack += comboFinisher3; //new damage: 100
 
             comboAttack.targetNewDrag = comboFinisher3.targetNewDrag;
@@ -98,15 +104,12 @@ public class Drum : Weapon
         }
         //no combo finisher --> default
 
-        primaryRanged = false;
-        secondaryRanged = false;
-
         comboAttack.targetNewDrag = 6.5f;
 
         return comboAttack;
     }
 
-    override public void spawnProjectile(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
+    override public void meleeAttack(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
         boostMelee(CalculateComboDamage());
         if (primaryRanged)
@@ -131,11 +134,11 @@ public class Drum : Weapon
             }
             resetMelee();
         }
-        primaryRanged = true;
-        secondaryRanged = true;
+        primaryRanged = false;
+        secondaryRanged = false;
     }
 
-    override public void spawnProjectileSecondary(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
+    override public void meleeAttackSecondary(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
         boostMeleeSecondary(CalculateComboDamage());
         if (secondaryRanged)
@@ -160,7 +163,7 @@ public class Drum : Weapon
             }
             resetMeleeSecondary();
         }
-        primaryRanged = true;
-        secondaryRanged = true;
+        primaryRanged = false;
+        secondaryRanged = false;
     }
 }
