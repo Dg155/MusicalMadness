@@ -110,11 +110,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  retreatHealthPercent: 0.5
-  retreatDelay: 0
-  retreatSpeed: 3
-  retreatDistanceFromTarget: 3
-  retreatStrafeFactor: 2
+  retreatHealthPercent: 0
+  retreatDelay: 0.5
+  retreatSpeed: 10
+  retreatDistanceFromTarget: -2
+  retreatStrafeFactor: 0
   aimOffsetFactor: 0
   shootDistanceMin: 0
   shootDistanceMax: 0.6

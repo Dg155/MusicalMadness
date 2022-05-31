@@ -283,6 +283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathParticle: {fileID: 4643671852923827495, guid: 267d31af44a41024db76db92e9d8cac8, type: 3}
   collisionParticle: {fileID: 8047624644977881977, guid: bfe94dba836ac9d48bf2a6d463b669b8, type: 3}
+  collisionSound: {fileID: 8300000, guid: b2b0e96f33d49b84d82dfe42bfba1f9e, type: 3}
+  deathSound: {fileID: 8300000, guid: 58f77480c3a652e44ba104362039b409, type: 3}
   sprite: {fileID: 0}
   flashWhite: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   flashColor: {r: 0, g: 0, b: 0, a: 0}
@@ -449,6 +451,10 @@ PrefabInstance:
       propertyPath: coolDown
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8532107320988656673, guid: c304443c543fea543a30081a2741bd7e, type: 3}
+      propertyPath: soundEffectL
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f6eb09d4293e2547b87da87d318aaab, type: 3}
     - target: {fileID: 8532107320988656674, guid: c304443c543fea543a30081a2741bd7e, type: 3}
       propertyPath: m_Name
       value: EnemyViolinWeapon

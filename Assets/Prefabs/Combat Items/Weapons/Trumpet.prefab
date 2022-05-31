@@ -233,8 +233,8 @@ MonoBehaviour:
     blastRadius: 1.2
     targetNewDrag: 6.5
     isPiercing: 0
-  soundEffectL: {fileID: 8300000, guid: 078e1723f7704e94dbb6c19c1e1ea9d7, type: 3}
-  soundEffectR: {fileID: 8300000, guid: 3a85a1b710df51e4492fd9a4f1b9e590, type: 3}
+  soundEffectL: {fileID: 8300000, guid: 2ad7b3cd9d33ccd478a83938fc238cf6, type: 3}
+  soundEffectR: {fileID: 8300000, guid: f0bba615b2d36694e9815da65fce7a2f, type: 3}
 --- !u!95 &5636066111209543549
 Animator:
   serializedVersion: 3

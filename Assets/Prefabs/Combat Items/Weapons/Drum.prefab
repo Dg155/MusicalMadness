@@ -5027,6 +5027,8 @@ MonoBehaviour:
   LastMovesUsed: 
   leftParticleSystem: {fileID: 8976298841259266019}
   rightParticleSystem: {fileID: 3932785278030005996}
+  soundEffectL: {fileID: 8300000, guid: b64e7bff734deea4c9c5d8e9fce5356f, type: 3}
+  soundEffectR: {fileID: 8300000, guid: e6904f146656f2441a637136bbcda4a5, type: 3}
   comboProjectile: {fileID: 1957293405814089426, guid: 5d8e0c84ec2ff4a98b2dd7597d9c2677, type: 3}
   projectileTransform: {fileID: 2102527582423084451}
   bulletSpeedComboProj: 0
@@ -5075,7 +5077,6 @@ MonoBehaviour:
     blastRadius: 0
     targetNewDrag: 3.5
     isPiercing: 1
-  soundEffect: {fileID: 0}
 --- !u!95 &2102527582423084455
 Animator:
   serializedVersion: 3

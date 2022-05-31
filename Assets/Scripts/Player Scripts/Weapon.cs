@@ -42,6 +42,8 @@ public class Weapon : MonoBehaviour
 
     public ParticleSystem leftParticleSystem;
     public ParticleSystem rightParticleSystem;
+    public AudioClip soundEffectL;
+    public AudioClip soundEffectR;
 
     protected void Start()
     {

@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 2975328503818995556}
   - component: {fileID: 1230126949}
   - component: {fileID: 1293926777}
+  - component: {fileID: 2348207583004313662}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -373,9 +374,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathParticle: {fileID: 4993843559921728331, guid: 5b1def5bd80cd334ab25024448972f16, type: 3}
   collisionParticle: {fileID: 8047624644977881977, guid: d89cdcfdfd4849e49a0fe961aa71cc78, type: 3}
+  collisionSound: {fileID: 0}
+  deathSound: {fileID: 0}
   sprite: {fileID: 0}
   flashWhite: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   flashColor: {r: 0.29874206, g: 0.9809927, b: 1, a: 1}
+--- !u!81 &2348207583004313662
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2975328503818995563}
+  m_Enabled: 1
 --- !u!1 &6741858351351844205
 GameObject:
   m_ObjectHideFlags: 0

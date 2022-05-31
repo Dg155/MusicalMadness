@@ -20,12 +20,9 @@ public class Drum : Weapon
     [SerializeField] attackInfo comboFinisher2;
     [SerializeField] attackInfo comboFinisher3;
 
-    public AudioClip soundEffect;
-
     private void Awake()
     {
         gameObject.SetActive(true);
-        FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffect);
     }
 
     new private void Start()
@@ -122,6 +119,7 @@ public class Drum : Weapon
         }
         else
         {
+            FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffectL);
             attack.isPiercing = false;
             attack.attackerPos = transform.position;
             var colliders = Physics2D.OverlapCircleAll(transform.position, attack.blastRadius);
@@ -151,6 +149,7 @@ public class Drum : Weapon
         }
         else
         {
+            FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffectL);
             secondaryAttack.isPiercing = false;
             secondaryAttack.attackerPos = transform.position;
             var colliders = Physics2D.OverlapCircleAll(transform.position, secondaryAttack.blastRadius);
