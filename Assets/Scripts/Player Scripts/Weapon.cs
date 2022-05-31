@@ -40,6 +40,9 @@ public class Weapon : MonoBehaviour
     public delegate void OnWeaponMove(List<weaponMove> lastMovesUsed); //Creates an event that updates UI w/ combo moves
     public OnWeaponMove onWeaponMoveCallback;
 
+    public ParticleSystem leftParticleSystem;
+    public ParticleSystem rightParticleSystem;
+
     protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -117,7 +120,9 @@ public class Weapon : MonoBehaviour
     {
         if (canFire){
             canFire = false;
-
+            if (leftParticleSystem != null){
+                leftParticleSystem.Play();
+            }
             AddMoveToCombo(primaryMove);
             comboLossTime = Time.time + comboLossTimeLimit; // reset the combo loss time limit
             if (!comboTimerIsActive) { StartComboTimer(); } // i.e. if the async StartComboTimer() isn't already active, start it
@@ -141,7 +146,9 @@ public class Weapon : MonoBehaviour
     {
         if (canFire){
             canFire = false;
-
+            if (rightParticleSystem != null){
+                rightParticleSystem.Play();
+            }
             AddMoveToCombo(secondaryMove);
             comboLossTime = Time.time + comboLossTimeLimit; // reset the combo loss time limit
             if (!comboTimerIsActive) { StartComboTimer(); } // i.e. if the async StartComboTimer() isn't already active, start it

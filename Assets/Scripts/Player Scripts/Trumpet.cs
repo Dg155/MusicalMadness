@@ -22,12 +22,12 @@ public class Trumpet : Weapon
     [SerializeField] attackInfo comboFinisher2;
     [SerializeField] attackInfo comboFinisher3;
 
-    public AudioClip soundEffect;
+    public AudioClip soundEffectL;
+    public AudioClip soundEffectR;
 
     private void Awake()
     {
         gameObject.SetActive(true);
-        FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffect);
     }
 
     new private void Start()
@@ -106,6 +106,7 @@ public class Trumpet : Weapon
     }
 
     override public void spawnProjectile(bool facingRight, Vector3 shootPos, HashSet<string> targetTags){
+        FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffectL);
         GameObject proj = Instantiate(projectile, projectileTransform.position, Quaternion.identity);
         proj.GetComponent<ProjectileBase>().boostAttack(CalculateComboDamage());
         proj.GetComponent<ProjectileBase>().setCourseOfFire(bulletSpeed, facingRight, shootPos, targetTags);
@@ -113,6 +114,7 @@ public class Trumpet : Weapon
 
     override public void spawnProjectileSecondary(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
+        FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffectR);
         GameObject proj = Instantiate(projectileSecondary, projectileTransform.position, Quaternion.identity);
         proj.GetComponent<ProjectileBase>().boostAttack(CalculateComboDamage());
         proj.GetComponent<ProjectileBase>().setCourseOfFire(bulletSpeedSecondary, facingRight, shootPos, targetTags);

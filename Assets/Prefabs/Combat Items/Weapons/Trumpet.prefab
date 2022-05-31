@@ -181,6 +181,8 @@ MonoBehaviour:
     targetNewDrag: 0
     isPiercing: 0
   LastMovesUsed: 
+  leftParticleSystem: {fileID: 0}
+  rightParticleSystem: {fileID: 0}
   projectile: {fileID: 6102382208412875363, guid: 290878b71f6260a458d8b3fd3c79bee6, type: 3}
   projectileSecondary: {fileID: 3144140597971581921, guid: 054eee3d96713e9499740068e9b59420, type: 3}
   projectileTransform: {fileID: 2835349553931640191}
@@ -231,7 +233,8 @@ MonoBehaviour:
     blastRadius: 1.2
     targetNewDrag: 6.5
     isPiercing: 0
-  soundEffect: {fileID: 0}
+  soundEffectL: {fileID: 8300000, guid: 078e1723f7704e94dbb6c19c1e1ea9d7, type: 3}
+  soundEffectR: {fileID: 8300000, guid: 3a85a1b710df51e4492fd9a4f1b9e590, type: 3}
 --- !u!95 &5636066111209543549
 Animator:
   serializedVersion: 3

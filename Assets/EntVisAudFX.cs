@@ -28,7 +28,6 @@ public class EntVisAudFX : MonoBehaviour
         if (deathParticle == null){
             return;
         }
-        Debug.Log("Death effect playing!");
         instantiateEffect(deathParticle, this.transform.position);
     }
 
@@ -36,7 +35,6 @@ public class EntVisAudFX : MonoBehaviour
         if (collisionParticle == null){
             return;
         }
-        Debug.Log("Collision effect playing!");
         instantiateEffect(collisionParticle, pos);
     }
     void instantiateEffect(GameObject effect, Vector3 pos){

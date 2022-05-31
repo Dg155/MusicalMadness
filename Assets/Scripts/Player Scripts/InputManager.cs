@@ -47,26 +47,26 @@ public class InputManager : MonoBehaviour
 
     private IEnumerator BufferPrimary()
     {
-        Debug.Log("primary buffered!");
+        //Debug.Log("primary buffered!");
         if (!primaryBuffered)
         {
             primaryBuffered = true;
             yield return new WaitForSeconds(bufferTime);
             primaryBuffered = false;
         }
-        Debug.Log("primary no longer buffered");
+        //Debug.Log("primary no longer buffered");
     }
 
     private IEnumerator BufferSecondary()
     {
-        Debug.Log("secondary buffered!");
+        //Debug.Log("secondary buffered!");
         if (!secondaryBuffered)
         {
             secondaryBuffered = true;
             yield return new WaitForSeconds(bufferTime);
             secondaryBuffered = false;
         }
-        Debug.Log("secondary no longer buffered");
+        //Debug.Log("secondary no longer buffered");
     }
 
     private void UseMainHand(Vector3 mousePos) {
