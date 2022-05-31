@@ -201,6 +201,13 @@ public class EnemyAI : MonoBehaviour
     }
 
     void setState(){
+        //Boss Phases:
+        //Attack 1: normal behavior
+        //Defense: Take reduced damage
+        //  Check current hp%, if less than half, summon minions
+        //Attack 2: spiral attack
+        //repeat
+
         if (CombatScript.getIsStunned()){
             state = AIState.Stunned;
             return;
@@ -210,6 +217,7 @@ public class EnemyAI : MonoBehaviour
             target = ai.GetTarget(this.transform.position);
         }
         if (target){ //if there is a detectable target, consider either to aggress or retreat
+            //REPLACED: always be aggressive
             float healthPercent = CombatScript.getStats().getHealth()/CombatScript.getStats().getMaxHealth();
             //Debug.Log("HEALTH PERCENT IS " + healthPercent.ToString());
             if (ai.shouldFlee(healthPercent)){

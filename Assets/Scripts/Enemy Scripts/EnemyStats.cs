@@ -11,8 +11,9 @@ public class EnemyStats : BaseStats
     public int heartDropPercentage = 10;
     public GameObject heart;
 
-    public GameObject deathParticle; 
+    public GameObject deathParticle;
 
+    public bool isBoss;
 
 
     override protected void Start(){
@@ -21,7 +22,8 @@ public class EnemyStats : BaseStats
         HB = GetComponentInChildren<HealthBarScript>();
     }
     override protected void Die(){
-        GetComponent<EnemyAI>().setAlive(false);
+        if (isBoss) { GetComponent<E_GrandPianoAI>().setAlive(false); }
+        else { GetComponent<EnemyAI>().setAlive(false); }
         GetComponent<EntVisAudFX>().DeathEffect();
     }
 
