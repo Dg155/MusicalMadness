@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class InputManager : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class InputManager : MonoBehaviour
             //UseOffHand(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             StartCoroutine(BufferSecondary());
         }
-        if (Input.mouseScrollDelta.y * .05f > 0)
+        if (Math.Abs(Input.mouseScrollDelta.y) * .05f > 0)
         {
             SwitchMainHand();
         }
