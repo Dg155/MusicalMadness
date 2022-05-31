@@ -285,14 +285,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6acf3945cbe77541bdf9258ce5be6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currHealth: 10000
-  maxHealth: 10000
+  currHealth: 1000
+  maxHealth: 1000
   moveSpeed: 4
   mainHand: {fileID: 0}
   offHand: {fileID: 0}
   healthBar: {fileID: 0}
   offSet: 0.5
   HB: {fileID: 0}
+  hitboxVisualizerRadius: 0
   souls: 0
 --- !u!114 &2975328503818995558
 MonoBehaviour:
@@ -306,6 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f26f3b49256874fb60bf1a76926da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferTime: 0.25
 --- !u!114 &2975328503818995557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,6 +321,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStunned: 0
+  isVulnerableToPierce: 0
+  pierceInvulTime: 0
 --- !u!95 &2975328503818995556
 Animator:
   serializedVersion: 3
@@ -352,7 +356,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainHand: {fileID: 0}
   mainHandObject: {fileID: 0}
-  items: []
+  weaponItems: []
+  artifactItems: []
   weaponSpace: 3
 --- !u!114 &1293926777
 MonoBehaviour:
@@ -367,7 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathParticle: {fileID: 4993843559921728331, guid: 5b1def5bd80cd334ab25024448972f16, type: 3}
-  collisionParticle: {fileID: 0}
+  collisionParticle: {fileID: 8047624644977881977, guid: d89cdcfdfd4849e49a0fe961aa71cc78, type: 3}
   sprite: {fileID: 0}
   flashWhite: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   flashColor: {r: 0.29874206, g: 0.9809927, b: 1, a: 1}

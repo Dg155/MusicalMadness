@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4158f09fdc927af4fa7f7e6d9d7b5d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelArtifacts: {fileID: 11400000, guid: 199be91c3c5843849a22c403b0da6205, type: 2}
+  Blocker: {fileID: 1320255584925940892, guid: 01d226d1564cba84980cd5a189218402, type: 3}
+  roomSize: 8
   enemyManagerTEMP: {fileID: 5393293268420629736}
 --- !u!114 &5393293268420629737
 MonoBehaviour:
@@ -91,8 +94,8 @@ MonoBehaviour:
   RUD: {fileID: 5455497206697439761, guid: 57c61227f9093a64d87fc7adca882dc8, type: 3}
   RLD: {fileID: 1610813866156056881, guid: 7f8c42f919a8b2b4ca9eca9a20f9d877, type: 3}
   TreasureChest: {fileID: 952119653340526877, guid: fb4936bd9f10c0142ba9488c753dca36, type: 3}
-  levelArtifacts: {fileID: 11400000, guid: 199be91c3c5843849a22c403b0da6205, type: 2}
   ambushChest: {fileID: 4425196612355397283, guid: 6ebb51483e9ac25478765eb93543a40c, type: 3}
+  chestHeart: {fileID: 11400000, guid: 4e1c3460ae43ee54f9f45908bd104bec, type: 2}
 --- !u!114 &5393293268420629736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,5 +109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   violin: {fileID: 2006987643916260004, guid: 4787d861a046b584aa78576ed6b465af, type: 3}
-  tambourine: {fileID: 2006987643916260004, guid: e68a3ec8369d6d24d8f076e9c60cd915, type: 3}
+  tambourine: {fileID: 2006987643916260004, guid: 9610c62c717e1fe45b5943c17db2b719, type: 3}
   demon: {fileID: 2006987643916260004, guid: e68a3ec8369d6d24d8f076e9c60cd915, type: 3}
+  classicalMusic: {fileID: 8300000, guid: 542c6e0b09a12cf40a339983d66f1589, type: 3}

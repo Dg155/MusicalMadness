@@ -47,7 +47,6 @@ public class EntVisAudFX : MonoBehaviour
     }
 
     IEnumerator flashSprite(){
-        Debug.Log("Flashing");
         flashing = true;
         int i = 0;
         while (i < 3){
