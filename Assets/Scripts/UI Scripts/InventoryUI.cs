@@ -23,7 +23,7 @@ public class InventoryUI : MonoBehaviour
         UITexts = UITextsParent.GetComponentsInChildren<UIText>();
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
         for (int i = 0; i < UITexts.Length; i++)
         {

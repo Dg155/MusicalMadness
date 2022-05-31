@@ -14,6 +14,11 @@ public class PlayerStats : BaseStats
         if (HB == null){
             HB = FindObjectOfType<HealthBarScript>();
         }
+        if (Object.FindObjectsOfType<PlayerStats>().Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
     override protected void Die(){
         LevelLoader l= FindObjectOfType<LevelLoader>();
