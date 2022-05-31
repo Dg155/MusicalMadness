@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7848829836210091767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7848829836210091761}
+  - component: {fileID: 7848829836210091760}
+  - component: {fileID: 7848829836210091762}
+  m_Layer: 0
+  m_Name: Boss Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7848829836210091761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848829836210091767}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.27491823, y: 0.093847565, z: -111.68502}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7848829836210091760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848829836210091767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1218eb171577524cbb2608dffb8fb04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  violin: {fileID: 2006987643916260004, guid: 4787d861a046b584aa78576ed6b465af, type: 3}
+  tambourine: {fileID: 0}
+  demon: {fileID: 0}
+  grandpiano: {fileID: 7820729947377792737, guid: 1f8dd401ef5f4434eaba8605eb7f331f, type: 3}
+  spawnPosition: {x: 0, y: 0, z: 0}
+  minionSpawnPositions:
+  - {x: 2, y: 2, z: 0}
+  - {x: -2, y: 2, z: 0}
+  - {x: -2, y: -2, z: 0}
+  - {x: 2, y: -2, z: 0}
+--- !u!114 &7848829836210091762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848829836210091767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9033e4043fea9714cb4245e1708c9e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomSize: 8
+  enemyManagerTEMP: {fileID: 7848829836210091760}

@@ -165,7 +165,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 2322582987847425746, guid: b9f252b36c3be424ea043fb8e26e348d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d15b41df61bc0e945ae075532fb5cdb3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -252,7 +252,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2.7, y: 1.8}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -277,6 +277,7 @@ MonoBehaviour:
   isVulnerableToPierce: 0
   pierceInvulTime: 0.2
   isDefensiveBoss: 0
+  damageReductionBoss: 0.6
 --- !u!95 &7820729947377792740
 Animator:
   serializedVersion: 3
@@ -285,7 +286,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7820729947377792737}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 52532acfed4f0d0499331494e957cf6a, type: 2}
   m_CullingMode: 0
@@ -320,8 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f051d3538cff88742878c7ca10aa21ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currHealth: 400
-  maxHealth: 400
+  currHealth: 1000
+  maxHealth: 1000
   moveSpeed: 4
   mainHand: {fileID: 6209172175344955261}
   offHand: {fileID: 0}
@@ -372,7 +373,6 @@ MonoBehaviour:
   movePos: {x: 0, y: 0}
   timeSinceLastAction: 0
   phaseTimer: 5
-  numSummons: 4
   spiralAttackSpeed: 0.1
   spiralProjectileSpeed: 3
 --- !u!1001 &2324784662735817567

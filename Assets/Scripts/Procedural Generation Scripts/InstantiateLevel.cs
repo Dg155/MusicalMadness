@@ -8,7 +8,7 @@ public class InstantiateLevel : MonoBehaviour
     Dictionary<Dir, GameObject> rooms;
     public GameObject grid;
     public int roomSize = 8;
-    public GameObject All, R, U, L, D, RU, RL, RD, UL, UD, LD, RUL, ULD, RUD, RLD;
+    public GameObject All, R, U, L, D, RU, RL, RD, UL, UD, LD, RUL, ULD, RUD, RLD, None;
     public GameObject TreasureChest;
     private List<Item> artifacts = new List<Item>();
     private List<GameObject> spawnedChests = new List<GameObject>();
@@ -34,6 +34,7 @@ public class InstantiateLevel : MonoBehaviour
         rooms.Add(Dir.R|Dir.L|Dir.D,RLD);
         rooms.Add(Dir.R|Dir.U|Dir.D,RUD);
         rooms.Add(Dir.U|Dir.L|Dir.D,ULD);
+        rooms.Add(0, None);
     }
 
     void Start(){
@@ -42,6 +43,12 @@ public class InstantiateLevel : MonoBehaviour
     public void setArtifacts(ScriptableLevelArtifacts levelArtifacts)
     {
         artifacts = new List<Item>(levelArtifacts.Artifacts);
+    }
+
+    public void InstantiateBossRoom(pos position)
+    {
+        var newRoom = Instantiate (rooms[0], new Vector3(position.x * roomSize ,position.y * roomSize, 0) , Quaternion.identity);
+        newRoom.transform.parent = grid.transform; 
     }
 
     void InstantiateRoom(pos position, Dir roomType){

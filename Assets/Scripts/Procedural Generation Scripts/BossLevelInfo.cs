@@ -14,7 +14,7 @@ public class BossLevelInfo : MonoBehaviour
     {
         currPlayerPos = new pos(0, 0);
         InstantiateLevel IL = this.GetComponent<InstantiateLevel>();
-        IL.InstantiateFromDungeonInfo(dungeonInfo);
+        IL.InstantiateBossRoom(currPlayerPos);
     }
 
     public void changePos(int x, int y) //currently called by CameraMove.cs script

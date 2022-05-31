@@ -11,6 +11,8 @@ public class CameraMove : MonoBehaviour
     public int roomsize;
     bool shaking = false;
     public LevelInfo levelInfo;
+    public bool inMaze = true;
+    private Vector3 offset;
 
     public Rigidbody2D rb;
     // Start is called before the first frame update
@@ -21,48 +23,53 @@ public class CameraMove : MonoBehaviour
         roomsize = 8;
         newpos = pos.position;
         rb = this.GetComponent<Rigidbody2D>();
+        offset = transform.position - playerpos.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (shaking){
+        if (inMaze)
+        {
+            if (shaking){
             return;
-        }
-        if (!moving){
-            if (playerpos.position.x > pos.position.x + roomsize/2){
-                newpos = newpos + Vector3.right * roomsize;
-                levelInfo.changePos(1, 0);
-                moving = true;
             }
-            else if (playerpos.position.x < pos.position.x - roomsize/2){
-                newpos = newpos + Vector3.left * roomsize;
-                levelInfo.changePos(-1, 0);
-                moving = true;
-            }
-            else if (playerpos.position.y > pos.position.y + roomsize/2){
-                newpos = newpos + Vector3.up * roomsize;
-                levelInfo.changePos(0, 1);
-                moving = true;
-            }
-            else if (playerpos.position.y < pos.position.y - roomsize/2){
-                newpos = newpos + Vector3.down * roomsize;
-                levelInfo.changePos(0, -1);
-                moving = true;
-            }
-        }
-        else{
-            if (Vector3.Distance(pos.position, newpos) < 0.1){
-                moving = false;
+            if (!moving){
+                if (playerpos.position.x > pos.position.x + roomsize/2){
+                    newpos = newpos + Vector3.right * roomsize;
+                    levelInfo.changePos(1, 0);
+                    moving = true;
+                }
+                else if (playerpos.position.x < pos.position.x - roomsize/2){
+                    newpos = newpos + Vector3.left * roomsize;
+                    levelInfo.changePos(-1, 0);
+                    moving = true;
+                }
+                else if (playerpos.position.y > pos.position.y + roomsize/2){
+                    newpos = newpos + Vector3.up * roomsize;
+                    levelInfo.changePos(0, 1);
+                    moving = true;
+                }
+                else if (playerpos.position.y < pos.position.y - roomsize/2){
+                    newpos = newpos + Vector3.down * roomsize;
+                    levelInfo.changePos(0, -1);
+                    moving = true;
+                }
             }
             else{
-                pos.position = Vector3.Lerp(pos.position, newpos, 4.5F * Time.deltaTime);
+                if (Vector3.Distance(pos.position, newpos) < 0.1){
+                    moving = false;
+                }
+                else{
+                    pos.position = Vector3.Lerp(pos.position, newpos, 4.5F * Time.deltaTime);
+                }
             }
         }
+        else {transform.position = playerpos.position + offset;}
     }
 
-        public void Shake(float duration, float magnitude){
-        StartCoroutine(shakeCamera(duration, magnitude));
+    public void Shake(float duration, float magnitude){
+        if (inMaze) {StartCoroutine(shakeCamera(duration, magnitude));}
     }
     IEnumerator shakeCamera(float duration, float magnitude){
         shaking = true;

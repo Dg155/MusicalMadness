@@ -93,9 +93,11 @@ MonoBehaviour:
   ULD: {fileID: 5622028550946498135, guid: a0288dd4d6f4df74d951216495324a30, type: 3}
   RUD: {fileID: 5455497206697439761, guid: 57c61227f9093a64d87fc7adca882dc8, type: 3}
   RLD: {fileID: 1610813866156056881, guid: 7f8c42f919a8b2b4ca9eca9a20f9d877, type: 3}
+  None: {fileID: 3766764381463703481, guid: e2f893240e3fd2746ac08f3c402b285d, type: 3}
   TreasureChest: {fileID: 952119653340526877, guid: fb4936bd9f10c0142ba9488c753dca36, type: 3}
   ambushChest: {fileID: 4425196612355397283, guid: 6ebb51483e9ac25478765eb93543a40c, type: 3}
   chestHeart: {fileID: 11400000, guid: 4e1c3460ae43ee54f9f45908bd104bec, type: 2}
+  transporter: {fileID: 8103169635146297124, guid: 1dd0d7536349d1a42aa5d01a07318331, type: 3}
 --- !u!114 &5393293268420629736
 MonoBehaviour:
   m_ObjectHideFlags: 0

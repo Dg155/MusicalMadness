@@ -8,12 +8,14 @@ public class TextPopUp : MonoBehaviour
 {
 
     TextMeshProUGUI TM;
+    public bool notInBoss = true;
 
     // Start is called before the first frame update
     void Start()
     {
         TM = GetComponentInChildren<TextMeshProUGUI>();
-        firstMessage();
+        if (notInBoss) {firstMessage();}
+        else {gameObject.SetActive(false);}
     }
 
     private async void firstMessage()
