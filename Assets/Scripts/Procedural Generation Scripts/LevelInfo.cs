@@ -20,7 +20,6 @@ public class LevelInfo : MonoBehaviour
     void Start()
     {
         artifactsNeeded = new HashSet<Item>(levelArtifacts.Artifacts);
-        GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, 0);
         FindObjectOfType<InventoryUI>().UpdateUI();
         currPlayerPos = new pos(0, 0);
         InstantiateLevel IL = this.GetComponent<InstantiateLevel>();
@@ -29,6 +28,7 @@ public class LevelInfo : MonoBehaviour
         popUp = GameObject.FindGameObjectWithTag("PopUpText").GetComponent<TextPopUp>();
         player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<PlayerStats>().setHealth(player.GetComponent<PlayerStats>().getMaxHealth());
+        player.transform.position = new Vector3(0, 0, 0);
     }
 
     public void popUpInfo()
