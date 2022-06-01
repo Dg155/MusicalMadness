@@ -20,4 +20,10 @@ public class MenuManager : MonoBehaviour
         menu.SetActive(!menu.active);
         
     }
+
+    public void setCurrentActive(GameObject menu)
+    {
+        Debug.Log(menu);
+        currentActive = menu;
+    }
 }

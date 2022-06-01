@@ -5759,10 +5759,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsUI
       objectReference: {fileID: 0}
-    - target: {fileID: 5560636840340137174, guid: 0656753ed91955c4587dfd92a307521e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6190683437650996624, guid: 0656753ed91955c4587dfd92a307521e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5941,7 +5937,7 @@ AudioSource:
   m_GameObject: {fileID: 1945755558}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6589595195206896865, guid: ff6c26635fd9c4676a9e3bbc7fc813a1, type: 2}
   m_audioClip: {fileID: 8300000, guid: f8b818fae36a0be42a4365f55916965e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
