@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetSize: 2.5
   targetTag: Player
-  detectionRadius: 2
+  detectionRadius: 3
   roamingCurve:
     serializedVersion: 2
     m_Curve:

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: G Key
   type: 2
-  image: {fileID: -625853378627027534, guid: 1d62955269e7f9f438b2f79072480f94, type: 3}
+  image: {fileID: 2139225685113241134, guid: 3567aafe296afea4ab84eede799c6868, type: 3}
   cost: 0
   itemWorth: 0
   isDefaultItem: 0
