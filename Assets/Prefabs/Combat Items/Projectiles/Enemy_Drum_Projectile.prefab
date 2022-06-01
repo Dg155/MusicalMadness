@@ -101,7 +101,7 @@ MonoBehaviour:
   soundEffect: {fileID: 8300000, guid: 658af924a1f68b2439825a73e0924cc3, type: 3}
   wallCollision: {fileID: 5671843528604036099, guid: d6939f8077f98b1419b3368d13b4256f, type: 3}
   attack:
-    damage: 25
+    damage: 60
     stunDuration: 0
     blindDuration: 0
     poisonDuration: 0
@@ -161,6 +161,10 @@ PrefabInstance:
     - target: {fileID: 8910857455875218727, guid: cc77a2931795229449a0c29b22961504, type: 3}
       propertyPath: m_Name
       value: EnemyProjectileTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910857455875218727, guid: cc77a2931795229449a0c29b22961504, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8910857455875218728, guid: cc77a2931795229449a0c29b22961504, type: 3}
       propertyPath: m_SortingOrder

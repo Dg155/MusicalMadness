@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721a2da441943724daa325b458db1669, type: 3}
   m_Name: ViolinMinionAI
   m_EditorClassIdentifier: 
-  offsetSize: 2.5
+  offsetSize: 20
   targetTag: Player
-  detectionRadius: 4
+  detectionRadius: 10
   roamingCurve:
     serializedVersion: 2
     m_Curve:

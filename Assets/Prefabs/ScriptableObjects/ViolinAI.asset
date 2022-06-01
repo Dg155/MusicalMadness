@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721a2da441943724daa325b458db1669, type: 3}
   m_Name: ViolinAI
   m_EditorClassIdentifier: 
+  offsetSize: 2.5
   targetTag: Player
-  detectionRadius: 4
+  detectionRadius: 12
   roamingCurve:
     serializedVersion: 2
     m_Curve:
@@ -65,9 +66,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   aggressiveDelay: 0
-  aggressiveSpeed: 4
-  aggressiveDistanceFromTarget: 2
-  aggressiveStrafeFactor: 1
+  aggressiveSpeed: 8
+  aggressiveDistanceFromTarget: 3
+  aggressiveStrafeFactor: 2
   retreatCurve:
     serializedVersion: 2
     m_Curve:
@@ -99,4 +100,4 @@ MonoBehaviour:
   retreatStrafeFactor: 2
   aimOffsetFactor: 0
   shootDistanceMin: 0
-  shootDistanceMax: 3
+  shootDistanceMax: 6
