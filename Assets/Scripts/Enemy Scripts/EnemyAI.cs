@@ -136,10 +136,11 @@ public class EnemyAI : MonoBehaviour
 
             case AIState.Aggressive:
                 //Ask AI to calculate new move position
-                if (target == null){
+                if (target == null || ai.shouldFlee(CombatScript.getStats().getHealth()/CombatScript.getStats().getMaxHealth())){
                     setState();
                     break;
                 }
+
                 timeSinceLastAction += Time.deltaTime;
                 if (Vector2.Distance(movePos, this.transform.position) < 0.01){
                     animator.SetFloat("Speed", 1);

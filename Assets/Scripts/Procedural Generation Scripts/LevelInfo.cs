@@ -13,6 +13,7 @@ public class LevelInfo : MonoBehaviour
     GameObject doorBlock;
     private HashSet<Item> artifactsNeeded;
     private TextPopUp popUp;
+    private GameObject player;
 
     public EnemyManager enemyManagerTEMP; //TEMPORARY REMOVE ONCE EVENT LISTENING ADDED IN
     // Start is called before the first frame update
@@ -26,6 +27,8 @@ public class LevelInfo : MonoBehaviour
         IL.setArtifacts(levelArtifacts);
         IL.InstantiateFromDungeonInfo(dungeonInfo);
         popUp = GameObject.FindGameObjectWithTag("PopUpText").GetComponent<TextPopUp>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<PlayerStats>().setHealth(player.GetComponent<PlayerStats>().getMaxHealth());
     }
 
     public void popUpInfo()
@@ -63,6 +66,14 @@ public class LevelInfo : MonoBehaviour
     {
         currPlayerPos.x += x;
         currPlayerPos.y += y;
+        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Animator animator = enemy.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetFloat("Speed", 0);
+            }
+        }
         enemyManagerTEMP.InstantiateAdjacentEnemies();
 
     }

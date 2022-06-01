@@ -161,7 +161,9 @@ public class Combat : MonoBehaviour
         {
             setMainHand(); //move this later to only call when switching/changing weapons
         }
-        StartCoroutine(mainHand.Use(shootPos, targetTags));
+        else{
+            StartCoroutine(mainHand.Use(shootPos, targetTags));
+        }
     }
 
     public void UseMainHandSecondary(Vector3 shootPos)
@@ -170,7 +172,9 @@ public class Combat : MonoBehaviour
         {
             setMainHand(); //move this later to only call when switching/changing weapons
         }
-        StartCoroutine(mainHand.UseSecondary(shootPos, targetTags));
+        else{
+            StartCoroutine(mainHand.UseSecondary(shootPos, targetTags));
+        }
     }
 
     public void UseOffHand(Vector3 shootPos)
@@ -179,7 +183,9 @@ public class Combat : MonoBehaviour
         {
             setOffHand();
         }
-        offHand.Use(shootPos, targetTags); //if I want to give the same weapon a secondary attack, all I have to do is change this line to mainHand.SecondaryAttack(shootPos, targetTags)
+        else{
+            offHand.Use(shootPos, targetTags); //if I want to give the same weapon a secondary attack, all I have to do is change this line to mainHand.SecondaryAttack(shootPos, targetTags)
+        } 
     } 
 
     public void setMainHand(){

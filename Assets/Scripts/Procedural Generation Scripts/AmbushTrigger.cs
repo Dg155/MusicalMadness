@@ -48,7 +48,7 @@ public class AmbushTrigger : MonoBehaviour
         if (l != null){
             l.DarkenScreen();
         }
-        AudioSource musicPlayer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        AudioSource musicPlayer = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioSource>();
         musicPlayer.clip = ambushMusic;
         musicPlayer.Play();
         yield return new WaitForSeconds(3.4f);

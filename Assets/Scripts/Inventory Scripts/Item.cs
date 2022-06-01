@@ -10,6 +10,7 @@ public class Item: ScriptableObject
     public float itemWorth = 0; //Variable that is unique to each item; for souls it will be how much the soul is worth, for healing it will be how much health the player will gain.
     public bool isDefaultItem = false;
     public GameObject itemObject;
+    public AudioClip itemSFX;
 
     public virtual void Use()
     {

@@ -17,7 +17,9 @@ public class ProjectileBase : MonoBehaviour
 
     protected virtual void Awake(){
         //CHANGE LATER TO WORK WITH EVENTS
-        FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffect);
+        if (soundEffect != null){
+            FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffect);
+        }
         rb = this.GetComponent<Rigidbody2D>();
     }
 
@@ -39,6 +41,16 @@ public class ProjectileBase : MonoBehaviour
         attack.isPiercing = attackBoost.isPiercing;
     }
 
+    public virtual void OnTriggerStay2D(Collider2D other){
+        if (!attack.isPiercing){return;}
+        if (other.tag == "Wall"){
+            foreach(var x in Physics2D.OverlapCircleAll(this.transform.position, 0.1f)){
+                if (x.tag == "Wall"){
+                    Destroy(gameObject);
+                }
+            }
+        }
+    }
     public virtual void OnTriggerEnter2D(Collider2D other)
     {
         //Check if projectile hit something that destroys the projectile
@@ -67,8 +79,9 @@ public class ProjectileBase : MonoBehaviour
                     }
                 }
             }
-
-            Destroy(gameObject);
+            if (!attack.isPiercing){
+                Destroy(gameObject);
+            }
         }
         //Check if hit an enemy
         else if (projTargetTags.Contains(other.tag))
@@ -83,6 +96,7 @@ public class ProjectileBase : MonoBehaviour
             if (attack.animCol != null){
                 Instantiate(attack.animCol, this.transform.position, Quaternion.identity);
             }
+            print(attack.screenShakeDeg);
             if (attack.screenShakeDeg >= 0f){
                 FindObjectOfType<CameraMove>().Shake(attack.screenShakeTime, attack.screenShakeDeg);//shakes camera
             }

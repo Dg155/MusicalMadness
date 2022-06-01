@@ -13,8 +13,8 @@ public class CameraMove : MonoBehaviour
     public LevelInfo levelInfo;
     public bool inMaze = true;
     private Vector3 offset;
-
     public Rigidbody2D rb;
+    public AudioClip roomChange;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,21 +38,25 @@ public class CameraMove : MonoBehaviour
                 if (playerpos.position.x > pos.position.x + roomsize/2){
                     newpos = newpos + Vector3.right * roomsize;
                     levelInfo.changePos(1, 0);
+                    FindObjectOfType<SoundEffectPlayer>().PlaySound(roomChange);
                     moving = true;
                 }
                 else if (playerpos.position.x < pos.position.x - roomsize/2){
                     newpos = newpos + Vector3.left * roomsize;
                     levelInfo.changePos(-1, 0);
+                    FindObjectOfType<SoundEffectPlayer>().PlaySound(roomChange);
                     moving = true;
                 }
                 else if (playerpos.position.y > pos.position.y + roomsize/2){
                     newpos = newpos + Vector3.up * roomsize;
                     levelInfo.changePos(0, 1);
+                    FindObjectOfType<SoundEffectPlayer>().PlaySound(roomChange);
                     moving = true;
                 }
                 else if (playerpos.position.y < pos.position.y - roomsize/2){
                     newpos = newpos + Vector3.down * roomsize;
                     levelInfo.changePos(0, -1);
+                    FindObjectOfType<SoundEffectPlayer>().PlaySound(roomChange);
                     moving = true;
                 }
             }

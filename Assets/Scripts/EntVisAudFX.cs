@@ -7,6 +7,8 @@ public class EntVisAudFX : MonoBehaviour
     //particle game object may have sounds attached
     public GameObject deathParticle;
     public GameObject collisionParticle;
+    public AudioClip collisionSound;
+    public AudioClip deathSound;
 
     public SpriteRenderer sprite;
     public Material flashWhite;
@@ -28,16 +30,16 @@ public class EntVisAudFX : MonoBehaviour
         if (deathParticle == null){
             return;
         }
-        Debug.Log("Death effect playing!");
         instantiateEffect(deathParticle, this.transform.position);
+        FindObjectOfType<SoundEffectPlayer>().PlaySound(deathSound);
     }
 
     public void CollisionEffect(Vector3 pos){
         if (collisionParticle == null){
             return;
         }
-        Debug.Log("Collision effect playing!");
         instantiateEffect(collisionParticle, pos);
+        FindObjectOfType<SoundEffectPlayer>().PlaySound(collisionSound);
     }
     void instantiateEffect(GameObject effect, Vector3 pos){
         Instantiate(effect, pos, Quaternion.identity);
@@ -49,7 +51,6 @@ public class EntVisAudFX : MonoBehaviour
     }
 
     IEnumerator flashSprite(){
-        Debug.Log("Flashing");
         flashing = true;
         int i = 0;
         while (i < 3){

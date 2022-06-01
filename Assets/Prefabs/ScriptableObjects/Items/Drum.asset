@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Drum
   type: 0
-  image: {fileID: 7123785896266969840, guid: a42ffc7f493a8974e87d2cc13c0118b5, type: 3}
+  image: {fileID: -695263680758184066, guid: 4cc263c1b1850a2458b590a1ec7e869d, type: 3}
   cost: 0
   itemWorth: 0
   isDefaultItem: 0
   itemObject: {fileID: 2102527582423084454, guid: 95456e8b6d2374411820b0bd50681976, type: 3}
+  itemSFX: {fileID: 8300000, guid: e64d51c83c79a4145a27e06c6013eb97, type: 3}

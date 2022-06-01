@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6ffff4ee7544d4ca03ed1d5fdd20a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8300000, guid: 3a85a1b710df51e4492fd9a4f1b9e590, type: 3}
+  soundEffect: {fileID: 0}
   wallCollision: {fileID: 5671843528604036099, guid: d6939f8077f98b1419b3368d13b4256f, type: 3}
   attack:
     damage: 50
@@ -106,7 +106,14 @@ MonoBehaviour:
     blindDuration: 0
     poisonDuration: 0
     poisonDamage: 0
+    screenShakeDeg: 0
+    screenShakeTime: 0
     animCol: {fileID: 0}
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 0
+    blastRadius: 0
+    targetNewDrag: 0
+    isPiercing: 0
 --- !u!50 &3144140597971581920
 Rigidbody2D:
   serializedVersion: 4

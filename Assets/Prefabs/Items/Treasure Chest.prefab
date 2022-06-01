@@ -124,3 +124,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openChest: {fileID: 4714410783012859700, guid: 19db6d675772b2b4fab3005e2eb831e4, type: 3}
   item: {fileID: 7048102088220630138, guid: e60e5dac3e556624998c7eecc880379a, type: 3}
+  chestOpenSFX: {fileID: 8300000, guid: 49073abdc543aed49a6a9bab593525ee, type: 3}

@@ -7,6 +7,7 @@ public class TreasureChest : MonoBehaviour
 
     public Sprite openChest;
     public GameObject item;
+    public AudioClip chestOpenSFX;
     private Item itemInfo;
     private bool Closed = true;
 
@@ -29,6 +30,7 @@ public class TreasureChest : MonoBehaviour
             Closed = false;
             GetComponent<SpriteRenderer>().sprite = openChest;
             item.GetComponent<ItemObject>().setDetails(itemInfo);
+            GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundEffectPlayer>().PlaySound(chestOpenSFX);
             if (itemInfo.type == ItemType.Healing){itemInfo.setItemWorth(500);}
             GameObject Item = Instantiate(item, this.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
             Item.GetComponent<ItemObject>().justSpawned();
