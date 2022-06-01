@@ -14,4 +14,10 @@ public class MenuManager : MonoBehaviour
      menu.SetActive(true);
      currentActive = menu;
     }
+
+    public void Enable_Disable(GameObject menu){
+        print("CLICKING");
+        menu.SetActive(!menu.active);
+        
+    }
 }
