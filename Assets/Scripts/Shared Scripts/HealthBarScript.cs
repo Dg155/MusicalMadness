@@ -12,6 +12,7 @@ public class HealthBarScript : MonoBehaviour
 
     public void setHealthBar(float normalizedSize)
     {
+        if (bar == null) {bar = transform.Find("Bar");}
         bar.localScale = new Vector3(normalizedSize, 1f);
     }
 }

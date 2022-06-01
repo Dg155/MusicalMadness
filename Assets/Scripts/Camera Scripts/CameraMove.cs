@@ -66,7 +66,7 @@ public class CameraMove : MonoBehaviour
                 }
             }
         }
-        else {transform.position = playerpos.position + offset;}
+        else {transform.position = new Vector3(Mathf.Clamp(playerpos.position.x, -3.3f, 3.3f), Mathf.Clamp(playerpos.position.y, 2f, 9f), playerpos.position.z) + offset;}
     }
 
     public void Shake(float duration, float magnitude){

@@ -27,8 +27,6 @@ public class LevelInfo : MonoBehaviour
         IL.InstantiateFromDungeonInfo(dungeonInfo);
         popUp = GameObject.FindGameObjectWithTag("PopUpText").GetComponent<TextPopUp>();
         player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<PlayerStats>().setHealth(player.GetComponent<PlayerStats>().getMaxHealth());
-        player.transform.position = new Vector3(0, 0, 0);
     }
 
     public void popUpInfo()

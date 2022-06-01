@@ -14,11 +14,6 @@ public class PlayerStats : BaseStats
         if (HB == null){
             HB = FindObjectOfType<HealthBarScript>();
         }
-        if (Object.FindObjectsOfType<PlayerStats>().Length > 1)
-        {
-            Destroy(gameObject);
-        }
-        DontDestroyOnLoad(gameObject);
     }
     override protected void Die(){
         LevelLoader l= FindObjectOfType<LevelLoader>();
@@ -59,5 +54,16 @@ public class PlayerStats : BaseStats
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, hitboxVisualizerRadius);
+    }
+
+    // Method to be called every time player starts a new floor
+    public void resetPlayer()
+    {
+        if (HB == null){
+            HB = FindObjectOfType<HealthBarScript>();
+        }
+        transform.position = new Vector3(0, 0, 0);
+        setHealth(getMaxHealth());
+        Inventory.instance.resetArtifacts();
     }
 }

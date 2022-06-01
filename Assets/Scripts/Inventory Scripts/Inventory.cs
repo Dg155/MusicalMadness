@@ -8,6 +8,8 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
     private PlayerStats playerStats;
     private LevelInfo levelInfo;
+    // Text Display to the Player
+    private TextPopUp popUp;
 
     void Awake()
     {
@@ -20,6 +22,7 @@ public class Inventory : MonoBehaviour
 
         playerStats = gameObject.GetComponent<PlayerStats>();
         levelInfo = GameObject.FindObjectOfType<LevelInfo>();
+        popUp = GameObject.FindGameObjectWithTag("PopUpText").GetComponent<TextPopUp>();
     }
     #endregion
 
@@ -62,14 +65,12 @@ public class Inventory : MonoBehaviour
             if (item.type == ItemType.Weapon && numberOfWeapons >= weaponSpace)
             {
                 Debug.Log(GetItemTypeAmt(ItemType.Weapon));
-                Debug.Log("You're carrying too many weapons");
+                popUp.popUp("You're carrying too many weapons");
                 return false;
             }
             else if (item.cost > playerStats.getSouls())
             {
-                Debug.Log($"Weapon Cost: {item.cost}");
-                Debug.Log($"Your souls: {playerStats.getSouls()}");
-                Debug.Log("This weapon is too expensive");
+                popUp.popUp("This weapon is too expensive");
                 return false;
             }
 
@@ -77,6 +78,7 @@ public class Inventory : MonoBehaviour
             if (item.type == ItemType.Weapon && mainHand == null)
             {
                 SetMainHand(item, false);
+                popUp.popUp($"You've Picked Up the {item.name} Weapon! Try different Combo Attacks with L and R Mouse Button!");
                 return true;
             }
 
@@ -85,6 +87,7 @@ public class Inventory : MonoBehaviour
                 if (item.type == ItemType.Weapon) {
                     weaponItems.Add(item);
                     numWeapons++;
+                    popUp.popUp($"You've Picked Up the {item.name} Weapon! Try different Combo Attacks with L and R Mouse Button!");
                 }
                 else if (item.type == ItemType.Artifact) {
                     artifactItems.Add(item);
@@ -166,6 +169,15 @@ public class Inventory : MonoBehaviour
         if (onItemChangedCallback != null)
         {
             onItemChangedCallback.Invoke();
+        }
+    }
+
+    public void resetArtifacts()
+    {
+        List<Item> ar = new List<Item>(artifactItems);
+        foreach (var artifact in ar)
+        {
+            Remove(artifact);
         }
     }
 }
