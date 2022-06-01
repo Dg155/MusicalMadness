@@ -100,6 +100,7 @@ MonoBehaviour:
   moving: 0
   roomsize: 8
   levelInfo: {fileID: 0}
+  inMaze: 1
   rb: {fileID: 0}
   roomChange: {fileID: 8300000, guid: 7a4d32d9df14dcb42ba680411e1ca4a2, type: 3}
 --- !u!114 &4605801233615364036
@@ -279,6 +280,7 @@ MonoBehaviour:
   moving: 0
   roomsize: 8
   levelInfo: {fileID: 0}
+  inMaze: 1
   rb: {fileID: 0}
   roomChange: {fileID: 0}
 --- !u!1 &7715617639897915862
@@ -321,7 +323,7 @@ AudioSource:
   m_GameObject: {fileID: 7715617639897915862}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6972208486826078498, guid: ff6c26635fd9c4676a9e3bbc7fc813a1, type: 2}
   m_audioClip: {fileID: 8300000, guid: 542c6e0b09a12cf40a339983d66f1589, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -449,7 +451,7 @@ AudioSource:
   m_GameObject: {fileID: 8303761590064194323}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7112237309392666255, guid: ff6c26635fd9c4676a9e3bbc7fc813a1, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
