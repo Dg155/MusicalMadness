@@ -10,6 +10,9 @@ public class ComboMovesUI : MonoBehaviour
     Weapon mainHand;
 
     TextMeshProUGUI comboMovesText;
+    public Color leftColor, rightColor, noColor;
+    public UnityEngine.UI.Image[] images = new UnityEngine.UI.Image[4];
+    private Animation comboAnim;
 
     void Start()
     {
@@ -18,6 +21,8 @@ public class ComboMovesUI : MonoBehaviour
         comboMovesText = gameObject.GetComponent<TextMeshProUGUI>();
 
         inventory.onItemChangedCallback += UpdateMainHand;
+
+        comboAnim = this.GetComponent<Animation>();
     }
 
     void UpdateMainHand()
@@ -25,21 +30,42 @@ public class ComboMovesUI : MonoBehaviour
         if (inventory.mainHandObject != null)
         {
             mainHand = inventory.mainHandObject.GetComponent<Weapon>();
-            mainHand.onWeaponMoveCallback += UpdateText;
+            mainHand.onWeaponMoveCallback += UpdateDisplay;
+            mainHand.onComboActivatedCallback += DisplayCombo;
         }
     }
 
-    void UpdateText(List<weaponMove> lastMoves)
+    void DisplayCombo()
     {
-        string newText = "";
+        StartCoroutine(_DisplayCombo());
+    }
+
+    IEnumerator _DisplayCombo(){
+        comboAnim.Play();
+        yield return new WaitForSeconds(1);
+        foreach(var image in images){
+                image.color = noColor;
+            } 
+    }
+
+    void UpdateDisplay(List<weaponMove> lastMoves)
+    {
         if (lastMoves.Count > 0)
         {
-            newText = "Combo:\n";
+            foreach(var image in images){
+                image.color = noColor;
+            }
         }
+        int ind = 0;
         foreach(weaponMove move in lastMoves)
         {
-            newText = newText + $"{move}\n";
+            if (move  == weaponMove.trumpetPrimary || move == weaponMove.drumPrimary){
+                images[ind].color = leftColor;
+            }
+            else if (move == weaponMove.trumpetSecondary || move == weaponMove.drumSecondary){
+                images[ind].color = rightColor;
+            }
+            ind += 1;
         }
-        comboMovesText.text = newText;
     }
 }

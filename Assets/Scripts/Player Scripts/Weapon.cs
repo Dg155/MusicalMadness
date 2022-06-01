@@ -39,6 +39,9 @@ public class Weapon : MonoBehaviour
 
     public delegate void OnWeaponMove(List<weaponMove> lastMovesUsed); //Creates an event that updates UI w/ combo moves
     public OnWeaponMove onWeaponMoveCallback;
+    
+    public delegate void OnComboActivated();
+    public OnComboActivated onComboActivatedCallback;
 
     public ParticleSystem leftParticleSystem;
     public ParticleSystem rightParticleSystem;
