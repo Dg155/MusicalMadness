@@ -183,7 +183,7 @@ MonoBehaviour:
   rightParticleSystem: {fileID: 0}
   soundEffectL: {fileID: 8300000, guid: 5f47642ec4810a348b9aa4396d603ae2, type: 3}
   soundEffectR: {fileID: 0}
-  projectile: {fileID: 6102382208412875363, guid: d32f0dd933c42934090f3dc48589ba35, type: 3}
+  projectile: {fileID: 6102382208412875363, guid: 64778b06de5935f45b008d4be91aecdb, type: 3}
   bulletSpeed: 7.5
 --- !u!1 &7820729947377792737
 GameObject:
@@ -268,7 +268,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: d15b41df61bc0e945ae075532fb5cdb3, type: 3}
+  m_Sprite: {fileID: -1878249434019727480, guid: d136e598b3cda484e84564258d245baa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -355,7 +355,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.7, y: 1.8}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -389,9 +389,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7820729947377792737}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 52532acfed4f0d0499331494e957cf6a, type: 2}
+  m_Controller: {fileID: 9100000, guid: f7c881a1f3d00374bb7fd8458e9ba569, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a680a091cd2e0064eaca4ea1020d1f3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathParticle: {fileID: 4643671852923827495, guid: 267d31af44a41024db76db92e9d8cac8, type: 3}
+  deathParticle: {fileID: 2818037585985052112, guid: 69e5761d8ba005849bde05437df93067, type: 3}
   collisionParticle: {fileID: 8047624644977881977, guid: bfe94dba836ac9d48bf2a6d463b669b8, type: 3}
   collisionSound: {fileID: 8300000, guid: d19168db2fd204f4dab412a937c40d66, type: 3}
   deathSound: {fileID: 8300000, guid: f8f7edbf65476f84bbab510a9e190a2f, type: 3}
@@ -478,8 +478,8 @@ MonoBehaviour:
   movePos: {x: 0, y: 0}
   timeSinceLastAction: 0
   phaseTimer: 5
-  spiralAttackSpeed: 0.1
-  spiralProjectileSpeed: 3
+  spiralAttackSpeed: 0.05
+  spiralProjectileSpeed: 7.5
 --- !u!1001 &6906508290523873723
 PrefabInstance:
   m_ObjectHideFlags: 0

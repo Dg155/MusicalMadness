@@ -88,7 +88,7 @@ public class E_GrandPianoAI : MonoBehaviour
             else if (facingRight && target.transform.position.x - this.transform.position.x < 0)
             {
                 facingRight = false;
-                this.transform.localScale = new Vector2(1, 1);
+                this.transform.localScale = new Vector2(-1, 1);
             }
         }
         else if (!facingRight && (movePos.x - this.transform.position.x > 0
@@ -101,7 +101,7 @@ public class E_GrandPianoAI : MonoBehaviour
         || (target != null && target.transform.position.x - this.transform.position.x < 0))
         {
             facingRight = false;
-            this.transform.localScale = new Vector2(1, 1);
+            this.transform.localScale = new Vector2(-1, 1);
         }
 
 
@@ -180,7 +180,7 @@ public class E_GrandPianoAI : MonoBehaviour
                 //All damage during this time is reduced by 40%(?)
                 //If health is less than 50%, summon enemies
                 
-                
+                animator.SetBool("Defensive", true);
                 CombatScript.isDefensiveBoss = true;
 
                 //Summon enemies
@@ -200,6 +200,7 @@ public class E_GrandPianoAI : MonoBehaviour
 
                 if (checkPhase())
                 {
+                    animator.SetBool("Defensive", false);
                     phaseState = GrandPianoAIPhase.SpiralAttack;
                 }
                 break;
@@ -207,6 +208,7 @@ public class E_GrandPianoAI : MonoBehaviour
             case GrandPianoAIPhase.SpiralAttack:
                 //Hold current position
                 //Fire in spiral pattern
+                animator.SetBool("Spiral", true);
                 CombatScript.isDefensiveBoss = false;
                 minionSpawned = false;
 
@@ -220,10 +222,11 @@ public class E_GrandPianoAI : MonoBehaviour
 
                 CombatScript.UseMainHand(ai.Aim(this.transform.position, firePos));
 
-                angle += 1f;
+                angle += 3f;
 
                 if (checkPhase())
                 {
+                    animator.SetBool("Spiral", false);
                     phaseState = GrandPianoAIPhase.RegularAttack;
                 }
                 break;
