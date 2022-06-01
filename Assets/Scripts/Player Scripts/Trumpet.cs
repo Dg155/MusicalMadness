@@ -22,8 +22,6 @@ public class Trumpet : Weapon
     [SerializeField] attackInfo comboFinisher2;
     [SerializeField] attackInfo comboFinisher3;
 
-    public AudioClip soundEffectL;
-    public AudioClip soundEffectR;
 
     private void Awake()
     {
@@ -73,6 +71,7 @@ public class Trumpet : Weapon
             bulletSpeedSecondary = 10;
 
             ClearLastMoves();
+            onComboActivatedCallback.Invoke();
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo2))
@@ -84,6 +83,7 @@ public class Trumpet : Weapon
             bulletSpeedSecondary = 8;
 
             ClearLastMoves();
+            onComboActivatedCallback.Invoke();
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo3))
@@ -96,6 +96,7 @@ public class Trumpet : Weapon
             bulletSpeedSecondary = 7.5f;
 
             ClearLastMoves();
+            onComboActivatedCallback.Invoke();
             return comboAttack;
         }
         //no combo finisher --> default
