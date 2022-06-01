@@ -195,6 +195,8 @@ MonoBehaviour:
   isStunned: 0
   isVulnerableToPierce: 0
   pierceInvulTime: 0
+  isDefensiveBoss: 0
+  damageReductionBoss: 0.6
 --- !u!95 &2006987643916260001
 Animator:
   serializedVersion: 3
@@ -270,6 +272,7 @@ MonoBehaviour:
   heartDropPercentage: 10
   heart: {fileID: 3713696232024858866, guid: 219d34d09db8784468176ff1a177a49d, type: 3}
   deathParticle: {fileID: 4643671852923827495, guid: 267d31af44a41024db76db92e9d8cac8, type: 3}
+  isBoss: 0
 --- !u!114 &6608942888541196934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,7 +301,7 @@ AudioSource:
   m_GameObject: {fileID: 2006987643916260004}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: ff6c26635fd9c4676a9e3bbc7fc813a1, type: 2}
   m_audioClip: {fileID: 8300000, guid: ae29398d7fefbca469955c80ede8a777, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.2
