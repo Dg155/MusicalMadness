@@ -60,7 +60,7 @@ public class BossManager : MonoBehaviour
         //should behave similarly to InstantiateEnemyInRoom
         foreach (var spawnPoint in minionSpawnPositions)
         {
-            InstantiateSingle(spawnPoint);
+            InstantiateSingle(spawnPoint + instantiatedBoss.Item2.transform.position);
         }
 
     }

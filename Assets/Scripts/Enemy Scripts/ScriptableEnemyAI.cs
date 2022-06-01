@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyAI", menuName = "ScriptableObjects/EnemyAI")]
 public class ScriptableEnemyAI : ScriptableObject
 {
-
+    public float offsetSize = 2.5f;
     //DETECTION/SENSES
     [Header("Senses/Targets")]
     public string targetTag; //tag of element to select as target
@@ -63,7 +63,7 @@ public class ScriptableEnemyAI : ScriptableObject
         //Calculates new roaming position
         Vector2 offset = new Vector2(Random.Range(-1.0f,1.0f), Random.Range(-1.0f,1.0f));
         Vector2 newPos = offset + currPos;
-        FitIntoBoundary(ref newPos, roomCenter, 2.5f); //hardcoded as 2.5 for now
+        FitIntoBoundary(ref newPos, roomCenter, offsetSize); //hardcoded as 2.5 for now
         return newPos;
     }
 
@@ -72,7 +72,7 @@ public class ScriptableEnemyAI : ScriptableObject
         Vector2 towardVector = (targetLocation - currPos).normalized;
         Vector2 perpendicularVector = Vector2.Perpendicular(towardVector).normalized;
         Vector2 newPos = targetLocation - towardVector * aggressiveDistanceFromTarget + perpendicularVector * Random.Range(-aggressiveStrafeFactor, aggressiveStrafeFactor);
-        FitIntoBoundary(ref newPos, roomCenter, 2.5f);
+        FitIntoBoundary(ref newPos, roomCenter, offsetSize);
         return newPos;
     }
     public Vector2 NewRetreatPos(Vector2 currPos, Vector2 targetLocation, Vector2 roomCenter){ 
@@ -80,7 +80,7 @@ public class ScriptableEnemyAI : ScriptableObject
         Vector2 towardVector = (targetLocation - currPos).normalized;
         Vector2 perpendicularVector = Vector2.Perpendicular(towardVector).normalized;
         Vector2 newPos = targetLocation - towardVector * retreatDistanceFromTarget + perpendicularVector * Random.Range(-retreatStrafeFactor, retreatStrafeFactor);
-        FitIntoBoundary(ref newPos, roomCenter, 2.5f);
+        FitIntoBoundary(ref newPos, roomCenter, offsetSize);
         return newPos;
     }
 

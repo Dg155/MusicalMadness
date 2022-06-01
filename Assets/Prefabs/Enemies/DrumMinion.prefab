@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 6608942888541196934}
   - component: {fileID: 578393999}
   m_Layer: 3
-  m_Name: DrumEnemy
+  m_Name: DrumMinion
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19abf092a4fd1ab48836c4bb15d5b1b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ai: {fileID: 11400000, guid: 66d6c4c9c5693f4428f24b7dfa3e816d, type: 2}
+  ai: {fileID: 11400000, guid: c08ef7ee8fd245b4b88329a6bb5a3533, type: 2}
   state: 0
   target: {fileID: 0}
   movePos: {x: 0, y: 0}
