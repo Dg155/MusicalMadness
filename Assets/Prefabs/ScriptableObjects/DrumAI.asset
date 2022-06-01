@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721a2da441943724daa325b458db1669, type: 3}
   m_Name: DrumAI
   m_EditorClassIdentifier: 
+  offsetSize: 2.5
   targetTag: Player
   detectionRadius: 2
   roamingCurve:
