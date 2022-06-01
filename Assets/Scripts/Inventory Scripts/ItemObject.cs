@@ -44,6 +44,7 @@ public class ItemObject : MonoBehaviour
         if (other.tag == "Player")
         {
             bool gotPickedUp = Inventory.instance.Add(item);
+            if (item.itemSFX != null) {GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundEffectPlayer>().PlaySound(item.itemSFX);}
             if (gotPickedUp)
             {
                 Destroy(gameObject);

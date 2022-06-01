@@ -41,7 +41,7 @@ public class EnemyManager : MonoBehaviour
         ambushRoomActivated = false;
         GameObject door = GameObject.FindGameObjectWithTag("DoorBlock");
         door.GetComponent<Animator>().SetTrigger("ambushBeaten");
-        AudioSource musicPlayer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        AudioSource musicPlayer = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioSource>();
         musicPlayer.clip = classicalMusic;
         musicPlayer.Play();
         yield return new WaitForSeconds(.8f);

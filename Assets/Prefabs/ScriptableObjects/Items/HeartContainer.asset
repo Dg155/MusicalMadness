@@ -19,3 +19,4 @@ MonoBehaviour:
   itemWorth: 100
   isDefaultItem: 0
   itemObject: {fileID: 8935746270485276401, guid: b1d8b67a8fec34b99ad3308d5652d43c, type: 3}
+  itemSFX: {fileID: 8300000, guid: e7b5f731ebec2a54dbbcdd87ffaa7517, type: 3}
