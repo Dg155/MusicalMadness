@@ -101,7 +101,7 @@ public class EnemyManager : MonoBehaviour
             {
                 for (int j = -1; j<2; ++j)
                 {
-                    spawnPositions.Add((roomCenterx + (2*i), roomCentery + (2*j)));
+                    if (j!=0){spawnPositions.Add((roomCenterx + (2*i), roomCentery + (2*j)));}
                 }
             }
         }
