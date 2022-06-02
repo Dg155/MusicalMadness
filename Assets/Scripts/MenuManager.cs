@@ -21,9 +21,4 @@ public class MenuManager : MonoBehaviour
         
     }
 
-    public void setCurrentActive(GameObject menu)
-    {
-        Debug.Log(menu);
-        currentActive = menu;
-    }
 }
