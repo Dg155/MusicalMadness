@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8532107320988656672}
   - component: {fileID: 8532107320988656673}
   m_Layer: 0
-  m_Name: EnemyViolinWeapon
+  m_Name: EnemyViolinWeapon - Copy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,8 +65,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8916aaf275c8441ade6652217c794e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDownPrimary: 0.6
+  coolDownPrimary: 1
   coolDownSecondary: 0
+  canFire: 1
+  attack:
+    damage: 0
+    stunDuration: 0
+    blindDuration: 0
+    poisonDuration: 0
+    poisonDamage: 0
+    screenShakeDeg: 0
+    screenShakeTime: 0
+    animCol: {fileID: 0}
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 0
+    blastRadius: 0
+    targetNewDrag: 0
+    isPiercing: 0
+  secondaryAttack:
+    damage: 0
+    stunDuration: 0
+    blindDuration: 0
+    poisonDuration: 0
+    poisonDamage: 0
+    screenShakeDeg: 0
+    screenShakeTime: 0
+    animCol: {fileID: 0}
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 0
+    blastRadius: 0
+    targetNewDrag: 0
+    isPiercing: 0
   LastMovesUsed: 
+  leftParticleSystem: {fileID: 0}
+  rightParticleSystem: {fileID: 0}
+  soundEffectL: {fileID: 0}
+  soundEffectR: {fileID: 0}
   projectile: {fileID: 6102382208412875363, guid: d32f0dd933c42934090f3dc48589ba35, type: 3}
   bulletSpeed: 7.5

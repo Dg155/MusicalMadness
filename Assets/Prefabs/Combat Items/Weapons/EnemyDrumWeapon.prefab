@@ -65,8 +65,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8916aaf275c8441ade6652217c794e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDownPrimary: 0.6
+  coolDownPrimary: 1
   coolDownSecondary: 0
+  canFire: 1
+  attack:
+    damage: 0
+    stunDuration: 0
+    blindDuration: 0
+    poisonDuration: 0
+    poisonDamage: 0
+    screenShakeDeg: 0
+    screenShakeTime: 0
+    animCol: {fileID: 0}
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 0
+    blastRadius: 0
+    targetNewDrag: 0
+    isPiercing: 0
+  secondaryAttack:
+    damage: 0
+    stunDuration: 0
+    blindDuration: 0
+    poisonDuration: 0
+    poisonDamage: 0
+    screenShakeDeg: 0
+    screenShakeTime: 0
+    animCol: {fileID: 0}
+    attackerPos: {x: 0, y: 0, z: 0}
+    knockback: 0
+    blastRadius: 0
+    targetNewDrag: 0
+    isPiercing: 0
   LastMovesUsed: 
+  leftParticleSystem: {fileID: 0}
+  rightParticleSystem: {fileID: 0}
+  soundEffectL: {fileID: 8300000, guid: 4f6eb09d4293e2547b87da87d318aaab, type: 3}
+  soundEffectR: {fileID: 0}
   projectile: {fileID: 6102382208412875363, guid: d32f0dd933c42934090f3dc48589ba35, type: 3}
   bulletSpeed: 7.5
