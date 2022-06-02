@@ -70,8 +70,10 @@ public class CameraMove : MonoBehaviour
     }
 
     public void Shake(float duration, float magnitude){
+        if (moving){return;}
         if (inMaze) {StartCoroutine(shakeCamera(duration, magnitude));}
     }
+
     IEnumerator shakeCamera(float duration, float magnitude){
         shaking = true;
         Vector3 originalPosition = this.transform.position;
