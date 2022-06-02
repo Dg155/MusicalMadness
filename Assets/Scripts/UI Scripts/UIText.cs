@@ -13,6 +13,7 @@ public class UIText : MonoBehaviour
 
     public void UpdateText(int newValue)
     {
-        valueText.text = $"{valueType}s: {newValue.ToString()}";
+        //valueText.text = $"{valueType}s: {newValue.ToString()}";
+        valueText.text = $"{newValue.ToString()}";
     }
 }
