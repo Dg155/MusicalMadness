@@ -68,8 +68,7 @@ public class Drum : Weapon
 
             bulletSpeedComboProj = 5;
 
-            ClearLastMoves();
-            onComboActivatedCallback.Invoke();
+            ClearLastMoves(true);
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo2))
@@ -83,8 +82,7 @@ public class Drum : Weapon
 
             bulletSpeedComboProj = 7.5f;
 
-            ClearLastMoves();
-            onComboActivatedCallback.Invoke();
+            ClearLastMoves(true);
             return comboAttack;
         }
         if (LastMovesUsed.SequenceEqual(combo3))
@@ -98,8 +96,7 @@ public class Drum : Weapon
 
             bulletSpeedComboProj = 10;
 
-            ClearLastMoves();
-            onComboActivatedCallback.Invoke();
+            ClearLastMoves(true);
             return comboAttack;
         }
         //no combo finisher --> default

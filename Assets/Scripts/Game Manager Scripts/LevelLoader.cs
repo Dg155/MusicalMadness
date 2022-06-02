@@ -15,7 +15,6 @@ public class LevelLoader : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     public void ReloadLevel(){
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
 
@@ -41,6 +40,11 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void LoadPreviousScene(){
-        LoadLevel(SceneManager.GetActiveScene().buildIndex - 1);
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 1));
+    }
+
+    public void LoadTitleMenu(){
+        Time.timeScale = 1;
+        StartCoroutine(LoadLevel(0));
     }
 }

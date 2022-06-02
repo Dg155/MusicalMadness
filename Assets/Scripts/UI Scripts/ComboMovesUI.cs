@@ -31,21 +31,30 @@ public class ComboMovesUI : MonoBehaviour
         {
             mainHand = inventory.mainHandObject.GetComponent<Weapon>();
             mainHand.onWeaponMoveCallback += UpdateDisplay;
-            mainHand.onComboActivatedCallback += DisplayCombo;
+            mainHand.onComboActivatedCallback += EndCombo;
         }
     }
 
-    void DisplayCombo()
+    void EndCombo(bool comboSuccessful)
     {
-        StartCoroutine(_DisplayCombo());
+        if (comboSuccessful)
+        {
+            StartCoroutine(_DisplayCombo());
+        }
+        else
+        {
+            foreach (var image in images){
+                image.color = noColor;
+            }
+        }
     }
 
-    IEnumerator _DisplayCombo(){
+    IEnumerator _DisplayCombo(){ //comes before UpdateDisplay
         comboAnim.Play();
         yield return new WaitForSeconds(1);
         foreach(var image in images){
-                image.color = noColor;
-            } 
+            image.color = noColor;
+        }
     }
 
     void UpdateDisplay(List<weaponMove> lastMoves)
