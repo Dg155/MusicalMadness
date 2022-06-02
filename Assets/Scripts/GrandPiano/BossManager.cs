@@ -15,6 +15,9 @@ public class BossManager : MonoBehaviour
     public List<(EnemyStats, EnemyAI)> instantiatedMonsters;
     public (EnemyStats, E_GrandPianoAI) instantiatedBoss;
 
+    public LevelLoader levelLoader;
+    public float returnDelay;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +41,11 @@ public class BossManager : MonoBehaviour
             e.Item2.OnUpdate(levelInfo.currPlayerPos);
         }
 
-        if (!instantiatedBoss.Item2.getAlive()) { instantiatedBoss.Item1.destroyEnemy(); instantiatedBoss = (null, null); }
+        if (!instantiatedBoss.Item2.getAlive()) {
+            instantiatedBoss.Item1.destroyEnemy();
+            instantiatedBoss = (null, null);
+            ReturnToTitleMenu();
+        }
         instantiatedBoss.Item2.OnUpdate(levelInfo.currPlayerPos);
     }
 
@@ -77,5 +84,11 @@ public class BossManager : MonoBehaviour
         {
             instantiatedMonsters.Add((enemyStats, enemyAI));
         }
+    }
+
+    async void ReturnToTitleMenu()
+    {
+        await Task.Delay((int)(returnDelay * 1000));
+        levelLoader.LoadTitleMenu();
     }
 }
