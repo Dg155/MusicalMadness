@@ -6,10 +6,18 @@ public class MenuManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject currentActive;
+    public AudioClip buttonPressSFX;
+    private SoundEffectPlayer SFXplayer;
+
+    private void Start()
+    {
+        SFXplayer = GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundEffectPlayer>();
+    }
 
     // Update is called once per frame
     public void EnableMenu(GameObject menu)
     {
+        SFXplayer.PlaySound(buttonPressSFX);
         currentActive.SetActive(false);
         menu.SetActive(true);
 

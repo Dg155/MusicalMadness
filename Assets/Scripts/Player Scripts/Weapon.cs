@@ -124,6 +124,7 @@ public class Weapon : MonoBehaviour
     virtual public IEnumerator Use(Vector3 shootPos, HashSet<string> targetTags)
     {
         if (canFire){
+            FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffectL);
             canFire = false;
             if (leftParticleSystem != null){
                 leftParticleSystem.Play();
@@ -150,6 +151,7 @@ public class Weapon : MonoBehaviour
     virtual public IEnumerator UseSecondary(Vector3 shootPos, HashSet<string> targetTags)
     {
         if (canFire){
+            FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffectR);
             canFire = false;
             if (rightParticleSystem != null){
                 rightParticleSystem.Play();
