@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour
     public delegate void OnWeaponMove(List<weaponMove> lastMovesUsed); //Creates an event that updates UI w/ combo moves
     public OnWeaponMove onWeaponMoveCallback;
     
-    public delegate void OnComboActivated();
+    public delegate void OnComboActivated(bool comboSuccessful);
     public OnComboActivated onComboActivatedCallback;
 
     public ParticleSystem leftParticleSystem;
@@ -100,12 +100,12 @@ public class Weapon : MonoBehaviour
         return attack;
     }
 
-    protected void ClearLastMoves() //shortens the code
+    protected void ClearLastMoves(bool comboSuccessful = false) //shortens the code
     {
         LastMovesUsed.Clear();
         if (onWeaponMoveCallback != null) //If there are any methods subscribed to the event,
         {
-            onWeaponMoveCallback.Invoke(LastMovesUsed);
+            onComboActivatedCallback.Invoke(comboSuccessful);
         }
     }
 
