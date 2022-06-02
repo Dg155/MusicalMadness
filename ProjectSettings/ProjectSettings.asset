@@ -44,8 +44,8 @@ PlayerSettings:
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 720
   defaultScreenHeight: 720
-  defaultScreenWidthWeb: 960
-  defaultScreenHeightWeb: 600
+  defaultScreenWidthWeb: 720
+  defaultScreenHeightWeb: 720
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 0
   m_MTRendering: 1
@@ -88,7 +88,7 @@ PlayerSettings:
   bakeCollisionMeshes: 0
   forceSingleInstance: 0
   useFlipModelSwapchain: 1
-  resizableWindow: 0
+  resizableWindow: 1
   useMacAppStoreValidation: 0
   macAppStoreCategory: public.app-category.games
   gpuSkinning: 0
@@ -97,7 +97,7 @@ PlayerSettings:
   xboxEnableKinect: 0
   xboxEnableKinectAutoTracking: 0
   xboxEnableFitness: 0
-  visibleInBackground: 1
+  visibleInBackground: 0
   allowFullscreenSwitch: 0
   fullscreenMode: 3
   xboxSpeechDB: 0
@@ -130,7 +130,7 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   m_SupportedAspectRatios:
     4:3: 0
-    5:4: 0
+    5:4: 1
     16:10: 0
     16:9: 0
     Others: 0
@@ -561,7 +561,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: APPLICATION:Default
+  webGLTemplate: APPLICATION:Minimal
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 0

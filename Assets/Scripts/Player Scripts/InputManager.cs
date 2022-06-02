@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class InputManager : MonoBehaviour
@@ -40,6 +41,28 @@ public class InputManager : MonoBehaviour
         if (Math.Abs(Input.mouseScrollDelta.y) * .05f > 0)
         {
             SwitchMainHand();
+        }
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.LeftAlt)){
+            print("Switching scenes!");
+            if (Input.GetKey(KeyCode.A)) {
+                SceneManager.LoadScene("Ambush_Showcase");
+            }
+            if (Input.GetKey(KeyCode.B)) {
+                SceneManager.LoadScene("GrandPianoBoss");
+            }
+            if (Input.GetKey(KeyCode.T)) {
+                SceneManager.LoadScene("Tutorial");
+            }
+            if (Input.GetKey(KeyCode.Alpha1)) {
+                SceneManager.LoadScene("Level 1");
+            }
+            if (Input.GetKey(KeyCode.Alpha2)) {
+                SceneManager.LoadScene("Level 2");
+            }
+            if (Input.GetKey(KeyCode.Alpha3)) {
+                SceneManager.LoadScene("Level 3");
+            }
+
         }
         UseMainHand(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         UseMainHandSecondary(Camera.main.ScreenToWorldPoint(Input.mousePosition));

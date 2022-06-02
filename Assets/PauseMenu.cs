@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using TMPro;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject SettingsMenuUI;
@@ -9,6 +10,11 @@ public class PauseMenu : MonoBehaviour
     public GameObject HowToPlayUI;
     public bool GameIsPaused;
     public MenuManager menu;
+    public TextMeshProUGUI levelText;
+
+    void Start(){
+        levelText.text = SceneManager.GetActiveScene().name;
+    }
 
     public void Resume()
     {

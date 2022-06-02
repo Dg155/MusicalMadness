@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Levels/Ambush_Showcase.unity
+    guid: 5046771de0f91d747a35c1ca1a09331d
   m_configObjects: {}
