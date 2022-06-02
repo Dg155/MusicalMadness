@@ -142,3 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d70505b8566e7c47b94186488336c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorSFX: {fileID: 8300000, guid: a8baf0ae14594cc42b4cbeed8a4a61c2, type: 3}
+  crumbleSFX: {fileID: 0}

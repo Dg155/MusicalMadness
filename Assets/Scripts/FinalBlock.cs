@@ -7,6 +7,8 @@ public class FinalBlock : MonoBehaviour
 {
 
     private bool artifactsCollected;
+    public AudioClip errorSFX;
+    public AudioClip crumbleSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,7 @@ public class FinalBlock : MonoBehaviour
     async void crumble()
     {
         GetComponent<Animator>().SetTrigger("ambushBeaten");
+        //GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundEffectPlayer>().PlaySound(crumbleSFX);
         await Task.Delay(800);
         Destroy(gameObject);
     }
@@ -36,6 +39,7 @@ public class FinalBlock : MonoBehaviour
             else
             {
                 GameObject.FindObjectOfType<LevelInfo>().popUpInfo();
+                GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundEffectPlayer>().PlaySound(errorSFX);
             }
         }
     }

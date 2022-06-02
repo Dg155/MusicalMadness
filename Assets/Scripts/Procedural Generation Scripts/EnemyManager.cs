@@ -97,10 +97,10 @@ public class EnemyManager : MonoBehaviour
         int roomCentery = roomPos.y * roomscale;
         for (int i = -1; i<2; ++i)
         {
-            for (int j = -1; j<2; ++j)
+            if (i!=0)
             {
-                if (i != 0)
-                {  
+                for (int j = -1; j<2; ++j)
+                {
                     spawnPositions.Add((roomCenterx + (2*i), roomCentery + (2*j)));
                 }
             }

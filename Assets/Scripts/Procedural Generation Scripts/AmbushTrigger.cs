@@ -8,6 +8,7 @@ public class AmbushTrigger : MonoBehaviour
     public EnemyManager enemyManager;
     public Monsters ambushMonster;
     public AudioClip ambushMusic;
+    public AudioClip doorCreationSFX;
     private bool Ambushed = false;
     private pos roomPos;
     private Dir roomDirection;
@@ -43,7 +44,7 @@ public class AmbushTrigger : MonoBehaviour
     {
         Ambushed = true;
         InstantiateBlocker();
-        // Darken the Screen
+        //GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundEffectPlayer>().PlaySound(doorCreationSFX);
         LevelLoader l= FindObjectOfType<LevelLoader>();
         if (l != null){
             l.DarkenScreen();
@@ -58,7 +59,6 @@ public class AmbushTrigger : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         enemyManager.InstantiateAmbushRoomEnemies(ambushMonster, roomPos);
 
-        // Lighten the screen
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
