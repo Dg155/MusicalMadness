@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Old Scenes/LevelOne.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/MenuScenes/TitleScreen.unity
     guid: 83e9092ce2b2dfc4490cda0460baa570
   - enabled: 1
@@ -23,9 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/GrandPianoBoss.unity
     guid: f58323ad089a26f4793f1b77aed0521a
-  - enabled: 1
-    path: Assets/Scenes/MergeScenes/BaseScene_5_28_22.unity
-    guid: 5bae5dd9a0fc67d4aaf303a07c101df4
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
