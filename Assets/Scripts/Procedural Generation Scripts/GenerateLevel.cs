@@ -128,6 +128,7 @@ public class GenerateLevel : MonoBehaviour
                 this.GetComponent<LevelInfo>().setFinalRoom(currentPos, New_Main_Direction);
                 currentPos = offsetPos(currentPos, New_Main_Direction);
                 this.GetComponent<InstantiateLevel>().InstantiateTransport(currentPos);
+                mainpaths.Add(currentPos, flipDir(New_Main_Direction));
             }
             else
             {
@@ -189,6 +190,8 @@ public class GenerateLevel : MonoBehaviour
                 else
                 //If the room is the last one in the detour path
                 {
+                    //Remove from roomTiers if already in it because we don't want mosters spawning in deadends.
+                    if (roomTiers[detourRoomTier].Contains(detourPos)) {roomTiers[detourRoomTier].Remove(detourPos);}
                     //Add to deadEnds list
                     deadEnds.Add(detourPos, DeadEnds.Nothing);
                     deadEndAssignment.Add(detourPos);
@@ -200,6 +203,11 @@ public class GenerateLevel : MonoBehaviour
         }
 
         Dictionary<pos, List<Monsters>> monstersPerRoom = assignMonsters(roomTiers);
+
+        /*foreach(pos position in monstersPerRoom.Keys)
+        {
+            Debug.Log(position.x + ", " + position.y);
+        }*/
 
         while (num_of_chestrooms != 0)
         {
