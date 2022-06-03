@@ -54,17 +54,32 @@ public class Drum : Weapon
         combo3.Add(weaponMove.drumPrimary);
     }
 
+    void SwitchRanged() //switches primary/secondaryRanged to true if combo has been completed (temporary func that we should likely delete if we improve weapon implementation)
+    {
+        if (LastMovesUsed.Take(3).SequenceEqual(combo1))
+        {
+            secondaryRanged = true;
+        }
+        if (LastMovesUsed.SequenceEqual(combo2))
+        {
+            secondaryRanged = true;
+        }
+        if (LastMovesUsed.SequenceEqual(combo3))
+        {
+            primaryRanged = true;
+        }
+    }
+
     override protected attackInfo CalculateComboDamage()
     {
         attackInfo comboAttack = new attackInfo();
         if (LastMovesUsed.Take(3).SequenceEqual(combo1))
         {
-            secondaryRanged = true;
-
             comboAttack += comboFinisher1; //new total damage of drum secondary attack: 80
 
             comboAttack.targetNewDrag = comboFinisher1.targetNewDrag;
             comboAttack.animCol = animCombo1;
+            comboAttack.isPiercing = true;
 
             bulletSpeedComboProj = 5;
 
@@ -73,12 +88,11 @@ public class Drum : Weapon
         }
         if (LastMovesUsed.SequenceEqual(combo2))
         {
-            secondaryRanged = true;
-
             comboAttack += comboFinisher2; //new damage: 35
 
             comboAttack.targetNewDrag = comboFinisher1.targetNewDrag;
             comboAttack.animCol = animCombo2;
+            comboAttack.isPiercing = true;
 
             bulletSpeedComboProj = 7.5f;
 
@@ -87,12 +101,11 @@ public class Drum : Weapon
         }
         if (LastMovesUsed.SequenceEqual(combo3))
         {
-            primaryRanged = true;
-
             comboAttack += comboFinisher3; //new damage: 100
 
             comboAttack.targetNewDrag = comboFinisher3.targetNewDrag;
             comboAttack.animCol = animCombo3;
+            comboAttack.isPiercing = true;
 
             bulletSpeedComboProj = 10;
 
@@ -108,19 +121,18 @@ public class Drum : Weapon
 
     override public void meleeAttack(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
-        boostMelee(CalculateComboDamage());
+        SwitchRanged();
         if (primaryRanged)
         {
             //If this move is a combo finisher, emit a seismic slam
-            attack.isPiercing = true;
             GameObject proj = Instantiate(comboProjectile, projectileTransform.position, Quaternion.identity);
             proj.GetComponent<ProjectileBase>().boostAttack(CalculateComboDamage());
             proj.GetComponent<ProjectileBase>().setCourseOfFire(bulletSpeedComboProj, facingRight, shootPos, targetTags);
         }
         else
         {
+            boostMelee(CalculateComboDamage());
             FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffectL);
-            attack.isPiercing = false;
             attack.attackerPos = transform.position;
             var colliders = Physics2D.OverlapCircleAll(transform.position, attack.blastRadius);
             foreach (Collider2D c in colliders)
@@ -138,19 +150,18 @@ public class Drum : Weapon
 
     override public void meleeAttackSecondary(bool facingRight, Vector3 shootPos, HashSet<string> targetTags)
     {
-        boostMeleeSecondary(CalculateComboDamage());
+        SwitchRanged();
         if (secondaryRanged)
         {
             //If this move is a combo finisher, emit a seismic slam
-            secondaryAttack.isPiercing = true;
             GameObject proj = Instantiate(comboProjectile, projectileTransform.position, Quaternion.identity);
             proj.GetComponent<ProjectileBase>().boostAttack(CalculateComboDamage());
             proj.GetComponent<ProjectileBase>().setCourseOfFire(bulletSpeedComboProj, facingRight, shootPos, targetTags);
         }
         else
         {
+            boostMeleeSecondary(CalculateComboDamage());
             FindObjectOfType<SoundEffectPlayer>().PlaySound(soundEffectL);
-            secondaryAttack.isPiercing = false;
             secondaryAttack.attackerPos = transform.position;
             var colliders = Physics2D.OverlapCircleAll(transform.position, secondaryAttack.blastRadius);
             foreach (Collider2D c in colliders)
