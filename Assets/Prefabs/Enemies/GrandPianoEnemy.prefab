@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8916aaf275c8441ade6652217c794e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDownPrimary: 0.6
+  coolDownPrimary: 0.5
   coolDownSecondary: 0
   canFire: 1
   attack:
@@ -429,7 +429,7 @@ MonoBehaviour:
   maxHealth: 2500
   moveSpeed: 4
   mainHand: {fileID: 6209172175344955261}
-  offHand: {fileID: 0}
+  offHand: {fileID: 6209172175344955261}
   healthBar: {fileID: 0}
   offSet: 0.65
   HB: {fileID: 7237363315970430757}

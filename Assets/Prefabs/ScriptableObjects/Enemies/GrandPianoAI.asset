@@ -68,7 +68,7 @@ MonoBehaviour:
   aggressiveDelay: 0
   aggressiveSpeed: 8
   aggressiveDistanceFromTarget: 2
-  aggressiveStrafeFactor: 1
+  aggressiveStrafeFactor: 2
   retreatCurve:
     serializedVersion: 2
     m_Curve:
@@ -95,9 +95,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   retreatHealthPercent: 0.5
   retreatDelay: 0
-  retreatSpeed: 15
+  retreatSpeed: 12
   retreatDistanceFromTarget: 1
-  retreatStrafeFactor: 4
+  retreatStrafeFactor: 3
   aimOffsetFactor: 0
   shootDistanceMin: 0
   shootDistanceMax: 6

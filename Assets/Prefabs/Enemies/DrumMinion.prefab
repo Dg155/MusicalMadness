@@ -268,8 +268,8 @@ MonoBehaviour:
   minSoulsDropped: 1
   maxSoulsDropped: 5
   soul: {fileID: 7654927979853257837, guid: 7bb58fb93c88ae04084f398534e222a9, type: 3}
-  heartHealPercentage: 10
-  heartDropPercentage: 10
+  heartHealPercentage: 4
+  heartDropPercentage: 100
   heart: {fileID: 3713696232024858866, guid: 219d34d09db8784468176ff1a177a49d, type: 3}
   deathParticle: {fileID: 4643671852923827495, guid: 267d31af44a41024db76db92e9d8cac8, type: 3}
   isBoss: 0
