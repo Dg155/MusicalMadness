@@ -66,7 +66,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   aggressiveDelay: 0
-  aggressiveSpeed: 8
+  aggressiveSpeed: 6
   aggressiveDistanceFromTarget: 3
   aggressiveStrafeFactor: 2
   retreatCurve:
@@ -95,9 +95,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   retreatHealthPercent: 0.5
   retreatDelay: 0
-  retreatSpeed: 3
-  retreatDistanceFromTarget: 3
+  retreatSpeed: 8
+  retreatDistanceFromTarget: 4
   retreatStrafeFactor: 2
-  aimOffsetFactor: 0
+  aimOffsetFactor: 0.5
   shootDistanceMin: 0
   shootDistanceMax: 6

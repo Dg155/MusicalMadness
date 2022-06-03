@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721a2da441943724daa325b458db1669, type: 3}
   m_Name: GrandPianoAI
   m_EditorClassIdentifier: 
-  offsetSize: 2.5
+  offsetSize: 30
   targetTag: Player
-  detectionRadius: 12
+  detectionRadius: 30
   roamingCurve:
     serializedVersion: 2
     m_Curve:
@@ -95,9 +95,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   retreatHealthPercent: 0.5
   retreatDelay: 0
-  retreatSpeed: 3
-  retreatDistanceFromTarget: 3
-  retreatStrafeFactor: 2
+  retreatSpeed: 15
+  retreatDistanceFromTarget: 1
+  retreatStrafeFactor: 4
   aimOffsetFactor: 0
   shootDistanceMin: 0
   shootDistanceMax: 6

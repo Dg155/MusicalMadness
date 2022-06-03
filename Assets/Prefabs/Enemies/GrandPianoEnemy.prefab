@@ -425,8 +425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f051d3538cff88742878c7ca10aa21ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currHealth: 1500
-  maxHealth: 1500
+  currHealth: 2500
+  maxHealth: 2500
   moveSpeed: 4
   mainHand: {fileID: 6209172175344955261}
   offHand: {fileID: 0}

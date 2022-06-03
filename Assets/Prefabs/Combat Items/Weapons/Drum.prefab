@@ -5036,7 +5036,7 @@ MonoBehaviour:
   animCombo2: {fileID: 4993843559921728331, guid: 8021fb508a8fc2040a06a49cc14472ac, type: 3}
   animCombo3: {fileID: 4993843559921728331, guid: 5b1def5bd80cd334ab25024448972f16, type: 3}
   comboFinisher1:
-    damage: 0
+    damage: 30
     stunDuration: 1
     blindDuration: 0
     poisonDuration: 0
@@ -5050,7 +5050,7 @@ MonoBehaviour:
     targetNewDrag: 0
     isPiercing: 1
   comboFinisher2:
-    damage: 20
+    damage: 60
     stunDuration: 2
     blindDuration: 0
     poisonDuration: 0
@@ -5064,7 +5064,7 @@ MonoBehaviour:
     targetNewDrag: 6.5
     isPiercing: 1
   comboFinisher3:
-    damage: 40
+    damage: 80
     stunDuration: 4
     blindDuration: 0
     poisonDuration: 0

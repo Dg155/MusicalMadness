@@ -450,6 +450,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2006987643916260009}
     m_Modifications:
+    - target: {fileID: 8532107320988656673, guid: c304443c543fea543a30081a2741bd7e, type: 3}
+      propertyPath: bulletSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8532107320988656674, guid: c304443c543fea543a30081a2741bd7e, type: 3}
       propertyPath: m_Name
       value: EnemyViolinWeapon

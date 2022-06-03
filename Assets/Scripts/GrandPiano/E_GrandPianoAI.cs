@@ -49,6 +49,7 @@ public class E_GrandPianoAI : MonoBehaviour
     private float oldProjectileSpeed;
     [SerializeField] private float spiralAttackSpeed;
     [SerializeField] private float spiralProjectileSpeed;
+    private float healthPercent;
 
     void Start()
     {
@@ -129,13 +130,21 @@ public class E_GrandPianoAI : MonoBehaviour
                             setState();
                             break;
                         }
+
                         timeSinceLastAction += Time.deltaTime;
+            
                         if (Vector2.Distance(movePos, this.transform.position) < 0.01)
                         {
+                            healthPercent = CombatScript.getStats().getHealth() / CombatScript.getStats().getMaxHealth();
                             animator.SetFloat("Speed", 1);
                             if (timeSinceLastAction > ai.aggressiveDelay)
                             {
-                                movePos = ai.NewAggressivePos(this.transform.position, target.position, roomCenter);
+                                if (ai.shouldFlee(healthPercent)){
+                                    movePos = ai.NewRetreatPos(this.transform.position, target.position, roomCenter);
+                                }
+                                else{
+                                    movePos = ai.NewAggressivePos(this.transform.position, target.position, roomCenter);
+                                }
                                 MovementScript.SetPositions(this.transform.position, movePos);
                                 timeSinceLastAction = 0;
                                 animator.SetFloat("Speed", 1);
@@ -144,6 +153,10 @@ public class E_GrandPianoAI : MonoBehaviour
                         //if not at new movePos, move toward that position
                         else
                         {
+                            healthPercent = CombatScript.getStats().getHealth() / CombatScript.getStats().getMaxHealth();
+                            if (ai.shouldFlee(healthPercent)){
+                                MovementScript.MoveToward(movePos, ai.retreatSpeed, ref ai, ai.retreatCurve);
+                            }
                             MovementScript.MoveToward(movePos, ai.aggressiveSpeed, ref ai, ai.aggressiveCurve);
                         }
                         //Check if conditions are correct to shoot, if so, calculate an aiming position and shoot
@@ -184,7 +197,7 @@ public class E_GrandPianoAI : MonoBehaviour
                 CombatScript.isDefensiveBoss = true;
 
                 //Summon enemies
-                float healthPercent = CombatScript.getStats().getHealth() / CombatScript.getStats().getMaxHealth();
+                healthPercent = CombatScript.getStats().getHealth() / CombatScript.getStats().getMaxHealth();
 
                 if (healthPercent <= 0.5)
                 {
@@ -290,6 +303,7 @@ public class E_GrandPianoAI : MonoBehaviour
         }
         if (target)
         {
+            
             state = GrandPianoAIState.Aggressive;
         }
     }

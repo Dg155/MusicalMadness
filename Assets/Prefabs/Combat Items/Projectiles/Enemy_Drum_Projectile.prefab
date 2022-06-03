@@ -101,7 +101,7 @@ MonoBehaviour:
   soundEffect: {fileID: 8300000, guid: 658af924a1f68b2439825a73e0924cc3, type: 3}
   wallCollision: {fileID: 5671843528604036099, guid: d6939f8077f98b1419b3368d13b4256f, type: 3}
   attack:
-    damage: 60
+    damage: 96
     stunDuration: 0
     blindDuration: 0
     poisonDuration: 0
