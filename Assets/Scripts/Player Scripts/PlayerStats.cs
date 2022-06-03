@@ -2,19 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 
 public class PlayerStats : BaseStats
 {
+
+    Inventory inventory;
+    Weapon mainHand;
+    float cooldownEndTime;
+
     public float hitboxVisualizerRadius;
 
     public int souls;
+
+    public CooldownBarScript CB;
 
     void Awake(){
         if (HB == null){
             HB = FindObjectOfType<HealthBarScript>();
         }
     }
+
+    override protected void Start()
+    {
+        CB = this.transform.Find("CooldownBar").GetComponent<CooldownBarScript>();
+        CB.gameObject.SetActive(false);
+        inventory = Inventory.instance;
+        Inventory.instance.onItemChangedCallback += UpdateMainHand;
+    }
+
     override protected void Die(){
         LevelLoader l= FindObjectOfType<LevelLoader>();
         if (this.GetComponent<EntVisAudFX>() != null){
@@ -36,7 +53,32 @@ public class PlayerStats : BaseStats
         if(mousePos.x - this.transform.position.x > 0 && !facingRight || mousePos.x - this.transform.position.x < 0 && facingRight)
         {
             flip();
+            if (facingRight){ CB.transform.localScale = new Vector3(.36f, .3f, 1); }
+            else { CB.transform.localScale = new Vector3(-.36f, .3f, 1); }
         }
+    }
+
+    void UpdateMainHand()
+    {
+        if (Inventory.instance.mainHandObject != null)
+        {
+            mainHand = inventory.mainHandObject.GetComponent<Weapon>();
+            mainHand.onWeaponMoveCallback += UpdateCooldownBar;
+        }
+    }
+
+    public async void UpdateCooldownBar(List<weaponMove> lastMovesUsed, float cooldown)
+    {
+        CB.gameObject.SetActive(true);
+        cooldownEndTime = Time.time + cooldown;
+        while (Time.time < cooldownEndTime)
+        {
+            float barSize = (cooldownEndTime - Time.time) / cooldown;
+            if (barSize > 1) { barSize = 1; }
+            CB.setCooldownBar(barSize);
+            await Task.Delay(3);
+        }
+        CB.gameObject.SetActive(false);
     }
 
     public int getSouls(){
@@ -50,12 +92,6 @@ public class PlayerStats : BaseStats
         if (souls < 0){souls = 0;}
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, hitboxVisualizerRadius);
-    }
-
     // Method to be called every time player starts a new floor
     public void resetPlayer()
     {
@@ -65,5 +101,11 @@ public class PlayerStats : BaseStats
         transform.position = new Vector3(0, 0, 0);
         setHealth(getMaxHealth());
         Inventory.instance.resetArtifacts();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, hitboxVisualizerRadius);
     }
 }
