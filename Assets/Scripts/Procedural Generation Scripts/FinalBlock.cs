@@ -24,7 +24,7 @@ public class FinalBlock : MonoBehaviour
     async void crumble()
     {
         GetComponent<Animator>().SetTrigger("ambushBeaten");
-        //GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundEffectPlayer>().PlaySound(crumbleSFX);
+        GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundEffectPlayer>().PlaySound(crumbleSFX);
         await Task.Delay(800);
         Destroy(gameObject);
     }

@@ -18,6 +18,8 @@ public class BossManager : MonoBehaviour
     public LevelLoader levelLoader;
     public float returnDelay;
 
+    public GameObject minionSpawnParticle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,8 +76,8 @@ public class BossManager : MonoBehaviour
 
     async void InstantiateSingle(Vector3 spawnPos) //can add randomizer of which enemies spawn
     {
-        //Instantiate(particleeffect, spawnPos, Quaternion.identity);
-        //await Task.Delay(1000);
+        Instantiate(minionSpawnParticle, spawnPos, Quaternion.identity);
+        await Task.Delay(500);
         var enemy = Instantiate(monsters[Random.Range(0, 2)], spawnPos, Quaternion.identity);
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
         EnemyStats enemyStats = enemy.GetComponent<EnemyStats>();

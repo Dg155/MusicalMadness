@@ -10,7 +10,9 @@ public class LevelInfo : MonoBehaviour
     public ScriptableLevelArtifacts levelArtifacts;
     public GameObject Blocker;
     public int roomSize = 8;
-    GameObject doorBlock;
+    public int milisecondCooldownBetweenRooms = 200;
+    public bool justEnteredRoom;
+    private GameObject doorBlock;
     private HashSet<Item> artifactsNeeded;
     private TextPopUp popUp;
     private GameObject player;
@@ -22,6 +24,7 @@ public class LevelInfo : MonoBehaviour
         artifactsNeeded = new HashSet<Item>(levelArtifacts.Artifacts);
         FindObjectOfType<InventoryUI>().UpdateUI();
         currPlayerPos = new pos(0, 0);
+        justEnteredRoom = false;
         InstantiateLevel IL = this.GetComponent<InstantiateLevel>();
         IL.setArtifacts(levelArtifacts);
         IL.InstantiateFromDungeonInfo(dungeonInfo);
@@ -48,14 +51,14 @@ public class LevelInfo : MonoBehaviour
 
     public string artifactInformation()
     {
-        string info = "You currently need the following artifacts: ";
+        string info = "You currently need the following artifacts:\n";
         foreach(Item item in artifactsNeeded)
         {
             info += item.name;
             info += ", ";
         }
         info = info.Substring(0, info.Length - 2);
-        info += " in order to get ";
+        info += "\nin order to get\n";
         info += levelArtifacts.nameOfKey;
         return info;
     }
@@ -64,6 +67,7 @@ public class LevelInfo : MonoBehaviour
     {
         currPlayerPos.x += x;
         currPlayerPos.y += y;
+        newRoomTimer();
         foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             Animator animator = enemy.GetComponent<Animator>();
@@ -82,6 +86,13 @@ public class LevelInfo : MonoBehaviour
         else if (direction == Dir.L) {doorBlock = Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(-4, 0, 0), Quaternion.Euler(0f, 0f, 90f));}
         else if (direction == Dir.U) {doorBlock = Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(0, 4, 0), Quaternion.identity);}
         else {doorBlock = Instantiate(Blocker, new Vector3(position.x * roomSize ,position.y * roomSize, 0) + new Vector3(0, -4, 0), Quaternion.identity);}
+    }
+
+    private async void newRoomTimer()
+    {
+        justEnteredRoom = true;
+        await Task.Delay(milisecondCooldownBetweenRooms);
+        justEnteredRoom = false;
     }
     
 }

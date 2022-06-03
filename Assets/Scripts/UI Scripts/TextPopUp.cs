@@ -11,10 +11,12 @@ public class TextPopUp : MonoBehaviour
     TextMeshProUGUI TM;
     public const string kalphaCode = "<color=#00000000>";
     public int characterPopupDelay = 50;
+    private bool finishedText;
 
     // Start is called before the first frame update
     void Start()
     {
+        finishedText = true;
         TM = GetComponentInChildren<TextMeshProUGUI>();
         if (SceneManager.GetActiveScene().name != "GrandPianoBoss") {firstMessage();}
         else {gameObject.SetActive(false);}
@@ -28,10 +30,13 @@ public class TextPopUp : MonoBehaviour
 
     public async void popUp(string message)
     {
+        while (!finishedText) {await Task.Yield();}
+        finishedText = false;
         gameObject.SetActive(true);
         await DisplayText(message);
         await waitForKeyPress(KeyCode.Mouse0);
         gameObject.SetActive(false);
+        finishedText = true;       
     }
 
     private async Task DisplayText(string message)
