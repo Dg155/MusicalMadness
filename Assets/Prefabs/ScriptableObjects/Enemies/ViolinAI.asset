@@ -95,7 +95,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   retreatHealthPercent: 0.5
   retreatDelay: 0
-  retreatSpeed: 8
+  retreatSpeed: 6
   retreatDistanceFromTarget: 4
   retreatStrafeFactor: 2
   aimOffsetFactor: 0.5
