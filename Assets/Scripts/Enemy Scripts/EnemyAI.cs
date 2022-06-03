@@ -54,15 +54,18 @@ public class EnemyAI : MonoBehaviour
     
     public void OnUpdate(pos roomPos)
     {
+        Transform HB = GetComponentInChildren<HealthBarScript>().transform;
         if (target != null){
             if (!facingRight && target.transform.position.x - this.transform.position.x > 0){
                 facingRight = true;
                 this.transform.localScale = new Vector2(1, 1);
+                HB.localScale = new Vector2(.36f, .3f);
             }
             else if (facingRight && target.transform.position.x - this.transform.position.x < 0)
             {
                 facingRight = false;
                 this.transform.localScale = new Vector2(-1, 1);
+                HB.localScale = new Vector2(-.36f, .3f);
             }
         }
         else if (!facingRight && (movePos.x - this.transform.position.x > 0
@@ -70,12 +73,14 @@ public class EnemyAI : MonoBehaviour
         {
             facingRight = true;
             this.transform.localScale = new Vector2(1, 1);
+            HB.localScale = new Vector2(.36f, .3f);
         }
         else if (facingRight && movePos.x - this.transform.position.x < 0
         || (target !=null &&  target.transform.position.x - this.transform.position.x < 0))
         {
             facingRight = false;
             this.transform.localScale = new Vector2(-1, 1);
+            HB.localScale = new Vector2(-.36f, .3f);
         }
 
 
