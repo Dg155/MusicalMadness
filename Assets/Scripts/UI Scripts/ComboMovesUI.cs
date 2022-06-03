@@ -57,7 +57,7 @@ public class ComboMovesUI : MonoBehaviour
         }
     }
 
-    void UpdateDisplay(List<weaponMove> lastMoves)
+    void UpdateDisplay(List<weaponMove> lastMoves, float cooldown)
     {
         if (lastMoves.Count > 0)
         {

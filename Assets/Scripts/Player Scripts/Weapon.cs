@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
     protected float comboLossTime; // the exact point in time that the combo will be lost
     protected float comboLossTimeLimit; // max amt of time btwn player's last attack & combo being lost
 
-    public delegate void OnWeaponMove(List<weaponMove> lastMovesUsed); //Creates an event that updates UI w/ combo moves
+    public delegate void OnWeaponMove(List<weaponMove> lastMovesUsed, float cooldown); //Creates an event that updates UI w/ combo moves
     public OnWeaponMove onWeaponMoveCallback;
     
     public delegate void OnComboActivated(bool comboSuccessful);
@@ -82,7 +82,7 @@ public class Weapon : MonoBehaviour
         return secondaryMove;
     }
 
-    protected void AddMoveToCombo(weaponMove newMove)
+    protected void AddMoveToCombo(weaponMove newMove, float cooldown)
     {
         LastMovesUsed.Add(newMove);
         if (LastMovesUsed.Count > maxComboLength)
@@ -91,7 +91,7 @@ public class Weapon : MonoBehaviour
         }
         if (onWeaponMoveCallback != null)
         {
-            onWeaponMoveCallback.Invoke(LastMovesUsed);
+            onWeaponMoveCallback.Invoke(LastMovesUsed, cooldown);
         }
     }
 
@@ -129,7 +129,7 @@ public class Weapon : MonoBehaviour
             if (leftParticleSystem != null){
                 leftParticleSystem.Play();
             }
-            AddMoveToCombo(primaryMove);
+            AddMoveToCombo(primaryMove, coolDownPrimary);
             comboLossTime = Time.time + comboLossTimeLimit; // reset the combo loss time limit
             if (!comboTimerIsActive) { StartComboTimer(); } // i.e. if the async StartComboTimer() isn't already active, start it
 
@@ -156,7 +156,7 @@ public class Weapon : MonoBehaviour
             if (rightParticleSystem != null){
                 rightParticleSystem.Play();
             }
-            AddMoveToCombo(secondaryMove);
+            AddMoveToCombo(secondaryMove, coolDownSecondary);
             comboLossTime = Time.time + comboLossTimeLimit; // reset the combo loss time limit
             if (!comboTimerIsActive) { StartComboTimer(); } // i.e. if the async StartComboTimer() isn't already active, start it
 

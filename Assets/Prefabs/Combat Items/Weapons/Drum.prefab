@@ -5047,7 +5047,7 @@ MonoBehaviour:
     attackerPos: {x: 0, y: 0, z: 0}
     knockback: 2
     blastRadius: 0
-    targetNewDrag: 0
+    targetNewDrag: 6.5
     isPiercing: 1
   comboFinisher2:
     damage: 60
