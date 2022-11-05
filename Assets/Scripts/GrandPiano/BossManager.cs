@@ -77,7 +77,8 @@ public class BossManager : MonoBehaviour
     async void InstantiateSingle(Vector3 spawnPos) //can add randomizer of which enemies spawn
     {
         Instantiate(minionSpawnParticle, spawnPos, Quaternion.identity);
-        await Task.Delay(500);
+        float waitTime = 0f;
+        while (waitTime < 0.5f) {waitTime += Time.deltaTime; await Task.Yield();}
         var enemy = Instantiate(monsters[Random.Range(0, 2)], spawnPos, Quaternion.identity);
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
         EnemyStats enemyStats = enemy.GetComponent<EnemyStats>();
@@ -90,7 +91,8 @@ public class BossManager : MonoBehaviour
 
     async void ReturnToTitleMenu()
     {
-        await Task.Delay((int)(returnDelay * 1000));
+        float waitTime = 0f;
+        while (waitTime < returnDelay) {waitTime += Time.deltaTime; await Task.Yield();}
         levelLoader.LoadTitleMenu();
     }
 }

@@ -25,7 +25,8 @@ public class FinalBlock : MonoBehaviour
     {
         GetComponent<Animator>().SetTrigger("ambushBeaten");
         GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundEffectPlayer>().PlaySound(crumbleSFX);
-        await Task.Delay(800);
+        float waitTime = 0f;
+        while (waitTime < 0.8f) {waitTime += Time.deltaTime; await Task.Yield();}
         Destroy(gameObject);
     }
 

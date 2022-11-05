@@ -87,7 +87,7 @@ TextureImporter:
       213: 7064326665796512512
     second: letterspixel_27
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -108,6 +108,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -146,6 +147,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -161,6 +163,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -772,6 +798,35 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      letterspixel_25: 4992574168493113945
+      letterspixel_11: 3287322432426583854
+      letterspixel_14: 3357578959028391247
+      letterspixel_26: -7866221886581226603
+      letterspixel_2: -1148092529708286761
+      letterspixel_1: 6732498337605318639
+      letterspixel_10: -208768539634232919
+      letterspixel_17: -6990226401153913340
+      letterspixel_9: -1469676825470425842
+      letterspixel_7: -371295465404344656
+      letterspixel_4: 1723820783565428057
+      letterspixel_15: -6890791899280272123
+      letterspixel_12: 3823768902423883661
+      letterspixel_16: -1444679421035192502
+      letterspixel_6: -625853378627027534
+      letterspixel_19: 152112782698880054
+      letterspixel_22: 1779292697595635897
+      letterspixel_18: 5342952049180086065
+      letterspixel_3: 6780020650773203025
+      letterspixel_5: -4728589876956243247
+      letterspixel_20: 2304671719122846612
+      letterspixel_24: 3810601510961213638
+      letterspixel_0: -7699406921709590746
+      letterspixel_8: 8453610726681670559
+      letterspixel_27: 7064326665796512512
+      letterspixel_23: 349461953393114031
+      letterspixel_21: 3961435786052271893
+      letterspixel_13: -2805068781826825404
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -10,7 +10,7 @@ public class LevelInfo : MonoBehaviour
     public ScriptableLevelArtifacts levelArtifacts;
     public GameObject Blocker;
     public int roomSize = 8;
-    public int milisecondCooldownBetweenRooms = 200;
+    public float secondCooldownBetweenRooms = 0.2f;
     public bool justEnteredRoom;
     private GameObject doorBlock;
     private HashSet<Item> artifactsNeeded;
@@ -91,7 +91,8 @@ public class LevelInfo : MonoBehaviour
     private async void newRoomTimer()
     {
         justEnteredRoom = true;
-        await Task.Delay(milisecondCooldownBetweenRooms);
+        float waitTime = 0f;
+        while (waitTime < secondCooldownBetweenRooms) {waitTime += Time.deltaTime; await Task.Yield();}
         justEnteredRoom = false;
     }
     

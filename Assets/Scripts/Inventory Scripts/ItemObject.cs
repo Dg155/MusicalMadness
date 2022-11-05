@@ -29,13 +29,15 @@ public class ItemObject : MonoBehaviour
     {
         CircleCollider2D CC = GetComponent<CircleCollider2D>();
         CC.enabled = false;
-        await Task.Delay(1000);
+        float waitTime = 0f;
+        while (waitTime < 1f) {waitTime += Time.deltaTime; await Task.Yield();}
         CC.enabled = true;
     }
 
     async void destroySoul()
     {
-        await Task.Delay(50000);
+        float waitTime = 0f;
+        while (waitTime < 50f) {waitTime += Time.deltaTime; await Task.Yield();}
         Destroy(gameObject);
     }
 

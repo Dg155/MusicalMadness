@@ -10,21 +10,29 @@ public class TextPopUp : MonoBehaviour
 
     TextMeshProUGUI TM;
     public const string kalphaCode = "<color=#00000000>";
-    public int characterPopupDelay = 50;
+    public float characterPopupDelay = 0.2f;
     private bool finishedText;
+    private bool skipText;
 
     // Start is called before the first frame update
     void Start()
     {
         finishedText = true;
+        skipText = false;
         TM = GetComponentInChildren<TextMeshProUGUI>();
-        if (SceneManager.GetActiveScene().name != "GrandPianoBoss") {firstMessage();}
+        if (SceneManager.GetActiveScene().name != "GrandPianoBoss") {StartCoroutine("firstMessage");}
         else {gameObject.SetActive(false);}
     }
 
-    private async void firstMessage()
+    private void Update() {
+        if (!finishedText) {
+            if (Input.GetKeyDown(KeyCode.Mouse0)) {skipText = true;}
+        }
+    }
+
+    private IEnumerator firstMessage()
     {
-        await Task.Delay(80);
+        yield return new WaitForSecondsRealtime(0.05f);
         popUp(FindObjectOfType<LevelInfo>().artifactInformation());
     }
 
@@ -32,31 +40,37 @@ public class TextPopUp : MonoBehaviour
     {
         while (!finishedText) {await Task.Yield();}
         finishedText = false;
+        skipText = false;
         gameObject.SetActive(true);
-        await DisplayText(message);
-        await waitForKeyPress(KeyCode.Mouse0);
-        gameObject.SetActive(false);
-        finishedText = true;       
+        StartCoroutine("StartDisplay", message);     
     }
 
-    private async Task DisplayText(string message)
+    private IEnumerator StartDisplay(string message)
+    {
+        yield return StartCoroutine("DisplayText", message);
+        yield return StartCoroutine("waitForKeyPress", KeyCode.Mouse0);
+        gameObject.SetActive(false);
+        finishedText = true; 
+    }
+
+    private IEnumerator DisplayText(string message)
     {
         TM.text = "";
-        string displayText = "";
         int alphaIndex = 0;
 
         foreach(char c in message.ToCharArray())
         {
+            Debug.Log("Hey");
+            if ((skipText) && (alphaIndex < message.ToCharArray().Length - 5)) {TM.text = message; break;}
             alphaIndex++;
             TM.text = message;
-            displayText = TM.text.Insert(alphaIndex, kalphaCode);
-            TM.text = displayText;
-            await Task.Delay(characterPopupDelay);
+            TM.text = TM.text.Insert(alphaIndex, kalphaCode);
+            yield return new WaitForSecondsRealtime(characterPopupDelay);
         }
-        return;
+        yield return new WaitForSecondsRealtime(characterPopupDelay);
     }
 
-    private async Task waitForKeyPress(KeyCode key)
+    private IEnumerator waitForKeyPress(KeyCode key)
     {
         bool done = false;
         while(!done) // essentially a "while true", but with a bool to break out naturally
@@ -65,9 +79,9 @@ public class TextPopUp : MonoBehaviour
             {
                 done = true; // breaks the loop
             }
-            await Task.Yield(); // wait until next frame, then continue execution from here (loop continues)
+            yield return 0; // wait until next frame, then continue execution from here (loop continues)
         }
-        return;
+        yield return null;
         // now this function returns
     }
 

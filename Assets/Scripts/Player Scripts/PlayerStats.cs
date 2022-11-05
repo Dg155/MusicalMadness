@@ -76,7 +76,8 @@ public class PlayerStats : BaseStats
             float barSize = (cooldownEndTime - Time.time) / cooldown;
             if (barSize > 1) { barSize = 1; }
             CB.setCooldownBar(barSize);
-            await Task.Delay(3);
+            float waitTime = 0f;
+            while (waitTime < 0.003f) {waitTime += Time.deltaTime; await Task.Yield();}
         }
         CB.gameObject.SetActive(false);
     }

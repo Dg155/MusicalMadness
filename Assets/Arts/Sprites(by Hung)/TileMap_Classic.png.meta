@@ -75,7 +75,7 @@ TextureImporter:
       213: -5096023413351671860
     second: TileMap_Classic_23
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -96,6 +96,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -134,6 +135,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -161,6 +163,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -688,6 +702,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      TileMap_Classic_4: -7637865596805293724
+      TileMap_Classic_2: -1344317047794163235
+      TileMap_Classic_6: -3000179250336893784
+      TileMap_Classic_5: -4746218532234080798
+      TileMap_Classic_7: 3652572388547822585
+      TileMap_Classic_12: 8751914285921811485
+      TileMap_Classic_20: 3226617387505868413
+      TileMap_Classic_22: -2365504480535048995
+      TileMap_Classic_1: -7601591559885187263
+      TileMap_Classic_13: -9034410594166009396
+      TileMap_Classic_17: -1918212508060680963
+      TileMap_Classic_19: 781862373731991913
+      TileMap_Classic_23: -5096023413351671860
+      TileMap_Classic_14: 1015675769999345364
+      TileMap_Classic_0: 5114234540926742134
+      TileMap_Classic_11: -4984386530627872526
+      TileMap_Classic_15: -6208172216464827366
+      TileMap_Classic_10: 946273083164492376
+      TileMap_Classic_18: 7205940807001254889
+      TileMap_Classic_8: -9215429375488812841
+      TileMap_Classic_3: -3855591627743412948
+      TileMap_Classic_9: 140355845631729920
+      TileMap_Classic_16: 5171410703319662367
+      TileMap_Classic_21: -8736306526810365623
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
