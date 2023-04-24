@@ -49,7 +49,10 @@ public class GenerateLevel : MonoBehaviour
     public DungeonInfo proceduralGenerationOne(int mainrooms, int num_of_detours, pos detourDepth, int num_of_chestrooms, int num_of_amushrooms)
     //Function creates the structure of the rooms based on specific parameters
     {
-        //Create the dungeon information
+        /*** 
+        /   Here we are creating the data structures that hold all the information to generate the level
+        /   Your job is to populate each of these data structures, and finally return the DungeonInfo struct
+        ***/
         DungeonInfo info = new DungeonInfo();
         Dictionary<pos, Dir> mainpaths = new Dictionary<pos, Dir>();
         Dictionary<pos, Dir> detours = new Dictionary<pos, Dir>();
@@ -57,185 +60,187 @@ public class GenerateLevel : MonoBehaviour
         Dictionary<pos, DeadEnds> deadEnds = new Dictionary<pos, DeadEnds>();
         List<pos> deadEndAssignment = new List<pos>();
 
-        //Create datastructures for enemy generation
+        /*** 
+        /   Here is an additional data structure we will use to help spawn the enemies within the level.
+        /   It will be a dictionary with the key being the tier of the room (0, 1, or 2, with each tier being the difficulty of enemy spawns)
+        /   The value will be a list of positions, for each room that is in that tier. For example, since the first room spawns at (0,0),
+        /   and has to be the lowest tier, we would assign the dictionary entry dungeonTiers[0] to be a list containing the position (0,0)
+        ***/
         Dictionary<int, List<pos>> roomTiers = new Dictionary<int, List<pos>>();
         for (int i = 0; i < 3; i++){roomTiers[i] = new List<pos>();}
         int lastTierOne = mainrooms/3;
         int lastTierTwo = lastTierOne * 2;
 
-        //Directions for the Main Path (Right, Up, Down), and all directions for detours
-        Dir path_Options = Dir.R | Dir.U | Dir.D;
-        Dir all_Directions = Dir.R | Dir.U | Dir.L | Dir.D;
+        /*** 
+        /   We need to create two Dir enums, one for the main path, and one for all directions.
+        /   We will use these to filter out directions that are not possible for the room to go in.
+        /   The reason there are two is because we always want the generation of rooms to be going to the right, so the enum
+        /   for the main path will be missing the left direction, and the enum for all directions will have all directions.
+        ***/
 
 
-        //Attributes needed for main room generation
-        Dir previous = Dir.L;
-        pos currentPos = new pos(1,0);
-        HashSet<int> detourPoints = createDetourPoints(mainrooms, num_of_detours);
+        /*** 
+        /   Since the first room will always be at (0,0), and will just be a room with a right door,
+        /   we manually add it to the mainpaths dictionary with that inforamtion.
+        ***/
 
-        //Add first room At (0,0) with one right door
-        mainpaths.Add(new pos(0,0), Dir.R);
+        /*** 
+        /   Now set up the variables needed for the main path generation loop.
+        /   You will need to set up the previous direction, the current position, and the set of detour points.
+        /   Remember, we are working off of the starting room, so your variables should reflect the second room in the main path.
+        /   You can create a database of detour points by calling the createDetourPoints function, with num_of_detours as the parameter.
+        ***/
 
-        //Loop through and generate each main path room and mark the start of detours
-        for(int i=0; i < mainrooms; ++i)
+        /*** 
+        /   With all the information established, we can begin the main loop of room generation.
+        ***/
+
+        for (int i=0; i < mainrooms; ++i)
         {
-            //Filter path_options to not collide with any already generated rooms
-            Dir filteredPathOptions = filterPathOptions(currentPos, mainpaths, detours, path_Options);
-            //Create empty binary that will hold all directions the room can go
-            Dir doorOptions = 0;
-            //Add the direction of the previous room
-            doorOptions |= previous;
-            //Remove the direction of the previous room and randomly select another direction for the room to lead to
-            Dir possible_options = (filteredPathOptions & ~previous);
-            Dir New_Main_Direction = chooseRandomDir(possible_options);
-            //Add the new direction to the binary of directions
-            doorOptions |= New_Main_Direction;
+            break;
+            /*** 
+            /   First, we need to filter out the directions that are not possible for the room to go in.
+            /   You may use the filterPathOptions helper function
+            ***/
 
-            
-            // If the room is designated as a room that leads to a detour, mark the detour
-            if (detourPoints.Contains(i))
-            {
-                //Remove the already taken directions in the room, and randomly pick another one to lead to the detour
-                Dir possible_detours = filteredPathOptions;
-                possible_detours &= ~doorOptions;
-                //Confirm that there is a direction to put the detour in
-                if (possible_detours != 0)
-                {
-                    //Select new direction for detour and add it to the binary
-                    Dir New_Detour_Direction = chooseRandomDir(possible_detours);
-                    doorOptions |= New_Detour_Direction;
-                    //Mark the beginning of the detour with a room so later main path rooms do not overlap
-                    Dir detourRoom = 0;
-                    detourRoom |= flipDir(New_Detour_Direction);
-                    pos detourPos = offsetPos(currentPos, New_Detour_Direction);
-                    detours.Add(detourPos, detourRoom);
-                    //Add coordinates to roomTiers
-                    if (i < lastTierOne) {roomTiers[0].Add(detourPos);}
-                    else if (i < lastTierTwo) {roomTiers[1].Add(detourPos);}
-                    else {roomTiers[2].Add(detourPos);}
-                }
-            }
-            //Add coordinates and the room to mainpaths dictionary
-            mainpaths.Add(currentPos, doorOptions);
-            //Add coordinates to orderedMainRooms
-            orderedMainRoom.Add(currentPos);
-            //Add coordinates to roomTiers
-            if (i < lastTierOne) {roomTiers[0].Add(currentPos);}
-            else if (i < lastTierTwo) {roomTiers[1].Add(currentPos);}
-            else {roomTiers[2].Add(currentPos);}
-            if (i == mainrooms -1)
-            {
-                this.GetComponent<LevelInfo>().setFinalRoom(currentPos, New_Main_Direction);
-                currentPos = offsetPos(currentPos, New_Main_Direction);
-                this.GetComponent<InstantiateLevel>().InstantiateTransport(currentPos);
-                mainpaths.Add(currentPos, flipDir(New_Main_Direction));
-            }
-            else
-            {
-                //Update previous to be the opposite of the new direction
-                previous = flipDir(New_Main_Direction);
-                //Update current position depending on the new direction
-                currentPos = offsetPos(currentPos, New_Main_Direction);
-            }
+            /*** 
+            /   Next, we need to create a new Dir enum that will hold all the directions that the room will have doors in.
+            /   We will start by adding the previous direction to the empty enum, since there will always be a door coming from that direction
+            /   Then, we need to remove the previous direction from the filtered directions, and randomly select a new direction
+            /   using the chooseRandomDir helper function.
+            /   Finally, we need to add the new direction to the enum of room directions.
+            ***/
+
+            /***
+            /   Before adding the room to the mainpaths dictionary, we need to check if the room is a detour point.
+            /   (detours are rooms that have a third direction that leads to a smaller path)
+            /   check if the detour points list contains the current room number
+            /   If it does, create a new Dir from the filtered directions, making sure to remove the two already established directions
+            /   If there are still possible directions to go, choose a random direction from the possible ones, add it to enum of room directions
+            ***/
+
+            /***
+            /   While in the detour if statement, we need to add the room to the detours dictionary.
+            /   First create a new Dir enum that will hold all the directions that the room will have doors in.
+            /   We will start by adding the previous direction to the empty enum, since there will always be a door coming from that direction
+            /   Then, use the offsetPost helper function to get the new position of the room, and add it to the detours dictionary.
+            /   Finally, add it to the roomTiers dictionary, with the tier being the current tier.
+            /***
+
+            /*** 
+            /   Now that we have the directions that the room can go in, we need to add the room to the mainpaths dictionary.
+            /   Also be sure to add the coordinates to the orderedMainRoom list, and add the room to the roomTiers dictionary based on the current tier.
+            ***/
+
+            /*** 
+            /   Finally, we need to update the previous direction, and the current position.
+            /   There will be two cases, one if the room is the last room in the main path, and one if it is not.
+            /   If it is the last room, utilize the setFinalRoom helper function in this gameObjects LevelInfo script.
+            /   update current position with offsetPos helper function, called InstantiateTransport from this gameObjects Instantiate Level script, and add the room to mainpaths
+            /   If it is not the last room, update current position with offsetPos helper function, and update previous direction with the flipDir helper function
+            ***/
         }
-        
-        // Loop to create the detours
+
+        /*** 
+        /   Replicate a similar loop to the one above, but for the detours.
+        ***/
         Dictionary<pos, Dir> detoursCopy = new Dictionary<pos, Dir>(detours); //Copy so we are not changing data strucutre while iterating over it
         foreach(var item in detoursCopy)
         {
-            //Determine previous direction, coordinates, and roomtier from marked room type
-            Dir detourPrevious = item.Value;
-            pos detourPos = item.Key;
-            int detourRoomTier = 0;
-            for (int i = 0; i < 3; ++i)
-            {
-                if (roomTiers[i].Contains(detourPos)) {detourRoomTier = i;}
-            }
-            //Detour will have a random depth between two boundaries
+            break;
+            /***
+            /   Determine previous direction, and coordinates, from the item key and value
+            ***/
+
+            /***
+            /   Mark each room with a tier
+            ***/
+            // int detourRoomTier = 0;
+            // for (int i = 0; i < 3; ++i)
+            // {
+            //     if (roomTiers[i].Contains(detourPos)) {detourRoomTier = i;}
+            // }
+
+            /***
+            /   Establish the depth (number of rooms in the detour) of the room using detourDepth
+            /   Iterate through the depth, and create a new room at each iteration
+            ***/
             int detourIter = UnityEngine.Random.Range(detourDepth.x, detourDepth.y);
             for (int j=1; j <= detourIter; ++j)
             {
-                //Filter out all the directions taken up by already determined rooms
-                Dir filteredDetourPathOptions = filterPathOptions(detourPos, mainpaths, detours, all_Directions);
-                //If there are no available directions then detour can't go anywhere and is a dead end
-                if (filteredDetourPathOptions == 0) 
-                {
-                    //Add to deadEnds list
-                    deadEnds.Add(detourPos, DeadEnds.Nothing);
-                    deadEndAssignment.Add(detourPos);
-                    break;
-                }
-                //Create empty binary to store the detour room directions
-                Dir detourDoorOptions = 0;
-                //Add the previous direction to the binary
-                detourDoorOptions |= detourPrevious;
-                //If it is not the last room in the detour, then add another direction to lead to next detour room
-                if (j != detourIter)
-                {
-                    //Remove already taken direction from available directions, then randomly pick from remaining ones
-                    Dir possible_detours = (filteredDetourPathOptions & ~detourPrevious);
-                    Dir New_Detour_Direction = chooseRandomDir(possible_detours);
-                    //Add the new direction to the binary of directions
-                    detourDoorOptions |= New_Detour_Direction;
-                    //Add/replace the detour room into the dictionary
-                    if (detours.ContainsKey(detourPos)) {detours[detourPos] = detourDoorOptions;}
-                    else {detours.Add(detourPos, detourDoorOptions);}
-                    //Add detour room into its respective tier
-                    if (!roomTiers[detourRoomTier].Contains(detourPos)) {roomTiers[detourRoomTier].Add(detourPos);}
-                    //Update previous to be the opposite of the new direction
-                    detourPrevious = flipDir(New_Detour_Direction);
-                    //Update current position depending on the new direction
-                    detourPos = offsetPos(detourPos, New_Detour_Direction);
-                }
-                else
-                //If the room is the last one in the detour path
-                {
-                    //Remove from roomTiers if already in it because we don't want mosters spawning in deadends.
-                    if (roomTiers[detourRoomTier].Contains(detourPos)) {roomTiers[detourRoomTier].Remove(detourPos);}
-                    //Add to deadEnds list
-                    deadEnds.Add(detourPos, DeadEnds.Nothing);
-                    deadEndAssignment.Add(detourPos);
-                    //Add/replace the detour room into the dictionary
-                    if (detours.ContainsKey(detourPos)) {detours[detourPos] = detourDoorOptions;}
-                    else {detours.Add(detourPos, detourDoorOptions);}
-                }
+                break;
+                /***
+                /   Filter out the directions that are not possible for the room to go in.
+                /   If there are no available directions then detour can't go anywhere and is a dead end
+                /   Add to deadEnds list and deadEndAssignment list and break the loop
+                ***/
+
+                /***
+                /   Create a new Dir enum that will hold all the directions that the room will have doors in.
+                /   We will start by adding the previous direction to the empty enum, since there will always be a door coming from that direction
+                /   Then we chech if it is the last room in the detour or not
+                ***/
+                // if (j != detourIter)
+                // {
+                    /***
+                    /   If it is not the last room, remove the previous direction from the filtered directions, and randomly select a new direction
+                    /   Add the new direction to the enum of room directions.
+                    ***/
+
+                    /***
+                    /   Add/replace the detour room into the detours dictionary
+                    /   Add detour room into its respective tier in roomTiers dictionary
+                    /   Update previous to be the opposite of the new direction
+                    /   Update the current position with the offsetPos helper function
+                    ***/
+                // }
+                // else
+                // //If the room is the last one in the detour path
+                // {
+                        /***
+                        /   If it is the last room, Remove from roomTiers if already in it because we don't want mosters spawning in deadends.
+                        /   Add to deadEnds list and deadEndAssignment list
+                        /   Finally, Add/replace the detour room into the dictionary
+                        ***/
+                // }
             }
         }
 
-        Dictionary<pos, List<Monsters>> monstersPerRoom = assignMonsters(roomTiers);
+        /*** 
+        /   With all the rooms generated, we can assign the monsters to each room.
+        ***/
+        // Dictionary<pos, List<Monsters>> monstersPerRoom = assignMonsters(roomTiers);
 
-        /*foreach(pos position in monstersPerRoom.Keys)
-        {
-            Debug.Log(position.x + ", " + position.y);
-        }*/
-
-        while (num_of_chestrooms != 0)
-        {
-            if (deadEndAssignment.Count > 0)
-            {
-                pos room = deadEndAssignment[random.Next(deadEndAssignment.Count)];
-                deadEndAssignment.Remove(room);
-                deadEnds[room] = DeadEnds.Chest;
-            }
-            num_of_chestrooms--;
-        }
-        while (num_of_amushrooms != 0)
-        {
-            if (deadEndAssignment.Count > 0)
-            {
-                pos room = deadEndAssignment[random.Next(deadEndAssignment.Count)];
-                deadEndAssignment.Remove(room);
-                deadEnds[room] = DeadEnds.Amush;
-            }
-            num_of_amushrooms--;
-        }
+        /*** 
+        /   These last loops are optional, and just establish chest and ambush rooms within the layout. 
+        ***/
+        // while (num_of_chestrooms != 0)
+        // {
+        //     if (deadEndAssignment.Count > 0)
+        //     {
+        //         pos room = deadEndAssignment[random.Next(deadEndAssignment.Count)];
+        //         deadEndAssignment.Remove(room);
+        //         deadEnds[room] = DeadEnds.Chest;
+        //     }
+        //     num_of_chestrooms--;
+        // }
+        // while (num_of_amushrooms != 0)
+        // {
+        //     if (deadEndAssignment.Count > 0)
+        //     {
+        //         pos room = deadEndAssignment[random.Next(deadEndAssignment.Count)];
+        //         deadEndAssignment.Remove(room);
+        //         deadEnds[room] = DeadEnds.Amush;
+        //     }
+        //     num_of_amushrooms--;
+        // }
 
         //Copy info from function into struct
         info.mainPaths = mainpaths;
         info.detourPaths = detours;
         info.orderedMainRoom = orderedMainRoom;
         info.deadEnds = deadEnds;
-        info.monstersPerRoom = monstersPerRoom;
+        //info.monstersPerRoom = monstersPerRoom;
         return info;
     }
 
